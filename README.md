@@ -21,7 +21,7 @@
 git clone https://github.com/openebs/charts.git
 cd charts
 mv ../openebs/openebs-0.0.1.tgz ./docs
-helm repo index docs --url https://openebs.github.com/charts
+helm repo index docs --url https://openebs.github.io/charts
 ```
 
 ## References
