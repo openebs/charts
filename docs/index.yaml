@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  openebs:
+  - apiVersion: v1
+    appVersion: 0.4.0
+    created: 2017-10-19T11:33:24.684667544Z
+    description: Containerized Storage for Containers
+    digest: f0e8281a803883cd046e4efe213588c2000758bb3c800cd3e538f563fe1ae31f
+    home: http://www.openebs.io/
+    icon: https://github.com/openebs/chitrakala/blob/master/logo/png/logo-01.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://openebs.github.com/charts/openebs-0.0.1.tgz
+    version: 0.0.1
+generated: 2017-10-19T11:33:24.683748691Z
