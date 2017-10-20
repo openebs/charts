@@ -3,11 +3,11 @@ entries:
   openebs:
   - apiVersion: v1
     appVersion: 0.4.0
-    created: 2017-10-20T04:11:46.23965971Z
+    created: 2017-10-20T05:12:33.085766687Z
     description: Containerized Storage for Containers
-    digest: b421050c36c7cfb5eddbb94ebfd8fa882327cec85b4fee074b5b8fb1e207b5e1
+    digest: 603c7ff10593f508a3899739d5e21972cb96179b25f13bff558b3d4c499ce911
     home: http://www.openebs.io/
-    icon: https://github.com/openebs/chitrakala/blob/master/logo/png/logo-01.png
+    icon: https://raw.githubusercontent.com/openebs/chitrakala/master/logo/png/logo-01.png
     keywords:
     - cloud-native-storage
     - block-storage
@@ -19,4 +19,4 @@ entries:
     urls:
     - https://openebs.github.io/charts/openebs-0.4.0.tgz
     version: 0.4.0
-generated: 2017-10-20T04:11:46.238563959Z
+generated: 2017-10-20T05:12:33.085153472Z
