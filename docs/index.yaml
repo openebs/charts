@@ -7,7 +7,7 @@ entries:
     description: Containerized Storage for Containers
     digest: db4fa0d033bb76a08500c0ecd402d99bed71f7a2690863f234de01232084137f
     home: http://www.openebs.io/
-    icon: https://github.com/openebs/chitrakala/blob/master/logo/png/logo-01.png
+    icon: https://raw.githubusercontent.com/openebs/chitrakala/master/logo/png/logo-01.png
     keywords:
     - cloud-native-storage
     - block-storage
