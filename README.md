@@ -14,13 +14,15 @@
   git clone https://github.com/openebs/openebs.git
   helm package openebs/k8s/charts/openebs
   ```
+  
+  Note the _tgz_ file created. 
 
 ## Update with new openebs chart
 
 ```
 git clone https://github.com/openebs/charts.git
 cd charts
-mv ../openebs/openebs-0.0.1.tgz ./docs
+mv ../openebs-*.tgz ./docs
 helm repo index docs --url https://openebs.github.io/charts
 ```
 
@@ -52,6 +54,8 @@ Hang tight while we grab the latest from your chart repositories...
 Update Complete. ⎈ Happy Helming!⎈ 
 ```
 
+Verify the latest chart version is listed first.
+
 ```
 vagrant@minikube-dev:~$ cat ~/.helm/repository/cache/openebs-charts-index.yaml
 apiVersion: v1
@@ -77,6 +81,14 @@ entries:
     version: 0.4.0
 generated: 2017-10-31T11:36:51.572803046Z
 vagrant@minikube-dev:~$ 
+```
+
+For testing the RBAC, tiller needs to be granted access to create openebs namespace and service accounts.
+
+```
+kubectl -n kube-system create sa tiller
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+kubectl -n kube-system patch deploy/tiller-deploy -p '{"spec": {"template": {"spec": {"serviceAccountName": "tiller"}}}}'
 ```
 
 ```
