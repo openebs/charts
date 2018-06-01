@@ -89,6 +89,7 @@ For testing the RBAC, tiller needs to be granted access to create openebs namesp
 kubectl -n kube-system create sa tiller
 kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 kubectl -n kube-system patch deploy/tiller-deploy -p '{"spec": {"template": {"spec": {"serviceAccountName": "tiller"}}}}'
+kubectl -n kube-system patch deployment tiller-deploy -p '{"spec": {"template": {"spec": {"automountServiceAccountToken": true}}}}'
 ```
 
 ```
@@ -136,10 +137,10 @@ maya-apiserver-service  10.0.0.233  <none>       5656/TCP  1s
 
 NOTES:
 The OpenEBS has been installed. Check its status by running:
-  kubectl get pods -l "name=maya-apiserver"
+  kubectl get pods -n default
 
 To use OpenEBS Volumes, your nodes should have the iSCSI initiator installed. 
-Please visit http://openebs.readthedocs.io/en/latest/getting_started/quick_install.html for instructions
+Please visit http://docs.openebs.io/ for instructions
 
 
 vagrant@minikube-dev:~$ 
