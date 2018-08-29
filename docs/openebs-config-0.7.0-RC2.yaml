@@ -1,0 +1,74 @@
+# A storage admin (human) may want to manage storage resources manually. This 
+# config file is expected to provide such option
+#
+# StoragePool : Is an instance of storage pool - i.e.
+#  - a directory on host-os, or
+#  - a directory on mounted-disk, 
+#
+# Define a storage pool for launching the replicas using
+#  local directory or mounted directory on kubernetes nodes
+#  
+# The following is an example of how a storagepool can be 
+# confgured with any other directory to be used for persisting 
+# the storage. 
+#
+# Note: OpenEBS uses /var/openebs as default directory, even if 
+# the following default storagepool is not added to the k8s cluster.
+#
+
+#Use the following YAML to create a Jiva Storage Pool.
+# openebs-operator, installs a default storage pool. 
+# if would like to change the directory from /var/openebs
+# to something else, you can update it by re-applying
+# the default storage pool with desired path.
+# 
+# Note: If you are installing a new storage pool
+# you will need to create a new storage class or
+# update the already installed storage-class with 
+# the new jiva pool name. 
+---
+apiVersion: openebs.io/v1alpha1
+kind: StoragePool
+metadata:
+  name: default
+  type: hostdir
+spec:
+  path: "/var/openebs"
+---
+#Use the following YAMLs to create a cStor Storage Pool.
+# and associated storage class.
+apiVersion: openebs.io/v1alpha1
+kind: StoragePoolClaim
+metadata:
+  name: cstor-pool-default-0.7.0
+spec:
+  name: cstor-pool-default-0.7.0
+  type: openebs-cstor
+  maxPools: 3
+  poolSpec:
+    poolType: striped
+    cacheFile: /tmp/pool1.cache
+    overProvisioning: false
+  # NOTE - Appropriate disks need to be fetched using `kubectl get disks`
+  #
+  # `Disk` is a custom resource supported by OpenEBS with `node-disk-manager` 
+  # as the disk operator
+# Replace the following with actual disk CRs from your cluster `kubectl get disks`
+# Uncomment the below lines after updating the actual disk names.
+#  disks:
+#    diskList:
+#      - disk-0c84c169ab2f398b92914f56dad41f81
+#      - disk-66a74896b61c60dcdaf7c7a76fde0ebb
+#      - disk-b34b3f97840872da9aa0bac1edc9578a
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-cstor-default-0.7.0
+  annotations:
+    openebs.io/cas-type: cstor
+    cas.openebs.io/config: |
+      - name: StoragePoolClaim
+        value: "cstor-pool-default-0.7.0"
+provisioner: openebs.io/provisioner-iscsi
+---
