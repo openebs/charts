@@ -99,7 +99,7 @@ spec:
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: openebs/m-apiserver:ci
+        image: openebs/m-apiserver:0.7.0-RC2
         ports:
         - containerPort: 5656
         env:
@@ -181,17 +181,17 @@ spec:
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
           value: "openebs/jiva:0.7.0-RC2"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:ci"
+          value: "openebs/m-exporter:0.7.0-RC2"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
           value: "openebs/cstor-pool:0.7.0-RC2"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "openebs/cstor-pool-mgmt:ci"
+          value: "openebs/cstor-pool-mgmt:0.7.0-RC2"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
           value: "openebs/cstor-istgt:0.7.0-RC2"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-mgmt:ci"
+          value: "openebs/cstor-volume-mgmt:0.7.0-RC2"
         # DEFAULT_CONTROLLER_NODE_SELECTOR allows you to specify the nodes
         # on which openebs controller have to be scheduled. To use this feature,
         # the nodes should already be labeled with the key=value. For example:
