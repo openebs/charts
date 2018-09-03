@@ -43,7 +43,7 @@ metadata:
   name: cstor-pool-default-0.7.0
 spec:
   name: cstor-pool-default-0.7.0
-  type: openebs-cstor
+  type: disk
   maxPools: 3
   poolSpec:
     poolType: striped
