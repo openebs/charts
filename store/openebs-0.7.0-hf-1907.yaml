@@ -1,0 +1,145 @@
+#This file includes the YAMLs that need to be applied post 
+# installing openebs. Typically this will contains YAMLS 
+# related to the feature/functionality that is currently under
+# development. Once the features are qualified, they are either
+# integrated into the operator.yaml or will be installed
+# by m-apiserver during startup. 
+---
+apiVersion: openebs.io/v1alpha1
+kind: RunTask
+metadata:
+  name: jiva-volume-create-puttargetdeployment-default-0.7.0
+  namespace: openebs
+spec:
+  meta: |
+    id: createputctrl
+    runNamespace: {{ .Volume.runNamespace }}
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    action: put
+  post: |
+    {{- jsonpath .JsonResult "{.metadata.name}" | trim | saveAs "createputctrl.objectName" .TaskResult | noop -}}
+  task: |
+    {{- $isMonitor := .Config.VolumeMonitor.enabled | default "true" | lower -}}
+    {{- $setResourceRequests := .Config.TargetResourceRequests.value | default "none" -}}
+    {{- $resourceRequestsVal := fromYaml .Config.TargetResourceRequests.value -}}
+    {{- $setResourceLimits := .Config.TargetResourceLimits.value | default "none" -}}
+    {{- $resourceLimitsVal := fromYaml .Config.TargetResourceLimits.value -}}
+    {{- $setAuxResourceLimits := .Config.AuxResourceLimits.value | default "none" -}}
+    {{- $auxResourceLimitsVal := fromYaml .Config.AuxResourceLimits.value -}}
+    {{- $hasNodeSelector := .Config.TargetNodeSelector.value | default "none" -}}
+    {{- $nodeSelectorVal := fromYaml .Config.TargetNodeSelector.value -}}
+    apiVersion: extensions/v1beta1
+    Kind: Deployment
+    metadata:
+      labels:
+        {{- if eq $isMonitor "true" }}
+        monitoring: "volume_exporter_prometheus"
+        {{- end}}
+        openebs.io/storage-engine-type: jiva
+        openebs.io/cas-type: jiva
+        openebs.io/controller: jiva-controller
+        openebs.io/persistent-volume: {{ .Volume.owner }}
+        openebs.io/persistent-volume-claim: {{ .Volume.pvc }}
+      annotations:
+        {{- if eq $isMonitor "true" }}
+        openebs.io/volume-monitor: "true"
+        {{- end}}
+        openebs.io/volume-type: jiva
+        openebs.io/fs-type: {{ .Config.FSType.value }}
+        openebs.io/lun: {{ .Config.Lun.value }}
+      name: {{ .Volume.owner }}-ctrl
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          openebs.io/controller: jiva-controller
+          openebs.io/persistent-volume: {{ .Volume.owner }}
+      template:
+        metadata:
+          labels:
+            {{- if eq $isMonitor "true" }}
+            monitoring: volume_exporter_prometheus
+            {{- end}}
+            openebs.io/controller: jiva-controller
+            openebs.io/persistent-volume: {{ .Volume.owner }}
+            openebs.io/persistent-volume-claim: {{ .Volume.pvc }}
+          annotations:
+            openebs.io/fs-type: {{ .Config.FSType.value }}
+            openebs.io/lun: {{ .Config.Lun.value }}
+        spec:
+          {{- if ne $hasNodeSelector "none" }}
+          nodeSelector:
+            {{- range $sK, $sV := $nodeSelectorVal }}
+              {{ $sK }}: {{ $sV }}
+            {{- end }}
+          {{- end}}
+          containers:
+          - args:
+            - controller
+            - --frontend
+            - gotgt
+            - --clusterIP
+            - {{ .TaskResult.createputsvc.clusterIP }}
+            - {{ .Volume.owner }}
+            command:
+            - launch
+            image: {{ .Config.ControllerImage.value }}
+            name: {{ .Volume.owner }}-ctrl-con
+            resources:
+              {{- if ne $setResourceLimits "none" }}
+              limits:
+              {{- range $rKey, $rLimit := $resourceLimitsVal }}
+                {{ $rKey }}: {{ $rLimit }}
+              {{- end }}
+              {{- end }}
+              {{- if ne $setResourceRequests "none" }}
+              requests:
+              {{- range $rKey, $rReq := $resourceRequestsVal }}
+                {{ $rKey }}: {{ $rReq }}
+              {{- end }}
+              {{- end }}
+            env:
+            - name: "REPLICATION_FACTOR"
+              value: {{ .Config.ReplicaCount.value }}
+            ports:
+            - containerPort: 3260
+              protocol: TCP
+            - containerPort: 9501
+              protocol: TCP
+          {{- if eq $isMonitor "true" }}
+          - args:
+            - -c=http://127.0.0.1:9501
+            command:
+            - maya-exporter
+            image: {{ .Config.VolumeMonitorImage.value }}
+            name: maya-volume-exporter
+            {{- if ne $setAuxResourceLimits "none" }}
+            resources:
+              limits:
+              {{- range $rKey, $rLimit := $auxResourceLimitsVal }}
+                {{ $rKey }}: {{ $rLimit }}
+              {{- end }}
+            {{- end }}
+            ports:
+            - containerPort: 9500
+              protocol: TCP
+          {{- end}}
+          tolerations:
+          - effect: NoExecute
+            key: node.alpha.kubernetes.io/notReady
+            operator: Exists
+            tolerationSeconds: 0
+          - effect: NoExecute
+            key: node.alpha.kubernetes.io/unreachable
+            operator: Exists
+            tolerationSeconds: 0
+          - effect: NoExecute
+            key: node.kubernetes.io/not-ready
+            operator: Exists
+            tolerationSeconds: 0
+          - effect: NoExecute
+            key: node.kubernetes.io/unreachable
+            operator: Exists
+            tolerationSeconds: 0
+---
