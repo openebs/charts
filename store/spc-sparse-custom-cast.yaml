@@ -1,0 +1,15 @@
+---
+apiVersion: openebs.io/v1alpha1
+kind: StoragePoolClaim
+metadata:
+  name: sparse-claim-custom
+  annotations:
+    cas.openebs.io/create-pool-template: cstor-pool-create-custom-0.7.0
+    cas.openebs.io/delete-pool-template: cstor-pool-delete-custom-0.7.0
+spec:
+  name: sparse-claim-custom
+  type: sparse
+  maxPools: 3
+  minPools: 1
+  poolSpec:
+    poolType: striped
