@@ -2,11 +2,12 @@
 
 ## Prerequisites
 - Install Helm
-  On Ubuntu, you can install as follows:
+  You can find instructions to install Helm [here.](https://github.com/helm/helm#install)
+  Linux users can run this installation script:
   ```
-  curl -Lo /tmp/helm-linux-amd64.tar.gz https://kubernetes-helm.storage.googleapis.com/helm-v2.6.2-linux-amd64.tar.gz
-  tar -xvf /tmp/helm-linux-amd64.tar.gz -C /tmp/
-  chmod +x  /tmp/linux-amd64/helm && sudo mv /tmp/linux-amd64/helm /usr/local/bin/
+  curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh
+  chmod 700 get_helm.sh
+  ./get_helm.sh
   ```
 
 - Package latest version of openebs 
