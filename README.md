@@ -1,8 +1,8 @@
 # OpenEBS Helm Charts
 
 ## Prerequisites
-- Install Helm
-  You can find instructions to install Helm [here.](https://github.com/helm/helm#install)
+- Install Helm.
+  You can find instructions to install Helm [here](https://github.com/helm/helm#install).
   Linux users can run this installation script:
   ```
   curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh
