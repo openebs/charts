@@ -22,8 +22,8 @@
 
 ```
 git clone https://github.com/openebs/charts.git
+mv openebs-*.tgz ./charts/docs
 cd charts
-mv ../openebs-*.tgz ./docs
 helm repo index docs --url https://openebs.github.io/charts
 ```
 
