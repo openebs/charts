@@ -462,7 +462,11 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: hostpath
+  name: openebs-lite
+  annotations:
+    cas.openebs.io/config: |
+      - name: BasePath
+        value: "/var/openebs"
 provisioner: openebs.io/host-path
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
