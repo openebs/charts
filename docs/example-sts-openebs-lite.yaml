@@ -4,7 +4,7 @@ metadata:
   name: busybox-sts
   namespace: default
 spec:
-  replicas: 1
+  replicas: 3
   serviceName: ""
   selector:
     matchLabels:
