@@ -38,7 +38,7 @@ spec:
     spec:
       accessModes:
       - ReadWriteOnce
-      storageClassName: openebs-lite
+      storageClassName: openebs-localpv
       resources:
         requests:
           storage: 4G
