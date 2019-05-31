@@ -464,13 +464,13 @@ spec:
   template:
     metadata:
       labels:
-        app: admission-webhook
+        name: admission-webhook
         openebs.io/version: 0.9.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: openebs/admission-server:0.9.0
+          image: quay.io/openebs/admission-server:0.9.0
           imagePullPolicy: IfNotPresent
           args:
             - -tlsCertFile=/etc/webhook/certs/cert.pem
