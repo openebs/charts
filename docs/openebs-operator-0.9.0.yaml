@@ -453,9 +453,6 @@ kind: Deployment
 metadata:
   name: openebs-admission-server
   namespace: openebs
-  labels:
-    app: admission-webhook
-    openebs.io/component: admission-server
 spec:
   replicas: 1
   selector:
