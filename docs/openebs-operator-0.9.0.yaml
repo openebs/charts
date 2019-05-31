@@ -466,6 +466,7 @@ spec:
       labels:
         name: admission-webhook
         openebs.io/version: 0.9.0
+        openebs.io/component: admission-server
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
