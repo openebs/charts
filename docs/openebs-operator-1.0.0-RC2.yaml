@@ -649,7 +649,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: OPENEBS_IO_ENABLE_ANALYTICS
-          value: "false"
+          value: "true"
         livenessProbe:
           exec:
             command:
