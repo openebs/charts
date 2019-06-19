@@ -38,7 +38,7 @@ spec:
     spec:
       accessModes:
       - ReadWriteOnce
-      storageClassName: openebs-localpv
+      storageClassName: openebs-hostpath
       resources:
         requests:
           storage: 4G
