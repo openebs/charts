@@ -649,6 +649,8 @@ spec:
               fieldPath: metadata.namespace
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
+        - name: OPENEBS_IO_HELPER_IMAGE
+          value: "quay.io/openebs/openebs-tools:3.8"
         livenessProbe:
           exec:
             command:
