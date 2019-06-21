@@ -36,10 +36,10 @@ rules:
   resources: ["customresourcedefinitions"]
   verbs: [ "get", "list", "create", "update", "delete"]
 - apiGroups: ["*"]
-  resources: [ "disks"]
+  resources: [ "disks", "blockdevices", "blockdeviceclaims"]
   verbs: ["*" ]
 - apiGroups: ["*"]
-  resources: [ "storagepoolclaims", "storagepoolclaims/finalizers", "storagepools"]
+  resources: [ "cstorpoolclusters", "storagepoolclaims", "storagepoolclaims/finalizers", "storagepools"]
   verbs: ["*" ]
 - apiGroups: ["*"]
   resources: [ "castemplates", "runtasks"]
@@ -76,20 +76,28 @@ kind: Deployment
 metadata:
   name: maya-apiserver
   namespace: openebs
+  labels:
+    name: maya-apiserver
+    openebs.io/component-name: maya-apiserver
+    openebs.io/version: 1.0.0
 spec:
+  selector:
+    matchLabels:
+      name: maya-apiserver
+      openebs.io/component-name: maya-apiserver
   replicas: 1
   template:
     metadata:
       labels:
         name: maya-apiserver
         openebs.io/component-name: maya-apiserver
-        openebs.io/version: 0.9.0
+        openebs.io/version: 1.0.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: quay.io/openebs/m-apiserver:0.9.0
+        image: quay.io/openebs/m-apiserver:1.0.0
         ports:
         - containerPort: 5656
         env:
@@ -127,27 +135,29 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "quay.io/openebs/jiva:0.9.0"
+          value: "quay.io/openebs/jiva:1.0.0"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "quay.io/openebs/jiva:0.9.0"
+          value: "quay.io/openebs/jiva:1.0.0"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "quay.io/openebs/cstor-istgt:0.9.0"
+          value: "quay.io/openebs/cstor-istgt:1.0.0"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "quay.io/openebs/cstor-pool:0.9.0"
+          value: "quay.io/openebs/cstor-pool:1.0.0"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "quay.io/openebs/cstor-pool-mgmt:0.9.0"
+          value: "quay.io/openebs/cstor-pool-mgmt:1.0.0"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "quay.io/openebs/cstor-volume-mgmt:0.9.0"
+          value: "quay.io/openebs/cstor-volume-mgmt:1.0.0"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "quay.io/openebs/m-exporter:0.9.0"
+          value: "quay.io/openebs/m-exporter:1.0.0"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "quay.io/openebs/m-exporter:0.9.0"
+          value: "quay.io/openebs/m-exporter:1.0.0"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         # OPENEBS_IO_ANALYTICS_PING_INTERVAL can be used to specify the duration (in hours)
         # for periodic ping events sent to Google Analytics.
         # Default is 24h.
@@ -189,20 +199,28 @@ kind: Deployment
 metadata:
   name: openebs-provisioner
   namespace: openebs
+  labels:
+    name: openebs-provisioner
+    openebs.io/component-name: openebs-provisioner
+    openebs.io/version: 1.0.0
 spec:
+  selector:
+    matchLabels:
+      name: openebs-provisioner
+      openebs.io/component-name: openebs-provisioner
   replicas: 1
   template:
     metadata:
       labels:
         name: openebs-provisioner
         openebs.io/component-name: openebs-provisioner
-        openebs.io/version: 0.9.0
+        openebs.io/version: 1.0.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: quay.io/openebs/openebs-k8s-provisioner:0.9.0
+        image: quay.io/openebs/openebs-k8s-provisioner:1.0.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -241,7 +259,15 @@ kind: Deployment
 metadata:
   name: openebs-snapshot-operator
   namespace: openebs
+  labels:
+    name: openebs-snapshot-operator
+    openebs.io/component-name: openebs-snapshot-operator
+    openebs.io/version: 1.0.0
 spec:
+  selector:
+    matchLabels:
+      name: openebs-snapshot-operator
+      openebs.io/component-name: openebs-snapshot-operator
   replicas: 1
   strategy:
     type: Recreate
@@ -250,12 +276,12 @@ spec:
       labels:
         name: openebs-snapshot-operator
         openebs.io/component-name: openebs-snapshot-operator
-        openebs.io/version: 0.9.0
+        openebs.io/version: 1.0.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: quay.io/openebs/snapshot-controller:0.9.0
+          image: quay.io/openebs/snapshot-controller:1.0.0
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -276,7 +302,7 @@ spec:
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
         - name: snapshot-provisioner
-          image: quay.io/openebs/snapshot-provisioner:0.9.0
+          image: quay.io/openebs/snapshot-provisioner:1.0.0
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -340,7 +366,15 @@ kind: DaemonSet
 metadata:
   name: openebs-ndm
   namespace: openebs
+  labels:
+    name: openebs-ndm
+    openebs.io/component-name: ndm
+    openebs.io/version: 1.0.0
 spec:
+  selector:
+    matchLabels:
+      name: openebs-ndm
+      openebs.io/component-name: ndm
   updateStrategy:
     type: RollingUpdate
   template:
@@ -348,7 +382,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 0.9.0
+        openebs.io/version: 1.0.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -363,8 +397,8 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: quay.io/openebs/node-disk-manager-amd64:v0.3.5
-        imagePullPolicy: IfNotPresent
+        image: quay.io/openebs/node-disk-manager-amd64:v0.4.0
+        imagePullPolicy: Always
         securityContext:
           privileged: true
         volumeMounts:
@@ -380,6 +414,12 @@ spec:
         - name: sparsepath
           mountPath: /var/openebs/sparse
         env:
+        # namespace in which NDM is installed will be passed to NDM Daemonset
+        # as environment variable
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         # pass hostname as env variable using downward API to the NDM container
         - name: NODE_NAME
           valueFrom:
@@ -420,6 +460,57 @@ spec:
         hostPath:
           path: /var/openebs/sparse
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openebs-ndm-operator
+  namespace: openebs
+  labels:
+    name: openebs-ndm-operator
+    openebs.io/component-name: ndm-operator
+    openebs.io/version: 1.0.0
+spec:
+  selector:
+    matchLabels:
+      name: openebs-ndm-operator
+      openebs.io/component-name: ndm-operator
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: openebs-ndm-operator
+        openebs.io/component-name: ndm-operator
+        openebs.io/version: 1.0.0
+    spec:
+      serviceAccountName: openebs-maya-operator
+      containers:
+        - name: node-disk-operator
+          image: quay.io/openebs/node-disk-operator-amd64:v0.4.0
+          imagePullPolicy: Always
+          readinessProbe:
+            exec:
+              command:
+                - stat
+                - /tmp/operator-sdk-ready
+            initialDelaySeconds: 4
+            periodSeconds: 10
+            failureThreshold: 1
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "node-disk-operator"
+            - name: CLEANUP_JOB_IMAGE
+              value: "quay.io/openebs/linux-utils:3.9"			  													  
+---
 apiVersion: v1
 kind: Secret
 metadata:
@@ -453,6 +544,10 @@ kind: Deployment
 metadata:
   name: openebs-admission-server
   namespace: openebs
+  labels:
+    app: admission-webhook
+    openebs.io/component-name: admission-server
+    openebs.io/version: 1.0.0
 spec:
   replicas: 1
   selector:
@@ -462,13 +557,13 @@ spec:
     metadata:
       labels:
         app: admission-webhook
-        openebs.io/version: 0.9.0
-        openebs.io/component: admission-server
+        openebs.io/component-name: admission-server
+        openebs.io/version: 1.0.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: quay.io/openebs/admission-server:0.9.0
+          image: quay.io/openebs/admission-server:1.0.0
           imagePullPolicy: IfNotPresent
           args:
             - -tlsCertFile=/etc/webhook/certs/cert.pem
@@ -491,7 +586,7 @@ metadata:
   name: validation-webhook-cfg
   labels:
     app: admission-webhook
-    openebs.io/component: admission-server
+    openebs.io/component-name: admission-server
 webhooks:
   - name: admission-webhook.openebs.io
     clientConfig:
@@ -511,7 +606,15 @@ kind: Deployment
 metadata:
   name: openebs-localpv-provisioner
   namespace: openebs
+  labels:
+    name: openebs-localpv-provisioner
+    openebs.io/component-name: openebs-localpv-provisioner
+    openebs.io/version: 1.0.0
 spec:
+  selector:
+    matchLabels:
+      name: openebs-localpv-provisioner
+      openebs.io/component-name: openebs-localpv-provisioner
   replicas: 1
   strategy:
     type: Recreate
@@ -520,13 +623,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 0.9.0
+        openebs.io/version: 1.0.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: Always
-        image: quay.io/openebs/provisioner-localpv:0.9.0
+        image: quay.io/openebs/provisioner-localpv:1.0.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -546,6 +649,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: OPENEBS_IO_ENABLE_ANALYTICS
+          value: "true"
+        - name: OPENEBS_IO_HELPER_IMAGE
+          value: "quay.io/openebs/openebs-tools:3.8"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         livenessProbe:
           exec:
             command:
