@@ -156,6 +156,8 @@ spec:
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         # OPENEBS_IO_ANALYTICS_PING_INTERVAL can be used to specify the duration (in hours)
         # for periodic ping events sent to Google Analytics.
         # Default is 24h.
@@ -651,6 +653,8 @@ spec:
           value: "true"
         - name: OPENEBS_IO_HELPER_IMAGE
           value: "quay.io/openebs/openebs-tools:3.8"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         livenessProbe:
           exec:
             command:
