@@ -156,6 +156,8 @@ spec:
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         # OPENEBS_IO_ANALYTICS_PING_INTERVAL can be used to specify the duration (in hours)
         # for periodic ping events sent to Google Analytics.
         # Default is 24h.
@@ -475,9 +477,6 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      name: openebs-ndm-operator
   template:
     metadata:
       labels:
@@ -509,6 +508,8 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "node-disk-operator"
+            - name: CLEANUP_JOB_IMAGE
+              value: "quay.io/openebs/linux-utils:3.9"			  													  
 ---
 apiVersion: v1
 kind: Secret
@@ -650,6 +651,10 @@ spec:
               fieldPath: metadata.namespace
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
+        - name: OPENEBS_IO_HELPER_IMAGE
+          value: "quay.io/openebs/openebs-tools:3.8"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator"
         livenessProbe:
           exec:
             command:
