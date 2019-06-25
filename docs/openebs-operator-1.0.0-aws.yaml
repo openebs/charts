@@ -97,7 +97,7 @@ spec:
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/m-apiserver:1.0.0
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/m-apiserver:1.0-latest
         ports:
         - containerPort: 5656
         env:
@@ -127,7 +127,7 @@ spec:
         - name: OPENEBS_SERVICE_ACCOUNT
           valueFrom:
             fieldRef:
-              fieldPath: spec.serviceAccountNameq
+              fieldPath: spec.serviceAccountName
         # OPENEBS_MAYA_POD_NAME provides the name of this pod as
         # environment variable
         - name: OPENEBS_MAYA_POD_NAME
@@ -135,23 +135,23 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/jiva:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/jiva:1.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/jiva:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/jiva:1.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/cstor-istgt:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/cstor-istgt:1.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/cstor-pool:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/cstor-pool:1.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/cstor-pool-mgmt:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/cstor-pool-mgmt:1.0-latest"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/cstor-volume-mgmt:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/cstor-volume-mgmt:1.0-latest"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/m-exporter:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/m-exporter:1.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/m-exporter:1.0.0"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/m-exporter:1.0-latest"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -220,7 +220,7 @@ spec:
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/openebs-k8s-provisioner:1.0.0
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/openebs-k8s-provisioner:1.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -281,7 +281,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/snapshot-controller:1.0.0
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/snapshot-controller:1.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -397,7 +397,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/node-disk-manager-amd64:v0.4.0
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/node-disk-manager-amd64:1.0-latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -487,7 +487,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/node-disk-operator-amd64:v0.4.0
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/node-disk-operator-amd64:1.0-latest
           imagePullPolicy: Always
           readinessProbe:
             exec:
@@ -509,7 +509,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/linux-utils:3.9"							  
+              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/linux-utils:1.0-latest"							  
 ---
 apiVersion: v1
 kind: Secret
@@ -563,7 +563,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/admission-server:1.0.0
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/admission-server:1.0-latest
           imagePullPolicy: IfNotPresent
           args:
             - -tlsCertFile=/etc/webhook/certs/cert.pem
@@ -629,7 +629,7 @@ spec:
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: Always
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-322497637/quay.io/openebs/provisioner-localpv:1.0.0
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/provisioner-localpv:1.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -652,7 +652,7 @@ spec:
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "quay.io/openebs/openebs-tools:3.8"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/openebs-tools:1.0-latest"
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator"
         livenessProbe:
