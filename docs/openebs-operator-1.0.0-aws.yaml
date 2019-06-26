@@ -1,5 +1,4 @@
 # This manifest deploys the OpenEBS control plane components, with associated CRs & RBAC rules
-# NOTE: On GKE, deploy the openebs-operator.yaml in admin context
 
 # Create the OpenEBS namespace
 apiVersion: v1
@@ -157,7 +156,7 @@ spec:
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
         - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator"
+          value: "openebs-aws"
         # OPENEBS_IO_ANALYTICS_PING_INTERVAL can be used to specify the duration (in hours)
         # for periodic ping events sent to Google Analytics.
         # Default is 24h.
