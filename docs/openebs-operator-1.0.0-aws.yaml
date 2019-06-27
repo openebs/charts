@@ -653,7 +653,7 @@ spec:
         - name: OPENEBS_IO_HELPER_IMAGE
           value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2702475830/quay.io/openebs/openebs-tools:1.0-latest"
         - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator"
+          value: "openebs-aws"
         livenessProbe:
           exec:
             command:
