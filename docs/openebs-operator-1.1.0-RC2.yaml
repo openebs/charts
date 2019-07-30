@@ -125,7 +125,7 @@ spec:
         - name: OPENEBS_IO_CSTOR_TARGET_DIR
           value: "/var/openebs/sparse"
         - name: OPENEBS_IO_CSTOR_POOL_SPARSE_DIR
-        - value: "/var/openebs/sparse"
+          value: "/var/openebs/sparse"
         # OPENEBS_NAMESPACE provides the namespace of this deployment as an
         # environment variable
         - name: OPENEBS_NAMESPACE
