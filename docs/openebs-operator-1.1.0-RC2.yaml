@@ -119,7 +119,7 @@ spec:
         # If "true" a default cstor sparse pool will be configured, if "false" it will not be configured.
         - name: OPENEBS_IO_INSTALL_DEFAULT_CSTOR_SPARSE_POOL
           value: "false"
-	# If OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG is false then OpenEBS default storageclass and storagepool will not be created.
+        # If OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG is false then OpenEBS default storageclass and storagepool will not be created.
         - name: OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG
           value: "true"
         - name: OPENEBS_IO_CSTOR_TARGET_DIR
