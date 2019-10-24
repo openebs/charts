@@ -210,7 +210,7 @@ spec:
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
         - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator"
+          value: "openebs-aws"
         # OPENEBS_IO_ANALYTICS_PING_INTERVAL can be used to specify the duration (in hours)
         # for periodic ping events sent to Google Analytics.
         # Default is 24h.
@@ -726,7 +726,7 @@ spec:
         - name: OPENEBS_IO_ENABLE_ANALYTICS
           value: "true"
         - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator"
+          value: "openebs-aws"
         - name: OPENEBS_IO_HELPER_IMAGE
           value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2846528634/quay.io/openebs/openebs-tools:1.3-latest"
         livenessProbe:
