@@ -495,7 +495,7 @@ spec:
           value: "10737418240"
         # Specify the number of sparse files to be created
         - name: SPARSE_FILE_COUNT
-          value: "1"
+          value: "0"
         livenessProbe:
           exec:
             command:
