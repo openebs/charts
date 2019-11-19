@@ -479,7 +479,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator-arm64:v0.4.4
+          image: openebs/node-disk-operator-arm64-ci:v0.4.4
           imagePullPolicy: Always
           readinessProbe:
             exec:
