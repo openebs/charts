@@ -2,20 +2,21 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  namespace: kube-system
+  namespace: openebs
   name: openebs-ubuntu-init
   labels:
-    k8s-app: openebs-ubuntu-init
+    openebs.io/component-name: openebs-ubuntu-init
+    openebs.io/version: 1.4.0
   annotations:
     command: &cmd apt-get update -qy && apt-get install -qy open-iscsi xfsprogs
 spec:
   selector:
     matchLabels:
-      k8s-app: openebs-ubuntu-init
+      openebs.io/component-name: openebs-ubuntu-init
   template:
     metadata:
       labels:
-        k8s-app: openebs-ubuntu-init
+        openebs.io/component-name: openebs-ubuntu-init
     spec:
       hostNetwork: true
       initContainers:
