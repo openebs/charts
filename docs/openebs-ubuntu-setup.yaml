@@ -1,0 +1,43 @@
+---
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  namespace: kube-system
+  name: openebs-ubuntu-init
+  labels:
+    k8s-app: openebs-ubuntu-init
+  annotations:
+    command: &cmd apt-get update -qy && apt-get install -qy open-iscsi xfsprogs
+spec:
+  selector:
+    matchLabels:
+      k8s-app: openebs-ubuntu-init
+  template:
+    metadata:
+      labels:
+        k8s-app: openebs-ubuntu-init
+    spec:
+      hostNetwork: true
+      initContainers:
+      - name: init-node
+        command:
+          - nsenter
+          - --mount=/proc/1/ns/mnt
+          - --
+          - sh
+          - -c
+          - *cmd
+        image: alpine:3.7
+        securityContext:
+          privileged: true
+      hostPID: true
+      containers:
+      - name: wait
+        image: k8s.gcr.io/pause:3.1
+      hostPID: true
+      hostNetwork: true
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+  updateStrategy:
+    type: RollingUpdate
