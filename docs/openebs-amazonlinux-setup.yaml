@@ -3,20 +3,20 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   namespace: openebs
-  name: openebs-ubuntu-init
+  name: openebs-amazonlinux-init
   labels:
-    openebs.io/component-name: openebs-ubuntu-init
+    openebs.io/component-name: openebs-amazonlinux-init
     openebs.io/version: 1.4.0
   annotations:
-    command: &cmd apt-get update -qy && apt-get install -qy open-iscsi xfsprogs && sudo systemctl enable iscsid && sudo systemctl start iscsid
+    command: &cmd yum install iscsi-initiator-utils -y && sudo systemctl enable iscsid && sudo systemctl start iscsid
 spec:
   selector:
     matchLabels:
-      openebs.io/component-name: openebs-ubuntu-init
+      openebs.io/component-name: openebs-amazonlinux-init
   template:
     metadata:
       labels:
-        openebs.io/component-name: openebs-ubuntu-init
+        openebs.io/component-name: openebs-amazonlinux-init
     spec:
       hostNetwork: true
       initContainers:
