@@ -340,7 +340,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: quay.io/openebs/snapshot-controller:1.4.0
+          image: 709373726912.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-315009537/quay.io/openebs/snapshot-controller:1.4.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
