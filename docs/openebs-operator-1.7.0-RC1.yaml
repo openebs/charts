@@ -581,7 +581,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "quay.io/openebs/linux-utils:1.6.0"
+              value: "quay.io/openebs/linux-utils:1.7.0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -683,7 +683,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "quay.io/openebs/linux-utils:1.6.0"
+          value: "quay.io/openebs/linux-utils:1.7.0"
         livenessProbe:
           exec:
             command:
