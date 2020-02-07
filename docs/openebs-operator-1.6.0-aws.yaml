@@ -459,7 +459,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1367296352/quay.io/openebs/node-disk-manager-amd64::1.6.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1367296352/quay.io/openebs/node-disk-manager-amd64:1.6.0-latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -549,7 +549,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1367296352/quay.io/openebs/node-disk-operator-amd64::1.6.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1367296352/quay.io/openebs/node-disk-operator-amd64:1.6.0-latest
           imagePullPolicy: Always
           readinessProbe:
             exec:
