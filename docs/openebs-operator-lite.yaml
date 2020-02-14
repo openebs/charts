@@ -318,9 +318,9 @@ spec:
             fieldRef:
               fieldPath: spec.serviceAccountName
         - name: OPENEBS_IO_ENABLE_ANALYTICS
-          value: "false"
+          value: "true"
         - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator"
+          value: "openebs-operator-lite"
         - name: OPENEBS_IO_HELPER_IMAGE
           value: "quay.io/openebs/linux-utils:1.7.0"
         livenessProbe:
