@@ -1,0 +1,16 @@
+quay.io/openebs/linux-utils
+quay.io/openebs/cstor-pool
+quay.io/openebs/cstor-istgt
+quay.io/openebs/jiva
+quay.io/openebs/m-apiserver
+quay.io/openebs/cstor-pool-mgmt
+quay.io/openebs/cstor-volume-mgmt
+quay.io/openebs/m-exporter
+quay.io/openebs/openebs-k8s-provisioner
+quay.io/openebs/snapshot-controller
+quay.io/openebs/snapshot-provisioner
+quay.io/openebs/admission-server
+quay.io/openebs/provisioner-localpv
+quay.io/openebs/cstor-csi-driver
+quay.io/openebs/jiva-operator-amd64
+quay.io/openebs/jiva-csi-driver
