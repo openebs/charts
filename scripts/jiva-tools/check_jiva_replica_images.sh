@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This need to be run in the directory where jiva replica img files are stored
+# This need to be run as "bash check_jiva_replica_images.sh" in the directory where jiva replica img files are stored
 
 # This script counts the chain length and compares it with the number of .img and .img.meta files
 # If there is difference in the counts, it displays the same
