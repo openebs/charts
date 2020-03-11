@@ -32,8 +32,6 @@ chainLen=1
 while [ "$next" != "" ]
 do
 	chainLen=`expr $chainLen + 1`
-	grep $next du_out_$1
-	grep $next ls_out_$1
 	echo $next".meta"
 	cat $next.meta
 	next=$(getParent $next 2)
