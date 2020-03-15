@@ -12,5 +12,5 @@ quay.io/openebs/snapshot-provisioner
 quay.io/openebs/admission-server
 quay.io/openebs/provisioner-localpv
 quay.io/openebs/cstor-csi-driver
-quay.io/openebs/jiva-operator-amd64
-quay.io/openebs/jiva-csi-driver
+quay.io/openebs/jiva-operator-linux_amd64
+quay.io/openebs/jiva-csi
