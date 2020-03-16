@@ -40,6 +40,8 @@ echo "volume.meta"
 #cat volume.meta
 next=$(getAttr volume "Parent" 5)
 head=$(getAttr volume "Head" 2)
+du -s $head
+size=`du -s $head | awk '{print $1}'`
 chainLen=1
 echo "$head"
 createFragOut "$head" $chainLen
@@ -49,9 +51,14 @@ do
 	chainLen=$((chainLen + 1))
 	createFragOut "$next" $chainLen
 	echo "$next.meta"
+	du -s $next
 	cat "$next.meta"
+	img_size=`du -s $next | awk '{print $1}'`
+	size=$((size + img_size))
 	next=$(getAttr "$next" "Parent" 2)
 done
+
+echo "Total used size: $size"
 
 echo "ChainLen:$chainLen"
 
@@ -76,4 +83,3 @@ if [ $chainLen -ne "$metaCnt" ]; then
 fi
 
 echo "No discrepancies found among the files in this replica"
-
