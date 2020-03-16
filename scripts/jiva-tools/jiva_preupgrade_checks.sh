@@ -36,24 +36,24 @@ function createFragOut() {
 	fi
 }
 
-echo "volume.meta"
+#echo "volume.meta"
 #cat volume.meta
 next=$(getAttr volume "Parent" 5)
 head=$(getAttr volume "Head" 2)
-du -s $head
-size=`du -s $head | awk '{print $1}'`
+#du -s $head
+size=$(du -s "$head" | awk '{print $1}')
 chainLen=1
-echo "$head"
+#echo "$head"
 createFragOut "$head" $chainLen
 
 while [ "$next" != "" ]
 do
 	chainLen=$((chainLen + 1))
 	createFragOut "$next" $chainLen
-	echo "$next.meta"
-	du -s $next
-	cat "$next.meta"
-	img_size=`du -s $next | awk '{print $1}'`
+	#echo "$next.meta"
+	#du -s "$next"
+	#cat "$next.meta"
+	img_size=$(du -s "$next" | awk '{print $1}')
 	size=$((size + img_size))
 	next=$(getAttr "$next" "Parent" 2)
 done
@@ -62,12 +62,12 @@ echo "Total used size: $size"
 
 echo "ChainLen:$chainLen"
 
-find . -iname '*.img'
+#find . -iname '*.img'
 imgCnt=$(find . -iname '*.img' | wc -l)
 
 echo "img files count:$imgCnt"
 
-find . -iname '*.img.meta'
+#find . -iname '*.img.meta'
 metaCnt=$(find . -iname '*.img.meta' | wc -l)
 
 echo "meta files count:$metaCnt"
