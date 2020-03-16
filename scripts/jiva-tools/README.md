@@ -50,5 +50,5 @@ Repeat the following steps for each of the replica listed in Step 2.
 
 ### Step 4. Determine if the jiva replicas have data loss condition. 
 
-In step 3, if any of the replicas complained of `discrepancies between chain length and meta files`, there are high chances of data loss and the upgrade has to be performed with the help of developer steps. The upgrade steps will involve further steps in determining which of the replicas have missing data block access, taking them out of the replica list, upgrading the healthy replica and rebuilding the rouge replicas.
+In step 3, if any of the replicas complained of discrepancies between chain length and img/meta files (or) chains length among replicas (or) total used size among replicas, there are chances of data loss and the upgrade has to be performed with the help of developer steps. The upgrade steps will involve further steps in determining which of the replicas may have missing data block access, taking them out of the replica list, upgrading the healthy replica and rebuilding the rouge replicas.
 
