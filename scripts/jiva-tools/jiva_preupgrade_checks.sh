@@ -49,6 +49,7 @@ do
 	chainLen=$((chainLen + 1))
 	createFragOut "$next" $chainLen
 	echo "$next.meta"
+	du -sh $next
 	cat "$next.meta"
 	next=$(getAttr "$next" "Parent" 2)
 done
