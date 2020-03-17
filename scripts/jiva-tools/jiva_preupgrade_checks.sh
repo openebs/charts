@@ -10,6 +10,8 @@
 # Please note that this script doesn't modify anything on the disk, but, 
 # dumps filefrag of img files output into *.frag and *.fragout files
 
+# NOTE: Debug messages will be dumped to jiva_preupgrade_checks.out file
+
 set -euf -o pipefail
 
 function getAttr() {
@@ -36,12 +38,12 @@ function createFragOut() {
 	fi
 }
 
-echo "volume.meta" > jiva_preupgrade_check.out
-cat volume.meta >> jiva_preupgrade_check.out
+echo "volume.meta" > jiva_preupgrade_checks.out
+cat volume.meta >> jiva_preupgrade_checks.out
 next=$(getAttr volume "Parent" 5)
 head=$(getAttr volume "Head" 2)
-echo "$head" >> jiva_preupgrade_check.out
-du -s "$head" >> jiva_preupgrade_check.out
+echo "$head" >> jiva_preupgrade_checks.out
+du -s "$head" >> jiva_preupgrade_checks.out
 size=$(du -s "$head" | awk '{print $1}')
 chainLen=1
 createFragOut "$head" $chainLen
@@ -54,7 +56,7 @@ do
 		echo "$next.meta"
 		du -s "$next"
 		cat "$next.meta"
-	} >> jiva_preupgrade_check.out
+	} >> jiva_preupgrade_checks.out
 	img_size=$(du -s "$next" | awk '{print $1}')
 	size=$((size + img_size))
 	next=$(getAttr "$next" "Parent" 2)
@@ -79,7 +81,7 @@ echo "meta files count:$metaCnt"
 
 	echo "img files count: $imgCnt"
 	echo "meta files count:$metaCnt"
-} >> jiva_preupgrade_check.out
+} >> jiva_preupgrade_checks.out
 
 if [ $chainLen -ne "$imgCnt" ]; then
 	echo "Chain Length does not match with available img files"
