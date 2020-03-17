@@ -43,8 +43,10 @@ Repeat the following steps for each of the replica listed in Step 2.
 
 * Run the pre-upgrade script
   ```
-  :/openebs# ./jiva_preupgrade_checks.sh
+  :/openebs# bash ./jiva_preupgrade_checks.sh
   ```
+
+  NOTE: Consider setting 'exec' permissions on the file by doing `chmod +x ./jiva_preupgrade_checks.sh`
 
 * Verify that the last line says: `No discrepancies found among the files in this replica`
 
@@ -52,3 +54,4 @@ Repeat the following steps for each of the replica listed in Step 2.
 
 In step 3, if any of the replicas complained of discrepancies between chain length and img/meta files (or) chains length among replicas (or) total used size among replicas, there are chances of data loss and the upgrade has to be performed with the help of developer steps. The upgrade steps will involve further steps in determining which of the replicas may have missing data block access, taking them out of the replica list, upgrading the healthy replica and rebuilding the rouge replicas.
 
+Please provide the debug messages dumped to jiva_preupgrade_checks.out file, *.frag, *.fragout files from all replicas for further debugging.
