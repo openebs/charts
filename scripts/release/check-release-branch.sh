@@ -22,5 +22,5 @@ done
 #OpenEBS Release repositories with non-mainstream 
 #branching convention
 ./git-get-branch openebs/linux-utils master
-./git-get-branch openebs/zfs-localpv master
+./git-get-branch openebs/zfs-localpv v0.6.x
 ./git-get-branch openebs/node-disk-manager v0.4.x

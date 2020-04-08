@@ -6,11 +6,15 @@ quay.io/openebs/m-apiserver
 quay.io/openebs/cstor-pool-mgmt
 quay.io/openebs/cstor-volume-mgmt
 quay.io/openebs/m-exporter
+quay.io/openebs/m-upgrade
+quay.io/openebs/cspc-operator
+quay.io/openebs/cvc-operator
+quay.io/openebs/admission-server
+quay.io/openebs/provisioner-localpv
 quay.io/openebs/openebs-k8s-provisioner
 quay.io/openebs/snapshot-controller
 quay.io/openebs/snapshot-provisioner
-quay.io/openebs/admission-server
-quay.io/openebs/provisioner-localpv
 quay.io/openebs/cstor-csi-driver
 quay.io/openebs/jiva-operator-linux_amd64
 quay.io/openebs/jiva-csi
+quay.io/openebs/velero-plugin
