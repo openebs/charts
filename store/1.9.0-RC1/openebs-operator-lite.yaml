@@ -138,7 +138,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: quay.io/openebs/node-disk-manager-amd64:v0.4.9
+        image: quay.io/openebs/node-disk-manager-amd64:v0.4.9-RC1
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -234,7 +234,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: quay.io/openebs/node-disk-operator-amd64:v0.4.9
+          image: quay.io/openebs/node-disk-operator-amd64:v0.4.9-RC1
           imagePullPolicy: Always
           readinessProbe:
             exec:
