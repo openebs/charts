@@ -1,7 +1,7 @@
-quay.io/openebs/zfs-driver:v0.6.0-RC1
-quay.io/openebs/node-disk-manager-amd64:v0.4.9-RC1
-quay.io/openebs/node-disk-operator-amd64:v0.4.9-RC1
-quay.io/openebs/node-disk-exporter-amd64:v0.4.9-RC1
-quay.io/openebs/node-disk-manager-arm64:v0.4.9-RC1
-quay.io/openebs/node-disk-operator-arm64:v0.4.9-RC1
-quay.io/openebs/node-disk-exporter-arm64:v0.4.9-RC1
+quay.io/openebs/zfs-driver:v0.6.0-RC2
+quay.io/openebs/node-disk-manager-amd64:v0.4.9-RC2
+quay.io/openebs/node-disk-manager-arm64:v0.4.9-RC2
+quay.io/openebs/node-disk-operator-amd64:v0.4.9-RC2
+quay.io/openebs/node-disk-operator-arm64:v0.4.9-RC2
+quay.io/openebs/node-disk-exporter-amd64:v0.4.9-RC2
+quay.io/openebs/node-disk-exporter-arm64:v0.4.9-RC2
