@@ -182,7 +182,7 @@ spec:
           exec:
             command:
             - pgrep
-            - f
+            - -f
             - ".*ndm"
           initialDelaySeconds: 30
           periodSeconds: 60
@@ -328,7 +328,7 @@ spec:
           exec:
             command:
             - pgrep
-            - f
+            - -f
             - ".*localpv"
           initialDelaySeconds: 30
           periodSeconds: 60
