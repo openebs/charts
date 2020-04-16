@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-local-hostpath-pod
+spec:
+  volumes:
+  - name: local-storage
+    persistentVolumeClaim:
+      claimName: local-hostpath-pvc
+  containers:
+  - name: hello-container
+    image: busybox
+    command:
+       - sh
+       - -c
+       - 'echo "Hello from OpenEBS Local PV." >> /mnt/data/greet.txt; tail -f /dev/null;'
+    volumeMounts:
+    - mountPath: /mnt/store
+      name: local-storage
