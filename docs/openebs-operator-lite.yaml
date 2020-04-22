@@ -110,7 +110,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 1.8.0
+    openebs.io/version: 1.9.0
 spec:
   selector:
     matchLabels:
@@ -123,7 +123,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 1.8.0
+        openebs.io/version: 1.9.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -138,7 +138,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: quay.io/openebs/node-disk-manager-amd64:v0.4.8
+        image: quay.io/openebs/node-disk-manager-amd64:v0.4.9
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -182,7 +182,7 @@ spec:
           exec:
             command:
             - pgrep
-            - ".*ndm"
+            - "ndm"
           initialDelaySeconds: 30
           periodSeconds: 60
       volumes:
@@ -215,7 +215,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 1.8.0
+    openebs.io/version: 1.9.0
 spec:
   selector:
     matchLabels:
@@ -229,12 +229,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 1.8.0
+        openebs.io/version: 1.9.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: quay.io/openebs/node-disk-operator-amd64:v0.4.8
+          image: quay.io/openebs/node-disk-operator-amd64:v0.4.9
           imagePullPolicy: Always
           readinessProbe:
             exec:
@@ -261,7 +261,17 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "quay.io/openebs/linux-utils:1.8.0"
+              value: "quay.io/openebs/linux-utils:1.9.0"
+          # Process name used for matching is limited to the 15 characters
+          # present in the pgrep output.
+          # So fullname can be used here with pgrep (cmd is < 15 chars).
+          livenessProbe:
+            exec:
+              command:
+              - pgrep
+              - "ndo"
+            initialDelaySeconds: 30
+            periodSeconds: 60
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -271,7 +281,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 1.8.0
+    openebs.io/version: 1.9.0
 spec:
   selector:
     matchLabels:
@@ -285,13 +295,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 1.8.0
+        openebs.io/version: 1.9.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: Always
-        image: quay.io/openebs/provisioner-localpv:1.8.0
+        image: quay.io/openebs/provisioner-localpv:1.9.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -322,12 +332,19 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator-lite"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "quay.io/openebs/linux-utils:1.8.0"
+          value: "quay.io/openebs/linux-utils:1.9.0"
+        # Process name used for matching is limited to the 15 characters
+        # present in the pgrep output.
+        # So fullname can't be used here with pgrep (>15 chars).A regular expression
+        # that matches the entire command name has to specified.
+        # Anchor `^` : matches any string that starts with `provisioner-loc`
+        # `.*`: matches any string that has `provisioner-loc` followed by zero or more char
         livenessProbe:
           exec:
             command:
-            - pgrep
-            - ".*localpv"
+            - sh
+            - -c
+            - test `pgrep -c "^provisioner-loc.*"` = 1
           initialDelaySeconds: 30
           periodSeconds: 60
 ---
