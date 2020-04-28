@@ -33,7 +33,7 @@ rules:
   resources: ["resourcequotas", "limitranges"]
   verbs: ["list", "watch"]
 - apiGroups: ["*"]
-  resources: ["ingresses", "horizontalpodautoscalers", "verticalpodautoscalers", "certificatesigningrequests"]
+  resources: ["ingresses", "horizontalpodautoscalers", "verticalpodautoscalers", "poddisruptionbudgets", "certificatesigningrequests"]
   verbs: ["list", "watch"]
 - apiGroups: ["*"]
   resources: ["storageclasses", "persistentvolumeclaims", "persistentvolumes"]
@@ -54,7 +54,7 @@ rules:
   resources: [ "castemplates", "runtasks"]
   verbs: ["*" ]
 - apiGroups: ["*"]
-  resources: [ "cstorpools", "cstorpools/finalizers", "cstorvolumereplicas", "cstorvolumes", "cstorvolumeclaims", "cstorvolumepolicies"]
+  resources: [ "cstorpools", "cstorpools/finalizers", "cstorvolumereplicas", "cstorvolumes", "cstorvolumeclaims"]
   verbs: ["*" ]
 - apiGroups: ["*"]
   resources: [ "cstorpoolinstances", "cstorpoolinstances/finalizers"]
@@ -71,11 +71,8 @@ rules:
 - nonResourceURLs: ["/metrics"]
   verbs: ["get"]
 - apiGroups: ["*"]
-  resources: ["upgradetasks"]
-  verbs: ["*"]
-- apiGroups: ["*"]
-  resources: ["poddisruptionbudgets"]
-  verbs: ["get", "list", "create", "delete", "watch"]
+  resources: [ "upgradetasks"]
+  verbs: ["*" ]
 ---
 # Bind the Service Account with the Role Privileges.
 # TODO: Check if default account also needs to be there
@@ -100,7 +97,7 @@ metadata:
   labels:
     name: maya-apiserver
     openebs.io/component-name: maya-apiserver
-    openebs.io/version: 1.9.0
+    openebs.io/version: 1.5.0
 spec:
   selector:
     matchLabels:
@@ -115,13 +112,13 @@ spec:
       labels:
         name: maya-apiserver
         openebs.io/component-name: maya-apiserver
-        openebs.io/version: 1.9.0
+        openebs.io/version: 1.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: quay.io/openebs/m-apiserver-arm64:1.9.0
+        image: openebs/m-apiserver-arm64-ci:1.5.0
         ports:
         - containerPort: 5656
         env:
@@ -156,7 +153,7 @@ spec:
         # If OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG is false then OpenEBS default
         # storageclass and storagepool will not be created.
         - name: OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG
-          value: "true"
+          value: "false"
         # OPENEBS_IO_INSTALL_DEFAULT_CSTOR_SPARSE_POOL decides whether default cstor sparse pool should be
         # configured as a part of openebs installation.
         # If "true" a default cstor sparse pool will be configured, if "false" it will not be configured.
@@ -164,10 +161,6 @@ spec:
         # is set to true
         - name: OPENEBS_IO_INSTALL_DEFAULT_CSTOR_SPARSE_POOL
           value: "false"
-        # OPENEBS_IO_BASE_DIR is used to configure base directory for openebs on host path.
-        # Where OpenEBS can store required files. Default base path will be /var/openebs
-        # - name: OPENEBS_IO_BASE_DIR
-        #   value: "/var/openebs"
         # OPENEBS_IO_CSTOR_TARGET_DIR can be used to specify the hostpath
         # to be used for saving the shared content between the side cars
         # of cstor volume pod.
@@ -196,25 +189,25 @@ spec:
         #- name: OPENEBS_IO_LOCALPV_HOSTPATH_DIR
         #  value: "/var/openebs/local"
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "quay.io/openebs/jiva-arm64:1.9.0"
+          value: "openebs/jiva-arm64-ci:1.5.0"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "quay.io/openebs/jiva-arm64:1.9.0"
+          value: "openebs/jiva-arm64-ci:1.5.0"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
-        - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "quay.io/openebs/cstor-istgt-arm64:1.9.0"
-        - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "quay.io/openebs/cstor-pool-arm64:1.9.0"
-        - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "quay.io/openebs/cstor-pool-mgmt-arm64:1.9.0"
-        - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "quay.io/openebs/cstor-volume-mgmt-arm64:1.9.0"
-        - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "quay.io/openebs/m-exporter-arm64:1.9.0"
-        - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "quay.io/openebs/m-exporter-arm64:1.9.0"
+        #- name: OPENEBS_IO_CSTOR_TARGET_IMAGE
+        #  value: "quay.io/openebs/cstor-istgt:1.5.0"
+        #- name: OPENEBS_IO_CSTOR_POOL_IMAGE
+        #  value: "quay.io/openebs/cstor-pool:1.5.0"
+        #- name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
+        #  value: "quay.io/openebs/cstor-pool-mgmt:1.5.0"
+        #- name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
+        #  value: "quay.io/openebs/cstor-volume-mgmt:1.5.0"
+        #- name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
+        #  value: "quay.io/openebs/m-exporter:1.5.0"
+        #- name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
+        #  value: "quay.io/openebs/m-exporter:1.5.0"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "quay.io/openebs/linux-utils-arm64:1.9.0"
+          value: "openebs/linux-utils-arm64-ci:1.5.0"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -267,7 +260,7 @@ metadata:
   labels:
     name: openebs-provisioner
     openebs.io/component-name: openebs-provisioner
-    openebs.io/version: 1.9.0
+    openebs.io/version: 1.5.0
 spec:
   selector:
     matchLabels:
@@ -282,13 +275,13 @@ spec:
       labels:
         name: openebs-provisioner
         openebs.io/component-name: openebs-provisioner
-        openebs.io/version: 1.9.0
+        openebs.io/version: 1.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: quay.io/openebs/openebs-k8s-provisioner-arm64:1.9.0
+        image: openebs/openebs-k8s-provisioner-arm64-ci:1.5.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -314,103 +307,13 @@ spec:
         # This is supported for openebs provisioner version 0.5.3-RC1 onwards
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
-         # Process name used for matching is limited to the 15 characters
-         # present in the pgrep output.
-         # So fullname can't be used here with pgrep (>15 chars).A regular expression
-         # that matches the entire command name has to specified.
-         # Anchor `^` : matches any string that starts with `openebs-provis`
-         # `.*`: matches any string that has `openebs-provis` followed by zero or more char
         livenessProbe:
           exec:
             command:
-            - sh
-            - -c
-            - test `pgrep -c "^openebs-provisi.*"` = 1
+            - pgrep
+            - ".*openebs"
           initialDelaySeconds: 30
           periodSeconds: 60
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openebs-snapshot-operator
-  namespace: openebs
-  labels:
-    name: openebs-snapshot-operator
-    openebs.io/component-name: openebs-snapshot-operator
-    openebs.io/version: 1.9.0
-spec:
-  selector:
-    matchLabels:
-      name: openebs-snapshot-operator
-      openebs.io/component-name: openebs-snapshot-operator
-  replicas: 1
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        name: openebs-snapshot-operator
-        openebs.io/component-name: openebs-snapshot-operator
-        openebs.io/version: 1.9.0
-    spec:
-      serviceAccountName: openebs-maya-operator
-      containers:
-        - name: snapshot-controller
-          image: quay.io/openebs/snapshot-controller-arm64:1.9.0
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: OPENEBS_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-         # Process name used for matching is limited to the 15 characters
-         # present in the pgrep output.
-         # So fullname can't be used here with pgrep (>15 chars).A regular expression
-         # that matches the entire command name has to specified.
-         # Anchor `^` : matches any string that starts with `snapshot-contro`
-         # `.*`: matches any string that has `snapshot-contro` followed by zero or more char
-          livenessProbe:
-            exec:
-              command:
-              - sh
-              - -c
-              - test `pgrep -c "^snapshot-contro.*"` = 1
-            initialDelaySeconds: 30
-            periodSeconds: 60
-        # OPENEBS_MAYA_SERVICE_NAME provides the maya-apiserver K8s service name,
-        # that snapshot controller should forward the snapshot create/delete requests.
-        # If not present, "maya-apiserver-service" will be used for lookup.
-        # This is supported for openebs provisioner version 0.5.3-RC1 onwards
-        #- name: OPENEBS_MAYA_SERVICE_NAME
-        #  value: "maya-apiserver-apiservice"
-        - name: snapshot-provisioner
-          image: quay.io/openebs/snapshot-provisioner-arm64:1.9.0
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: OPENEBS_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-        # OPENEBS_MAYA_SERVICE_NAME provides the maya-apiserver K8s service name,
-        # that snapshot provisioner  should forward the clone create/delete requests.
-        # If not present, "maya-apiserver-service" will be used for lookup.
-        # This is supported for openebs provisioner version 0.5.3-RC1 onwards
-        #- name: OPENEBS_MAYA_SERVICE_NAME
-        #  value: "maya-apiserver-apiservice"
-         # Process name used for matching is limited to the 15 characters
-         # present in the pgrep output.
-         # So fullname can't be used here with pgrep (>15 chars).A regular expression
-         # that matches the entire command name has to specified.
-         # Anchor `^` : matches any string that starts with `snapshot-provis`
-         # `.*`: matches any string that has `snapshot-provis` followed by zero or more char
-          livenessProbe:
-            exec:
-              command:
-              - sh
-              - -c
-              - test `pgrep -c "^snapshot-provis.*"` = 1
-            initialDelaySeconds: 30
-            periodSeconds: 60
 ---
 # This is the node-disk-manager related config.
 # It can be used to customize the disks probes and filters
@@ -460,7 +363,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 1.9.0
+    openebs.io/version: 1.5.0
 spec:
   selector:
     matchLabels:
@@ -473,7 +376,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 1.9.0
+        openebs.io/version: 1.5.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -488,7 +391,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: quay.io/openebs/node-disk-manager-arm64:v0.4.9
+        image: openebs/node-disk-manager-arm64-ci:v0.4.5
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -502,8 +405,6 @@ spec:
         - name: procmount
           mountPath: /host/proc
           readOnly: true
-        - name: basepath
-          mountPath: /var/openebs/ndm
         - name: sparsepath
           mountPath: /var/openebs/sparse
         env:
@@ -532,7 +433,7 @@ spec:
           exec:
             command:
             - pgrep
-            - "ndm"
+            - ".*ndm"
           initialDelaySeconds: 30
           periodSeconds: 60
       volumes:
@@ -549,10 +450,6 @@ spec:
         hostPath:
           path: /proc
           type: Directory
-      - name: basepath
-        hostPath:
-          path: /var/openebs/ndm
-          type: DirectoryOrCreate
       - name: sparsepath
         hostPath:
           path: /var/openebs/sparse
@@ -565,7 +462,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 1.9.0
+    openebs.io/version: 1.5.0
 spec:
   selector:
     matchLabels:
@@ -579,12 +476,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 1.9.0
+        openebs.io/version: 1.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: quay.io/openebs/node-disk-operator-arm64:v0.4.9
+          image: openebs/node-disk-operator-arm64-ci:v0.4.5
           imagePullPolicy: Always
           readinessProbe:
             exec:
@@ -611,72 +508,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "quay.io/openebs/linux-utils-arm64:1.9.0"
-          # Process name used for matching is limited to the 15 characters
-          # present in the pgrep output.
-          # So fullname can be used here with pgrep (cmd is < 15 chars).
-          livenessProbe:
-            exec:
-              command:
-              - pgrep
-              - "ndo"
-            initialDelaySeconds: 30
-            periodSeconds: 60
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openebs-admission-server
-  namespace: openebs
-  labels:
-    app: admission-webhook
-    openebs.io/component-name: admission-webhook
-    openebs.io/version: 1.9.0
-spec:
-  replicas: 1
-  strategy:
-    type: Recreate
-    rollingUpdate: null
-  selector:
-    matchLabels:
-      app: admission-webhook
-  template:
-    metadata:
-      labels:
-        app: admission-webhook
-        openebs.io/component-name: admission-webhook
-        openebs.io/version: 1.9.0
-    spec:
-      serviceAccountName: openebs-maya-operator
-      containers:
-        - name: admission-webhook
-          image: quay.io/openebs/admission-server-arm64:1.9.0
-          imagePullPolicy: IfNotPresent
-          args:
-            - -alsologtostderr
-            - -v=2
-            - 2>&1
-          env:
-            - name: OPENEBS_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: ADMISSION_WEBHOOK_NAME
-              value: "openebs-admission-server"
-          # Process name used for matching is limited to the 15 characters
-          # present in the pgrep output.
-          # So fullname can't be used here with pgrep (>15 chars).A regular expression
-          # Anchor `^` : matches any string that starts with `admission-serve`
-          # `.*`: matche any string that has `admission-serve` followed by zero or more char
-          # that matches the entire command name has to specified.
-          livenessProbe:
-            exec:
-              command:
-              - sh
-              - -c
-              - test `pgrep -c "^admission-serve.*"` = 1
-            initialDelaySeconds: 30
-            periodSeconds: 60
+              value: "openebs/linux-utils-arm64-ci:1.5.0"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -686,7 +518,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 1.9.0
+    openebs.io/version: 1.5.0
 spec:
   selector:
     matchLabels:
@@ -700,13 +532,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 1.9.0
+        openebs.io/version: 1.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: Always
-        image: quay.io/openebs/provisioner-localpv-arm64:1.9.0
+        image: openebs/provisioner-localpv-arm64-ci:1.5.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -737,20 +569,12 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator-arm"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "quay.io/openebs/linux-utils-arm64:1.9.0"
-        # Process name used for matching is limited to the 15 characters
-        # present in the pgrep output.
-        # So fullname can't be used here with pgrep (>15 chars).A regular expression
-        # that matches the entire command name has to specified.
-        # Anchor `^` : matches any string that starts with `provisioner-loc`
-        # `.*`: matches any string that has `provisioner-loc` followed by zero or more char
+          value: "openebs/linux-utils-arm64-ci:1.5.0"
         livenessProbe:
           exec:
             command:
-            - sh
-            - -c
-            - test `pgrep -c "^provisioner-loc.*"` = 1
+            - pgrep
+            - ".*provisioner"
           initialDelaySeconds: 30
           periodSeconds: 60
 ---
-
