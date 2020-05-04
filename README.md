@@ -22,7 +22,7 @@ You can then run `helm search repo openebs` to see the charts.
 First, create the namespace: `kubectl create namespace <OPENEBS NAMESPACE>`
 
 ```bash
-helm install openebs --namespace <YOUR NAMESPACE>
+helm install openebs --namespace <YOUR NAMESPACE> helm install stable/openebs
 ```
 
 #### Using Helm 2
