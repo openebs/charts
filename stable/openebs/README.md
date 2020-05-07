@@ -75,6 +75,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
 | `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md`  |
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
+| `ndm.features.enabled`                  | Enable feature gates for NDM                  | `false`                                   |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `quay.io/openebs/node-disk-operator-amd64`|
 | `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `v0.4.9`                                  |
