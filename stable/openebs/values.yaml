@@ -104,6 +104,9 @@ ndm:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
+  featureGates:
+    enabled: false
+    features: "GPTBasedUUID"
 
 ndmOperator:
   enabled: true
