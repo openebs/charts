@@ -88,7 +88,7 @@ snapshotOperator:
 ndm:
   enabled: true
   image: "quay.io/openebs/node-disk-manager-amd64"
-  imageTag: "v0.4.9"
+  imageTag: "0.5.0-RC1"
   sparse:
     path: "/var/openebs/sparse"
     size: "10737418240"
@@ -111,7 +111,7 @@ ndm:
 ndmOperator:
   enabled: true
   image: "quay.io/openebs/node-disk-operator-amd64"
-  imageTag: "v0.4.9"
+  imageTag: "0.5.0-RC1"
   replicas: 1
   upgradeStrategy: Recreate
   nodeSelector: {}
