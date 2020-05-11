@@ -75,7 +75,6 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
 | `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md`  |
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
-| `ndm.features.enabled`                  | Enable feature gates for NDM                  | `false`                                   |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `quay.io/openebs/node-disk-operator-amd64`|
 | `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `v0.4.9`                                  |
@@ -93,6 +92,8 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `cstor.volumeMgmt.imageTag`             | Image Tag for cStor Volume Management         | `1.9.0`                                   |
 | `helper.image`                          | Image for helper                              | `quay.io/openebs/linux-utils`             |
 | `helper.imageTag`                       | Image Tag for helper                          | `1.9.0`                                   |
+| `featureGates.enabled`                  | Enable feature gates for OpenEBS              | `false`                                   |
+| `featureGates.GPTBasedUUID.enabled`     | Enable GPT based UUID generation in NDM       | `false`                                   |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `quay.io/openebs/m-exporter`              |
 | `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `1.9.0`                                   |
 | `analytics.enabled`                     | Enable sending stats to Google Analytics      | `true`                                    |
