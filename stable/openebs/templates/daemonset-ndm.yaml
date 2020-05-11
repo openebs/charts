@@ -36,8 +36,10 @@ spec:
         image: "{{ .Values.ndm.image }}:{{ .Values.ndm.imageTag }}"
         args:
           - -v=4
-{{- if .Values.ndm.featureGates }}
-          - --feature-gates="{{ .Values.ndm.featureGates.features }}"
+{{- if .Values.featureGates.enabled }}
+{{- if .Values.featureGates.GPTBasedUUID.enabled }}
+          - --feature-gates={{ .Values.featureGates.GPTBasedUUID.featureGateFlag }}
+{{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:

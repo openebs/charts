@@ -104,9 +104,6 @@ ndm:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
-  featureGates:
-    enabled: false
-    features: "GPTBasedUUID"
 
 ndmOperator:
   enabled: true
@@ -160,6 +157,12 @@ cstor:
 helper:
   image: "quay.io/openebs/linux-utils"
   imageTag: "1.10.0-RC1"
+
+featureGates:
+  enabled: false
+  GPTBasedUUID:
+    enabled: false
+    featureGateFlag: "GPTBasedUUID"
 
 policies:
   monitoring:
