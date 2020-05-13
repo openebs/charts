@@ -164,6 +164,9 @@ featureGates:
     enabled: false
     featureGateFlag: "GPTBasedUUID"
 
+crd:
+  installEnabled: true
+
 policies:
   monitoring:
     enabled: true
