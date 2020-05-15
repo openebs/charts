@@ -95,7 +95,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `helper.imageTag`                       | Image Tag for helper                          | `1.10.0`                                  |
 | `featureGates.enabled`                  | Enable feature gates for OpenEBS              | `false`                                   |
 | `featureGates.GPTBasedUUID.enabled`     | Enable GPT based UUID generation in NDM       | `false`                                   |
-| `crd.installEnabled`                    | Enable installation of CRDs by OpenEBS        | `true`                                    |
+| `crd.enableInstall`                     | Enable installation of CRDs by OpenEBS        | `true`                                    |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
 | `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `1.10.0`                                  |
 | `analytics.enabled`                     | Enable sending stats to Google Analytics      | `true`                                    |
