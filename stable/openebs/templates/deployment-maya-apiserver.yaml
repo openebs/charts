@@ -142,7 +142,7 @@ spec:
         # OPENEBS_IO_INSTALL_CRD environment variable is used to enable/disable CRD installation
         # from Maya API server. By default the CRDs will be installed
         - name: OPENEBS_IO_INSTALL_CRD
-          value: "{{ .Values.crd.installEnabled }}"
+          value: "{{ .Values.crd.enableInstall }}"
         livenessProbe:
           exec:
             command:
