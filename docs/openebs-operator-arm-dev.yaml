@@ -106,7 +106,7 @@ spec:
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: quay.io/openebs/m-apiserver:1.10.0
+        image: quay.io/openebs/m-apiserver-arm64:1.10.0
         ports:
         - containerPort: 5656
         env:
