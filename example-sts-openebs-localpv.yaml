@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: busybox-sts
+  namespace: default
+spec:
+  replicas: 3
+  serviceName: ""
+  selector:
+    matchLabels:
+      openebs.io/app: busybox-sts
+  template:
+    metadata:
+      labels:
+        openebs.io/app: busybox-sts
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                openebs.io/app: busybox-sts
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - command:
+        - sh
+        - -c
+        - 'date > /mnt/store1/date.txt; hostname >> /mnt/store1/hostname.txt; sync; sleep 5; sync; tail -f /dev/null;'
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        name: busybox-sts
+        volumeMounts:
+        - mountPath: /mnt/store1
+          name: vol1
+  volumeClaimTemplates:
+  - metadata:
+      name: vol1
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: openebs-hostpath
+      resources:
+        requests:
+          storage: 4G
