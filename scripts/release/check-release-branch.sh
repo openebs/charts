@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 usage()
 {
@@ -16,11 +16,15 @@ REPO_LIST=$(cat  openebs-repos.txt |tr "\n" " ")
 
 for REPO in $REPO_LIST
 do
-  ./git-get-branch openebs/${REPO} ${REL_BRANCH}
+  if [[ $REPO =~ ^# ]]; then
+    echo "Skipping $REPO"
+  else
+    ./git-get-branch openebs/${REPO} ${REL_BRANCH}
+  fi
 done
 
 #OpenEBS Release repositories with non-mainstream 
 #branching convention
 ./git-get-branch openebs/linux-utils master
-./git-get-branch openebs/zfs-localpv v0.6.x
-./git-get-branch openebs/node-disk-manager v0.4.x
+./git-get-branch openebs/zfs-localpv v0.7.x
+./git-get-branch openebs/node-disk-manager v0.5.x
