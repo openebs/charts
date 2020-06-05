@@ -35,9 +35,21 @@ fi
 
 IMGLIST=$(cat  openebs-images.txt |tr "\n" " ")
 
+trivy_scan()
+{
+  IMG=$1
+  ./trivy -q --exit-code 1 --severity CRITICAL --no-progress $IMG
+  if [ $? -ne 0 ]; then
+    echo "Failed scanning $IMG"
+  else
+    echo "Successfully scanned $IMG"
+  fi
+
+}
+
 for IMG in $IMGLIST
 do
-  ./trivy -q --exit-code 1 --severity CRITICAL --no-progress $IMG:$RELEASE_TAG
+  trivy_scan $IMG:$RELEASE_TAG
 done
 
 #Images that do not follow the openebs release version
@@ -45,5 +57,5 @@ TIMGLIST=$(cat  openebs-fixed-tags.txt |tr "\n" " ")
 
 for TIMG in $TIMGLIST
 do
-  ./trivy -q --exit-code 1 --severity CRITICAL --no-progress ${TIMG}
+  trivy_scan ${TIMG}
 done

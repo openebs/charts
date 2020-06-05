@@ -35,3 +35,8 @@ quay.io/openebs/jiva-operator-linux_amd64
 quay.io/openebs/jiva-csi
 quay.io/openebs/velero-plugin
 quay.io/openebs/velero-plugin-arm64
+quay.io/openebs/cvc-operator-amd64
+quay.io/openebs/cspc-operator-amd64
+quay.io/openebs/cstor-volume-manager-amd64
+quay.io/openebs/cstor-pool-manager-amd64
+quay.io/openebs/cstor-webhook-amd64
