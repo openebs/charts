@@ -10,8 +10,12 @@ jiva-operator
 jiva-csi
 maya
 external-storage
+api
 #openebs/linux-utils
 #openebs/node-disk-manager
 #openebs/zfs-localpv
+#openebs/monitor-pv
+#openebs/Mayastor
+#openebs/upgrade
 
 
