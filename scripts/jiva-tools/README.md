@@ -4,7 +4,7 @@ An [issue](https://github.com/openebs/openebs/issues/2956) was reported on Jiva 
 
 Upgrading to 1.8 will resolve the issue, however, upgrading will involve Jiva replica restarts. These steps explained in this document will help determine if the data loss condition has occurred on a jiva volume. If the steps indicate a data loss condition, please reach out to the developers on the slack community to guide you through the upgrade process. 
 
-You can either join our [OpenEBS Slack](https://openebs-community.slack.com/messages/openebs-users/)  or [Kubernetes Slack - #openebs Channel](https://kubernetes.slack.com/messages/openebs/). 
+You can either join our [#openebs Channel on Kubernetes slack](https://kubernetes.slack.com/messages/openebs/). 
 
 The pre-upgrade steps are as follows: 
 
@@ -12,7 +12,7 @@ The pre-upgrade steps are as follows:
 
 Get the jiva pre-upgrade script, that will validate if the replicas are in a healthy state for the upgrade.
 ```
-wget https://raw.githubusercontent.com/openebs/charts/master/scripts/jiva-tools/jiva_preupgrade_checks.sh
+wget http://openebs.github.io/charts/scripts/jiva-tools/jiva_preupgrade_checks.sh
 ```
 
 ### Step 2. List the jiva replica pods
