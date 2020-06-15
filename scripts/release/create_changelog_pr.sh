@@ -159,7 +159,7 @@ add_changelog() {
 
 #update_release_date update RELEASE_DATE for the TAG
 update_release_date() {
-    [[ -d $GIT_REPO ]] || return 1
+    [[ ! -z $GIT_REPO ]] || return 1
 
     echo "Getting release date for $TAG"
 
@@ -379,7 +379,8 @@ if [[ (! -z $GIT_PRODUCTION_BRANCH) ||  (! -z $GIT_RELEASE_BRANCH) ]] &&
 fi
 
 #update release date variable RELEASE_DATE
-update_release_date || rc =$?
+rc=0
+update_release_date || rc=$?
 if [[ $rc -ne 0 ]]; then
     echo "Failed to get release date for $TAG"
     exit 1
