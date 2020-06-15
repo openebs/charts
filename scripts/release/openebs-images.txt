@@ -37,3 +37,4 @@ quay.io/openebs/cstor-volume-manager-amd64
 quay.io/openebs/cstor-pool-manager-amd64
 quay.io/openebs/cstor-webhook-amd64
 quay.io/openebs/upgrade-amd64
+quay.io/openebs/migrate-amd64

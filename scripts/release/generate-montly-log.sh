@@ -17,6 +17,8 @@ COMMITTER_LOG="COMMITTERS_${REL_BRANCH}.md"
 rm -rf ${CHANGE_LOG}
 rm -rf ${COMMITTER_LOG}
 
+mkdir -p repos
+
 setup_repo()
 {
   REPODIR="repos/$1"
@@ -70,22 +72,34 @@ done
 #OpenEBS Release repositories with non-mainstream 
 #branching convention
 change_log linux-utils master
-change_log node-disk-manager v0.5.x
-change_log zfs-localpv v0.7.x
+change_log node-disk-manager v0.6.x
+change_log zfs-localpv v0.8.x
 change_log e2e-tests master
 change_log openebs-docs master
 change_log openebs master
 change_log monitor-pv master
 change_log Mayastor master
+change_log upgrade master
+change_log rawfile-localpv master
+change_log charts master
+change_log charts gh-pages
+change_log website refactor-to-ghost-and-gatsby
 
 
 committer_map()
 {
   FILE=$1
+
+  #Maintainers
   sed -i 's/@Kiran Mova/@kmova/g' ${FILE}
+  sed -i 's/@Vishnu Itta/@vishnuitta/g' ${FILE}
+  sed -i 's/@Jeffry Molanus/@gila/g' ${FILE}
+  sed -i 's/@Karthik Satchitanand/@ksatchit/g' ${FILE}
+  sed -i 's/@Murat Karslioglu/@muratkars/g' ${FILE}
+
+  #Reviewers
   sed -i 's/@mayank/@mynktl/g' ${FILE}
   sed -i 's/@Mayank/@mynktl/g' ${FILE}
-  sed -i 's/@Vishnu Itta/@vishnuitta/g' ${FILE}
   sed -i 's/@sai chaithanya/@mittachaitu/g' ${FILE}
   sed -i 's/@Payes Anand/@payes/g' ${FILE}
   sed -i 's/@Utkarsh Mani Tripathi/@utkarshmani1997/g' ${FILE}
@@ -97,16 +111,39 @@ committer_map()
   sed -i 's/@Pawan/@pawanpraka1/g' ${FILE}
   sed -i 's/@Akhil Mohan/@akhilerm/g' ${FILE}
   sed -i 's/@Aman Gupta/@w3aman/g' ${FILE}
-  sed -i 's/@Sumit Lalwani/@slalwani97/g' ${FILE}
   sed -i 's/@Filippo Bosi/@filippobosi/g' ${FILE}
   sed -i 's/@Amrish Kushwaha/@IsAmrish/g' ${FILE}
-  sed -i 's/@Jeffry Molanus/@gila/g' ${FILE}
-  sed -i 's/@Karthik Satchitanand/@ksatchit/g' ${FILE}
-  sed -i 's/@Murat Karslioglu/@muratkars/g' ${FILE}
   sed -i 's/@giri/@gprasath/g' ${FILE}
   sed -i 's/@Ranjith R/@ranjithwingrider/g' ${FILE}
   sed -i 's/@Somesh Kumar/@somesh2905/g' ${FILE}
   sed -i 's/@sathyaseelan/@nsathyaseelan/g' ${FILE}
+  sed -i 's/@Antonio Carlini/@AntonioCarlini/g' ${FILE}
+  sed -i 's/@Blaise Dias/@blaisedias/g' ${FILE}
+  sed -i 's/@Evan Powell/@epowell101/g' ${FILE}
+  sed -i 's/@Glenn Bullingham/@GlennBullingham/g' ${FILE}
+  sed -i 's/@Jan Kryl/@jkryl/g' ${FILE}
+  sed -i 's/@Jonathan Teh/@jonathan-teh/g' ${FILE}
+  sed -i 's/@yannis218/@yannis218/g' ${FILE}
+  sed -i 's/@Shashank Ranjan/@shashank855/g' ${FILE}
+
+  #Contributors -  Community Bridge
+  sed -i 's/@Mehran Kholdi/@SeMeKh/g' ${FILE}
+  sed -i 's/@Harsh Thakur/@harshthakur9030/g' ${FILE}
+  sed -i 's/@vaniisgh/@vaniisgh/g' ${FILE}
+
+  #Contributors -  Community
+  sed -i 's/@Sumit Lalwani/@slalwani97/g' ${FILE}
+  sed -i 's/@Peeyush Gupta/@Pensu/g' ${FILE}
+  sed -i 's/@Christopher J. Ruwe/@cruwe/g' ${FILE}
+  sed -i 's/@Sjors Gielen/@sgielen/g' ${FILE}
+  sed -i 's/@Shubham Bhardwaj/@ShubhamB99/g' ${FILE}
+  sed -i 's/@GTB3NW/@GTB3NW/g' ${FILE}
+  sed -i 's/@fukuta-tatsuya-intec/@fukuta-tatsuya-intec/g' ${FILE}
+  sed -i 's/@mtmn/@mtmn/g' ${FILE}
+  sed -i 's/@Nick Pappas/@radicand/g' ${FILE}
+  sed -i 's/@Nikolay Rusinko/@nrusinko/g' ${FILE}
+  sed -i 's/@Zach Dunn/@zadunn/g' ${FILE}
+  sed -i 's/@wiwen/@Icedroid/g' ${FILE}
 
   FILE=""
 }
