@@ -40,7 +40,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `rbac.create`                           | Enable RBAC Resources                         | `true`                                    |
 | `rbac.pspEnabled`                       | Create pod security policy resources          | `false`                                   |
 | `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
-| `image.repository`                      | Specify which docker registry to use          | `quay.io/`                                |
+| `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `apiserver.enabled`                     | Enable API Server                             | `true`                                    |
 | `apiserver.image`                       | Image for API Server                          | `openebs/m-apiserver`                     |
 | `apiserver.imageTag`                    | Image Tag for API Server                      | `1.11.0`                                  |
@@ -104,8 +104,8 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `analytics.pingInterval`                | Duration(hours) between sending ping stat     | `24h`                                     |
 | `defaultStorageConfig.enabled`          | Enable default storage class installation     | `true`                                    |
 | `varDirectoryPath.baseDir`              | To store debug info of OpenEBS containers     | `/var/openebs`                            |
-| `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |                              | 30                                                          |
-| `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |                            | 10                                                          |
+| `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
+| `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
