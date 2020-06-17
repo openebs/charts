@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kubelet-restart
+  namespace: mayastor
+  annotations:
+    command: &cmd sudo systemctl restart kubelet
+spec:
+  selector:
+    matchLabels:
+      openebs.io/engine: mayastor
+  
+  template:
+    metadata:
+      labels:
+        openebs.io/engine: mayastor
+    spec:
+      hostNetwork: true
+      hostPID: true
+      initContainers:
+      - name: init-node
+        command:
+          - nsenter
+          - --mount=/proc/1/ns/mnt
+          - --
+          - sh
+          - -c
+          - *cmd
+        image: alpine:3.7
+        securityContext:
+          privileged: true
+      containers:
+      - name: wait
+        image: k8s.gcr.io/pause:3.1
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+  updateStrategy:
+    type: RollingUpdate
