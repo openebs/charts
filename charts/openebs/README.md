@@ -1,13 +1,11 @@
-OpenEBS
-=======
+# OpenEBS Helm Chart
 
-[OpenEBS](https://github.com/openebs/openebs) is an open source storage platform that provides persistent and containerized block storage for DevOps and container environments. 
+[OpenEBS](https://github.com/openebs/openebs) is an *open source storage platform* that provides persistent and containerized block storage for DevOps and container environments. 
 OpenEBS provides multiple storage engines that can be plugged in easily. A common pattern is the use of OpenEBS to deliver Dynamic LocalPV for those applications and workloads that want to access disks and cloud volumes directly.
 
 OpenEBS can be deployed on any Kubernetes cluster - either in cloud, on-premise or developer laptop (minikube). OpenEBS itself is deployed as just another container on your cluster, and enables storage services that can be designated on a per pod, application, cluster or container level.
 
-Introduction
-------------
+## Introduction
 
 This chart bootstraps OpenEBS deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
@@ -18,31 +16,36 @@ You can run OpenEBS on any Kubernetes 1.13+ cluster in a matter of seconds. See 
 For more comprehensive documentation, start with the [Welcome to OpenEBS](https://docs.openebs.io/docs/next/overview.html) docs.
 
 ## Prerequisites
+
 - Kubernetes 1.13+ with RBAC enabled
 - iSCSI PV support in the underlying infrastructure
 
 ## Adding OpenEBS Helm repository
+
 Before installing OpenEBS Helm charts, you need to add the [OpenEBS Helm repository](https://openebs.github.io/charts) to your Helm client.
-```
+
+```bash
 helm repo add openebs https://openebs.github.io/charts
 ```
 
 ## Installing OpenEBS
-```
+
+```bash
 helm install --namespace openebs openebs/openebs
 ```
 
-## Installing OpenEBS with the release name `my-release`:
-```
+## Installing OpenEBS with the release name
+
+```bash
 helm install --name `my-release` --namespace openebs openebs/openebs
 ```
 
-## To uninstall/delete the `my-release` deployment:
-```
+## To uninstall/delete instance with release name
+
+```bash
 helm ls --all
 helm delete `my-release`
 ```
-
 
 ## Configuration
 
@@ -124,7 +127,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
-```shell
+```bash
 helm install --name openebs -f values.yaml openebs/openebs
 ```
 
