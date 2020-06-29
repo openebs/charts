@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Lint and Test Charts](https://github.com/openebs/charts/workflows/Lint%20and%20Test%20Charts/badge.svg?branch=master)](https://github.com/openebs/charts/actions)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fopenebs%2Fcharts.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fopenebs%2Fcharts?ref=badge_shield)
 
 The content in this repository is published using GitHub pages at https://openebs.github.io/charts/. 
 
@@ -32,3 +33,6 @@ See [./CONTRIBUTING.md](./CONTRIBUTING.md).
 ## License
 
 [Apache 2.0 License](./LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fopenebs%2Fcharts.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fopenebs%2Fcharts?ref=badge_large)
