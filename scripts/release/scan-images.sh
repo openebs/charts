@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Scan for critical security vulnerabilities in openebs
 # container images using trivy. 
@@ -33,20 +33,29 @@ if [ ! -f ./trivy ]; then
 	download_trivy
 fi
 
-IMGLIST=$(cat  openebs-images.txt |tr "\n" " ")
+
+FAILED_IMGS=""
+SCANNED_IMGS=""
 
 trivy_scan()
 {
   IMG=$1
-  ./trivy -q --exit-code 1 --severity CRITICAL --no-progress $IMG
-  if [ $? -ne 0 ]; then
-    echo "Failed scanning $IMG"
+  if [[ $IMG =~ ^# ]]; then
+    echo "Skipping $IMG"
   else
-    echo "Successfully scanned $IMG"
+    ./trivy -q --exit-code 1 --severity CRITICAL --no-progress $IMG
+    if [ $? -ne 0 ]; then
+      echo "Failed scanning $IMG"
+      FAILED_IMGS="${1}\n${FAILED_IMGS}"
+    else
+      echo "Successfully scanned $IMG"
+      SCANNED_IMGS="${1}\n${SCANNED_IMGS}"
+    fi
   fi
 
 }
 
+IMGLIST=$(cat  openebs-images.txt |tr "\n" " ")
 for IMG in $IMGLIST
 do
   trivy_scan $IMG:$RELEASE_TAG
@@ -59,3 +68,13 @@ for TIMG in $TIMGLIST
 do
   trivy_scan ${TIMG}
 done
+
+echo 
+if [ ! -z ${FAILED_IMGS} ]; then 
+  echo "Error: Failures detected on the following images:"
+  printf ${FAILED_IMGS}
+  echo
+else
+  echo "Success: Successfully scanned all the following images:"
+  printf ${SCANNED_IMGS}
+fi 
