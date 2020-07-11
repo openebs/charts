@@ -27,7 +27,7 @@ jiva-csi
 maya
 external-storage
 api
-openebs/upgrade
+upgrade
 #openebs/linux-utils
 #openebs/node-disk-manager
 #openebs/zfs-localpv

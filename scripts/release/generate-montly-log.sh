@@ -116,8 +116,8 @@ committer_map()
   sed -i 's/@sai chaithanya/@mittachaitu/g' ${FILE}
   sed -i 's/@Payes Anand/@payes/g' ${FILE}
   sed -i 's/@Utkarsh Mani Tripathi/@utkarshmani1997/g' ${FILE}
-  sed -i 's/@shubham/@mynktl/g' ${FILE}
-  sed -i 's/@Shubham Bajpai/@mynktl/g' ${FILE}
+  sed -i 's/@shubham/@shubham14bajpai/g' ${FILE}
+  sed -i 's/@Shubham Bajpai/@shubham14bajpai/g' ${FILE}
   sed -i 's/@Prateek Pandey/@prateekpandey14/g' ${FILE}
   sed -i 's/@Ashutosh Kumar/@sonasingh46/g' ${FILE}
   sed -i 's/@Pawan Prakash Sharma/@pawanpraka1/g' ${FILE}
