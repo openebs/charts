@@ -1,4 +1,18 @@
 #!/bin/bash
+# Copyright 2020 The OpenEBS Authors. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 # Scan for critical security vulnerabilities in openebs
 # container images using trivy. 
@@ -52,21 +66,46 @@ trivy_scan()
       SCANNED_IMGS="${1}\n${SCANNED_IMGS}"
     fi
   fi
-
 }
 
-IMGLIST=$(cat  openebs-images.txt |tr "\n" " ")
-for IMG in $IMGLIST
+quay_trivy_scan()
+{
+  IMG=$1
+  if [[ $IMG =~ ^# ]]; then
+    echo "Skipping quay scan for $IMG"
+  else
+    trivy_scan quay.io/${IMG}
+  fi
+}
+
+OIMGLIST=$(cat  openebs-images.txt | grep -v "#" |tr "\n" " ")
+for OIMG in $OIMGLIST
 do
-  trivy_scan $IMG:$RELEASE_TAG
+  trivy_scan $OIMG:$RELEASE_TAG
+  quay_trivy_scan $OIMG:$RELEASE_TAG
 done
 
 #Images that do not follow the openebs release version
-TIMGLIST=$(cat  openebs-fixed-tags.txt |tr "\n" " ")
-
-for TIMG in $TIMGLIST
+FIMGLIST=$(cat  openebs-fixed-tags.txt | grep -v "#" |tr "\n" " ")
+for FIMG in $FIMGLIST
 do
-  trivy_scan ${TIMG}
+  trivy_scan ${FIMG}
+  quay_trivy_scan ${FIMG}
+done
+
+#ARM Images
+AIMGLIST=$(cat  openebs-arm-tags.txt | grep -v "#" |tr "\n" " ")
+for AIMG in $AIMGLIST
+do
+  trivy_scan ${AIMG}
+  quay_trivy_scan ${AIMG}
+done
+
+#Multi arch images that are only available from docker
+MIMGLIST=$(cat  openebs-multiarch-tags.txt | grep -v "#" |tr "\n" " ")
+for MIMG in $MIMGLIST
+do
+  trivy_scan ${MIMG}
 done
 
 echo 

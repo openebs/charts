@@ -1,36 +1,35 @@
+# Copyright 2020 The OpenEBS Authors. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# List of OpenEBS AMD64 images
+#
 openebs/linux-utils
-openebs/linux-utils-arm64
 openebs/cstor-pool
-openebs/cstor-pool-arm64
 openebs/cstor-istgt
-openebs/cstor-istgt-arm64
 openebs/jiva
-openebs/jiva-arm64
 openebs/m-apiserver
-openebs/m-apiserver-arm64
 openebs/cstor-pool-mgmt
-openebs/cstor-pool-mgmt-arm64
 openebs/cstor-volume-mgmt
-openebs/cstor-volume-mgmt-arm64
 openebs/m-exporter
-openebs/m-exporter-arm64
 openebs/m-upgrade
-openebs/m-upgrade-arm64
 openebs/admission-server
-openebs/admission-server-arm64
-openebs/provisioner-localpv
-openebs/provisioner-localpv-arm64
 openebs/openebs-k8s-provisioner
-openebs/openebs-k8s-provisioner-arm64
 openebs/snapshot-controller
-openebs/snapshot-controller-arm64
 openebs/snapshot-provisioner
-openebs/snapshot-provisioner-arm64
-openebs/cstor-csi-driver
-openebs/jiva-operator-amd64
-openebs/jiva-csi
 openebs/velero-plugin
-openebs/velero-plugin-arm64
+openebs/provisioner-localpv
+openebs/cstor-csi-driver
 openebs/cvc-operator-amd64
 openebs/cspc-operator-amd64
 openebs/cstor-volume-manager-amd64
@@ -38,3 +37,5 @@ openebs/cstor-pool-manager-amd64
 openebs/cstor-webhook-amd64
 openebs/upgrade-amd64
 openebs/migrate-amd64
+openebs/jiva-csi
+openebs/jiva-operator-amd64

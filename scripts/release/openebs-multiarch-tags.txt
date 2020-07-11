@@ -12,13 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#List of custom tagged images
+# List of OpenEBS Multiarch images
 #
-openebs/zfs-driver:0.9.0-RC2
-openebs/node-disk-manager-amd64:0.7.0-RC2
-openebs/node-disk-operator-amd64:0.7.0-RC2
-openebs/node-disk-exporter-amd64:0.7.0-RC2
-#openebs/mayastor:0.1.0
-#openebs/mayastor-grpc:0.1.0
-#openebs/moac:0.1.0
-#openebs/monitor-pv:0.2.0
+openebs/node-disk-manager:0.7.0-RC2
+openebs/node-disk-operator:0.7.0-RC2
+openebs/node-disk-exporter:0.7.0-RC2
