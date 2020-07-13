@@ -648,7 +648,7 @@ metadata:
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
-    openebs.io/version: 1.12.0-RC2
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -665,7 +665,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-controller
         openebs.io/component-name: openebs-cstor-csi-controller
-        openebs.io/version: 1.12.0-RC2
+        openebs.io/version: 1.12.0
     spec:
       priorityClassName: system-cluster-critical
       serviceAccount: openebs-cstor-csi-controller-sa
@@ -745,7 +745,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: openebs-csi-plugin
-          image: openebs/cstor-csi-driver:1.12.0-RC2
+          image: openebs/cstor-csi-driver:1.12.0
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -888,7 +888,7 @@ metadata:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node
     openebs.io/component-name: openebs-cstor-csi-node
-    openebs.io/version: 1.12.0-RC2
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -903,7 +903,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-node
         openebs.io/component-name: openebs-cstor-csi-node
-        openebs.io/version: 1.12.0-RC2
+        openebs.io/version: 1.12.0
     spec:
       priorityClassName: system-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
@@ -942,7 +942,7 @@ spec:
             capabilities:
               add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: openebs/cstor-csi-driver:1.12.0-RC2
+          image: openebs/cstor-csi-driver:1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"

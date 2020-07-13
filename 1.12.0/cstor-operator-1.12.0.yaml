@@ -112,7 +112,7 @@ spec:
     - JSONPath: .metadata.creationTimestamp
       name: Age
       type: date
-------
+---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
@@ -467,7 +467,7 @@ metadata:
   labels:
     name: cspc-operator
     openebs.io/component-name: cspc-operator
-    openebs.io/version: 1.12.0-RC1
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -481,13 +481,13 @@ spec:
       labels:
         name: cspc-operator
         openebs.io/component-name: cspc-operator
-        openebs.io/version: 1.12.0-RC1
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: cspc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cspc-operator-amd64:1.12.0-RC1
+        image: openebs/cspc-operator-amd64:1.12.0
         env:
         - name: OPENEBS_NAMESPACE
           valueFrom:
@@ -513,11 +513,11 @@ spec:
         #- name: OPENEBS_IO_CSTOR_POOL_SPARSE_DIR
         #  value: "/var/openebs/sparse"
         - name: OPENEBS_IO_CSPI_MGMT_IMAGE
-          value: "openebs/cstor-pool-manager-amd64:1.12.0-RC1"
+          value: "openebs/cstor-pool-manager-amd64:1.12.0"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "openebs/cstor-pool:1.12.0-RC1"
+          value: "openebs/cstor-pool:1.12.0"
         - name:  OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "openebs/m-exporter:1.12.0-RC1"
+          value: "openebs/m-exporter:1.12.0"
         - name: RESYNC_INTERVAL
           value: "30"
 ---
@@ -529,7 +529,7 @@ metadata:
   labels:
     name: cvc-operator
     openebs.io/component-name: cvc-operator
-    openebs.io/version: 1.12.0-RC1
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -543,13 +543,13 @@ spec:
       labels:
         name: cvc-operator
         openebs.io/component-name: cvc-operator
-        openebs.io/version: 1.12.0-RC1
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: cvc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cvc-operator-amd64:1.12.0-RC1
+        image: openebs/cvc-operator-amd64:1.12.0
         env:
         # OPENEBS_IO_BASE_DIR is used to configure base directory for openebs on host path.
         # Where OpenEBS can store required files. Default base path will be /var/openebs
@@ -569,11 +569,11 @@ spec:
             fieldRef:
               fieldPath: spec.serviceAccountName
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "openebs/cstor-istgt:1.12.0-RC1"
+          value: "openebs/cstor-istgt:1.12.0"
         - name:  OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-manager-amd64:1.12.0-RC1"
+          value: "openebs/cstor-volume-manager-amd64:1.12.0"
         - name:  OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:1.12.0-RC1"
+          value: "openebs/m-exporter:1.12.0"
 ---
 apiVersion: v1
 kind: Service
@@ -600,7 +600,7 @@ metadata:
   labels:
     app: cstor-admission-webhook
     openebs.io/component-name: cstor-admission-webhook
-    openebs.io/version: 1.12.0-RC1
+    openebs.io/version: 1.12.0
 spec:
   replicas: 1
   strategy:
@@ -614,12 +614,12 @@ spec:
       labels:
         app: cstor-admission-webhook
         openebs.io/component-name: cstor-admission-webhook
-        openebs.io/version: 1.12.0-RC1
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: openebs/cstor-webhook-amd64:1.12.0-RC1
+          image: openebs/cstor-webhook-amd64:1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr

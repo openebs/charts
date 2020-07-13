@@ -1,6 +1,6 @@
 # This manifest deploys the OpenEBS CSI control plane components,
 # with associated CRs & RBAC rules. This manifest has been verified
-# only with Ubuntu 16.04 and CentOS hosts, due to dependencies on
+# only with Ubuntu 18.04 and Debian 10 hosts, due to dependencies on
 # kernel components of iSCSI protocol.  For other ubuntu flavours and
 # linux distros, this needs to be modified.
 #
@@ -980,6 +980,9 @@ spec:
               mountPropagation: "Bidirectional"
             - name: iscsiadm-bin
               mountPath: /sbin/iscsiadm
+            #Enable the following for Ubuntu 18.04
+            - name: iscsiadm-lib-isns-nocrypto
+              mountPath: /lib/x86_64-linux-gnu/libisns-nocrypto.so.0
       volumes:
         - name: device-dir
           hostPath:
@@ -1001,3 +1004,9 @@ spec:
           hostPath:
             path: /sbin/iscsiadm
             type: File
+        #Enable the following for Ubuntu 18.04
+        - name: iscsiadm-lib-isns-nocrypto
+          hostPath:
+            path: /lib/x86_64-linux-gnu/libisns-nocrypto.so.0
+            type: File
+---
