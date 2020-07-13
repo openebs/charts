@@ -514,7 +514,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: openebs-cstor-csi-controller-sa
-    namespace: openebs
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: openebs-cstor-csi-snapshotter-role
@@ -575,7 +575,7 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: openebs-cstor-csi-controller-sa
-  namespace: openebs
+  namespace: kube-system
 
 ---
 kind: ClusterRole
@@ -627,7 +627,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: openebs-cstor-csi-controller-sa
-    namespace: openebs
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: openebs-cstor-csi-provisioner-role
@@ -638,7 +638,7 @@ kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: openebs-cstor-csi-controller
-  namespace: openebs
+  namespace: kube-system
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
@@ -793,7 +793,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: openebs-cstor-csi-controller-sa
-    namespace: openebs
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: openebs-cstor-csi-attacher-role
@@ -819,7 +819,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: openebs-cstor-csi-controller-sa
-    namespace: openebs
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: openebs-cstor-csi-cluster-registrar-role
@@ -837,7 +837,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: openebs-cstor-csi-node-sa
-  namespace: openebs
+  namespace: kube-system
 
 ---
 
@@ -865,7 +865,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: openebs-cstor-csi-node-sa
-    namespace: openebs
+    namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: openebs-cstor-csi-registrar-role
@@ -876,7 +876,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: openebs-cstor-csi-iscsiadm
-  namespace: openebs
+  namespace: kube-system
 data:
   iscsiadm: |
     #!/bin/sh
@@ -898,7 +898,7 @@ kind: DaemonSet
 apiVersion: apps/v1
 metadata:
   name: openebs-cstor-csi-node
-  namespace: openebs
+  namespace: kube-system
   labels:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node

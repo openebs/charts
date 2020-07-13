@@ -83,11 +83,27 @@ spec:
       type: string
     - JSONPath: .status.capacity.free
       name: Free
-      description: The amount of free space available in the pool
+      description: The amount of usable free space available in the pool
       type: string
     - JSONPath: .status.capacity.total
       name: Capacity
-      description: Total size of the storage pool
+      description: Total amount of usable space in pool
+      type: string
+    - JSONPath: .status.readOnly
+      name: ReadOnly
+      description: Identifies the pool read only mode
+      type: boolean
+    - JSONPath: .status.provisionedReplicas
+      name: ProvisionedReplicas
+      description: Represents no.of replicas present in the pool
+      type: integer
+    - JSONPath: .status.healthyReplicas
+      name: HealthyReplicas
+      description: Represents no.of healthy replicas present in the pool
+      type: integer
+    - JSONPath: .spec.poolConfig.dataRaidGroupType
+      name: Type
+      description: The type of the storage pool
       type: string
     - JSONPath: .status.phase
       name: Status
@@ -535,6 +551,23 @@ spec:
           value: "openebs/cstor-volume-manager-amd64:1.12.0-RC2"
         - name:  OPENEBS_IO_VOLUME_MONITOR_IMAGE
           value: "openebs/m-exporter:1.12.0-RC2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cvc-operator-service
+  namespace: openebs
+  labels:
+    openebs.io/component-name: cvc-operator-svc
+spec:
+  ports:
+  - name: api
+    port: 5757
+    protocol: TCP
+    targetPort: 5757
+  selector:
+    name: cvc-operator
+  sessionAffinity: None
 ---
 apiVersion: apps/v1
 kind: Deployment
