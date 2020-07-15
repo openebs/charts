@@ -1,7 +1,13 @@
 # This manifest deploys the OpenEBS CSI control plane components,
 # with associated CRs & RBAC rules. This manifest has been verified
-# only with different linux flavours and
-# linux distros.
+# only with Ubuntu 16.04 and CentOS hosts, due to dependencies on
+# kernel components of iSCSI protocol.  For other ubuntu flavours and
+# linux distros, this needs to be modified.
+#
+# Instructions to modify:
+# Ubuntu-18.04 and above: https://github.com/openebs/cstor-csi/blob/master/deploy/iscsiadm-ubuntu-18.04-and-above-deps.yaml
+# SUSE Linux Enterprise Server 12:  https://github.com/openebs/cstor-csi/blob/master/deploy/iscsiadm-suse-enterprise-server-12-deps.yaml
+# SUSE Linux Enterprise Server 15:  https://github.com/openebs/cstor-csi/blob/master/deploy/iscsiadm-suse-enterprise-server-15-deps.yaml
 #
 # For supporting a differnet OS other than the above,
 # 1) Get the list of shared object files required for iscsiadm binary in that OS version.
@@ -491,22 +497,6 @@ status:
   storedVersions: []
 
 ---
-
-apiVersion: storage.k8s.io/v1beta1
-kind: CSIDriver
-metadata:
-  name: cstor.csi.openebs.io
-spec:
-  # Supports persistent and ephemeral inline volumes.
-  volumeLifecycleModes:
-  - Persistent
-  - Ephemeral
-  # To determine at runtime which mode a volume uses, pod info and its
-  # "csi.storage.k8s.io/ephemeral" entry are needed.
-  podInfoOnMount: true
-  attachRequired: true
-
----
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -738,7 +728,7 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
-        - name: openebs-csi-plugin
+        - name: cstor-csi-plugin
           image: openebs/cstor-csi-driver:1.12.0-RC1
           imagePullPolicy: IfNotPresent
           env:
@@ -872,27 +862,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: openebs-cstor-csi-iscsiadm
-  namespace: kube-system
-data:
-  iscsiadm: |
-    #!/bin/sh
-    if [ -x /host/sbin/iscsiadm ]; then
-      chroot /host /sbin/iscsiadm "$@"
-    elif [ -x /host/usr/local/sbin/iscsiadm ]; then
-      chroot /host /usr/local/sbin/iscsiadm "$@"
-    elif [ -x /host/bin/iscsiadm ]; then
-      chroot /host /bin/iscsiadm "$@"
-    elif [ -x /host/usr/local/bin/iscsiadm ]; then
-      chroot /host /usr/local/bin/iscsiadm "$@"
-    else
-      chroot /host iscsiadm "$@"
-    fi
-
----
 
 kind: DaemonSet
 apiVersion: apps/v1
@@ -951,7 +920,7 @@ spec:
               mountPath: /plugin
             - name: registration-dir
               mountPath: /registration
-        - name: openebs-csi-plugin
+        - name: cstor-csi-plugin
           securityContext:
             privileged: true
             capabilities:
@@ -993,11 +962,8 @@ spec:
               # needed so that any mounts setup inside this container are
               # propagated back to the host machine.
               mountPropagation: "Bidirectional"
-            - name: host-root
-              mountPath: /host
-            - name: chroot-iscsiadm
+            - name: iscsiadm-bin
               mountPath: /sbin/iscsiadm
-              subPath: iscsiadm
       volumes:
         - name: device-dir
           hostPath:
@@ -1015,12 +981,7 @@ spec:
           hostPath:
             path: /var/lib/kubelet/
             type: Directory
-        - name: chroot-iscsiadm
-          configMap:
-            defaultMode: 0755
-            name: openebs-cstor-csi-iscsiadm
-        - name: host-root
+        - name: iscsiadm-bin
           hostPath:
-            path: /
-            type: Directory
----
+            path: /sbin/iscsiadm
+            type: File
