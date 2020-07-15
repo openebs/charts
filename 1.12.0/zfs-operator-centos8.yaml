@@ -1592,8 +1592,6 @@ spec:
         - name: openebs-zfs-plugin
           securityContext:
             privileged: true
-            capabilities:
-              add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
           image: quay.io/openebs/zfs-driver:0.9.0
           imagePullPolicy: IfNotPresent
@@ -1711,7 +1709,7 @@ spec:
             type: FileOrCreate
         - name: libkeyutils
           hostPath:
-            path: /lib64/libkeyutils.so.1.5
+            path: /lib64/libkeyutils.so.1.6
             type: FileOrCreate
         - name: libtirpc
           hostPath:
