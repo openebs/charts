@@ -1335,7 +1335,7 @@ metadata:
   namespace: kube-system
   labels:
     openebs.io/component-name: openebs-zfs-controller
-    openebs.io/version: 0.9.0-RC2
+    openebs.io/version: 0.9.0
 spec:
   selector:
     matchLabels:
@@ -1349,7 +1349,7 @@ spec:
         app: openebs-zfs-controller
         role: openebs-zfs
         openebs.io/component-name: openebs-zfs-controller
-        openebs.io/version: 0.9.0-RC2
+        openebs.io/version: 0.9.0
     spec:
       affinity:
         podAntiAffinity:
@@ -1413,7 +1413,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: openebs-zfs-plugin
-          image: quay.io/openebs/zfs-driver:0.9.0-RC2
+          image: quay.io/openebs/zfs-driver:0.9.0
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -1545,7 +1545,7 @@ metadata:
   namespace: kube-system
   labels:
     openebs.io/component-name: openebs-zfs-node
-    openebs.io/version: 0.9.0-RC2
+    openebs.io/version: 0.9.0
 spec:
   selector:
     matchLabels:
@@ -1556,7 +1556,7 @@ spec:
         app: openebs-zfs-node
         role: openebs-zfs
         openebs.io/component-name: openebs-zfs-node
-        openebs.io/version: 0.9.0-RC2
+        openebs.io/version: 0.9.0
     spec:
       priorityClassName: system-node-critical
       serviceAccount: openebs-zfs-node-sa
@@ -1595,7 +1595,7 @@ spec:
             capabilities:
               add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: quay.io/openebs/zfs-driver:0.9.0-RC2
+          image: quay.io/openebs/zfs-driver:0.9.0
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"

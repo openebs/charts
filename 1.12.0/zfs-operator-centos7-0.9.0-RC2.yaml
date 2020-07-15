@@ -1333,8 +1333,9 @@ apiVersion: apps/v1
 metadata:
   name: openebs-zfs-controller
   namespace: kube-system
-  openebs.io/component-name: openebs-zfs-controller
-  openebs.io/version: 0.9.0-RC2
+  labels:
+    openebs.io/component-name: openebs-zfs-controller
+    openebs.io/version: 0.9.0-RC2
 spec:
   selector:
     matchLabels:
@@ -1542,8 +1543,9 @@ apiVersion: apps/v1
 metadata:
   name: openebs-zfs-node
   namespace: kube-system
-  openebs.io/component-name: openebs-zfs-node
-  openebs.io/version: 0.9.0-RC2
+  labels:
+    openebs.io/component-name: openebs-zfs-node
+    openebs.io/version: 0.9.0-RC2
 spec:
   selector:
     matchLabels:
