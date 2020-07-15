@@ -497,22 +497,6 @@ status:
   storedVersions: []
 
 ---
-
-apiVersion: storage.k8s.io/v1beta1
-kind: CSIDriver
-metadata:
-  name: cstor.csi.openebs.io
-spec:
-  # Supports persistent and ephemeral inline volumes.
-  volumeLifecycleModes:
-  - Persistent
-  - Ephemeral
-  # To determine at runtime which mode a volume uses, pod info and its
-  # "csi.storage.k8s.io/ephemeral" entry are needed.
-  podInfoOnMount: true
-  attachRequired: true
-
----
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -648,7 +632,7 @@ metadata:
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -665,7 +649,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-controller
         openebs.io/component-name: openebs-cstor-csi-controller
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       priorityClassName: system-cluster-critical
       serviceAccount: openebs-cstor-csi-controller-sa
@@ -744,8 +728,8 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
-        - name: openebs-csi-plugin
-          image: quay.io/openebs/cstor-csi-driver:1.11.0
+        - name: cstor-csi-plugin
+          image: openebs/cstor-csi-driver:1.12.0
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -753,7 +737,9 @@ spec:
             - name: OPENEBS_CSI_ENDPOINT
               value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
             - name: OPENEBS_CSI_API_URL
-              value: https://api.openebs.com/
+              value: https://openebs.io
+              # OpenEBS namespace where the openebs cstor operator components
+              # has been installed
             - name: OPENEBS_NAMESPACE
               value: openebs
           args :
@@ -886,7 +872,7 @@ metadata:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node
     openebs.io/component-name: openebs-cstor-csi-node
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -901,7 +887,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-node
         openebs.io/component-name: openebs-cstor-csi-node
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       priorityClassName: system-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
@@ -934,13 +920,13 @@ spec:
               mountPath: /plugin
             - name: registration-dir
               mountPath: /registration
-        - name: openebs-csi-plugin
+        - name: cstor-csi-plugin
           securityContext:
             privileged: true
             capabilities:
               add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: quay.io/openebs/cstor-csi-driver:1.11.0
+          image: openebs/cstor-csi-driver:1.12.0
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"
@@ -956,10 +942,14 @@ spec:
               value: unix:///plugin/csi.sock
             - name: OPENEBS_NODE_DRIVER
               value: node
-            - name: OPENEBS_API_URL
-              value: https://api.openebs.com/
+            - name: OPENEBS_CSI_API_URL
+              value: https://openebs.io
+              # OpenEBS namespace where the openebs cstor operator components
+              # has been installed
             - name: OPENEBS_NAMESPACE
               value: openebs
+              # Enable/Disable auto-remount feature, when volumes
+              # recovers form the read-only state
             - name: REMOUNT
               value: "false"
           volumeMounts:
