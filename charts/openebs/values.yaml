@@ -129,7 +129,7 @@ webhook:
   enabled: true
   image: "openebs/admission-server"
   imageTag: "1.12.0"
-  failurePolicy: Ignore
+  failurePolicy: "Fail"
   replicas: 1
   healthCheck:
     initialDelaySeconds: 30
