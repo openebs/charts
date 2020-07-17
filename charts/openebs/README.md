@@ -75,6 +75,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
 | `webhook.imageTag`                      | Image Tag for admission server                | `1.12.0`                                  |
 | `webhook.replicas`                      | Number of admission server Replicas           | `1`                                       |
+| `webhook.hostNetwork`                   | Use hostNetwork in admission server           | `false`                                   |
 | `snapshotOperator.enabled`              | Enable Snapshot Provisioner                   | `true`                                    |
 | `snapshotOperator.provisioner.image`    | Image for Snapshot Provisioner                | `openebs/snapshot-provisioner`            |
 | `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `1.12.0`                                  |
