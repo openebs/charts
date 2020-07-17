@@ -137,6 +137,7 @@ webhook:
   nodeSelector: {}
   tolerations: []
   affinity: {}
+  hostNetwork: false
 
 jiva:
   image: "openebs/jiva"
