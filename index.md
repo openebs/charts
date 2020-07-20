@@ -7,7 +7,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
 Once Helm is set up properly, add the repo as follows:
 
-```console
+```bash
 $ helm repo add openebs https://openebs.github.io/charts
 ```
 
@@ -15,9 +15,9 @@ You can then run `helm search repo openebs` to see the charts.
 
 #### Update OpenEBS Repo
 
-Once OpenEBS repo has been successfully fetched into the local system, it has to be updated for getting the latest version. The OpenEBS repo can be updated using the following command.
+Once OpenEBS repository has been successfully fetched into the local system, it has to be updated to get the latest version. The OpenEBS repo can be updated using the following command.
 
-```
+```bash
 helm repo update
 ```
 
@@ -29,7 +29,7 @@ First, create the namespace: `kubectl create namespace <YOUR NAMESPACE>`
 helm install openebs --namespace <YOUR NAMESPACE> openebs/openebs
 ```
 
-#### Intsall using Using Helm 2
+#### Install using Helm 2
 
 ```bash
 helm install --name openebs --namespace <YOUR NAMESPACE> openebs/openebs
