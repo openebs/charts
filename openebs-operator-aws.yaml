@@ -84,7 +84,7 @@ metadata:
   labels:
     name: maya-apiserver
     openebs.io/component-name: maya-apiserver
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -99,13 +99,13 @@ spec:
       labels:
         name: maya-apiserver
         openebs.io/component-name: maya-apiserver
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/m-apiserver:1.11.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/m-apiserver:1.12.0-latest
         ports:
         - containerPort: 5656
         env:
@@ -184,25 +184,25 @@ spec:
         #- name: OPENEBS_IO_LOCALPV_HOSTPATH_DIR
         #  value: "/var/openebs/local"
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/jiva:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/jiva:1.12.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/jiva:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/jiva:1.12.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/cstor-istgt:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/cstor-istgt:1.12.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/cstor-pool:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/cstor-pool:1.12.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/cstor-pool-mgmt:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/cstor-pool-mgmt:1.12.0-latest"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/cstor-volume-mgmt:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/cstor-volume-mgmt:1.12.0-latest"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/m-exporter:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/m-exporter:1.12.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/m-exporter:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/m-exporter:1.12.0-latest"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/linux-utils:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/linux-utils:1.12.0-latest"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -255,7 +255,7 @@ metadata:
   labels:
     name: openebs-provisioner
     openebs.io/component-name: openebs-provisioner
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -270,13 +270,13 @@ spec:
       labels:
         name: openebs-provisioner
         openebs.io/component-name: openebs-provisioner
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/openebs-k8s-provisioner:1.11.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/openebs-k8s-provisioner:1.12.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -325,7 +325,7 @@ metadata:
   labels:
     name: openebs-snapshot-operator
     openebs.io/component-name: openebs-snapshot-operator
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -339,12 +339,12 @@ spec:
       labels:
         name: openebs-snapshot-operator
         openebs.io/component-name: openebs-snapshot-operator
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/snapshot-controller:1.11.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/snapshot-controller:1.12.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -372,7 +372,7 @@ spec:
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
         - name: snapshot-provisioner
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/snapshot-provisioner:1.11.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/snapshot-provisioner:1.12.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -448,7 +448,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -461,7 +461,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -476,7 +476,7 @@ spec:
       hostNetwork: true
       containers:
       - name: node-disk-manager
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/node-disk-manager-amd64:1.11.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/node-disk-manager:1.12.0-latest
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -558,7 +558,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -572,12 +572,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/node-disk-operator-amd64:1.11.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/node-disk-operator:0.7.0
           imagePullPolicy: IfNotPresent
           readinessProbe:
             exec:
@@ -604,7 +604,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/linux-utils:1.11.0-latest"
+              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/linux-utils:1.12.0-latest"
             # OPENEBS_IO_INSTALL_CRD environment variable is used to enable/disable CRD installation
             # from NDM operator. By default the CRDs will be installed
             #- name: OPENEBS_IO_INSTALL_CRD
@@ -628,7 +628,7 @@ metadata:
   labels:
     app: admission-webhook
     openebs.io/component-name: admission-webhook
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   replicas: 1
   strategy:
@@ -642,12 +642,12 @@ spec:
       labels:
         app: admission-webhook
         openebs.io/component-name: admission-webhook
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/admission-server:1.11.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/admission-server:1.12.0-latest
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -660,6 +660,8 @@ spec:
                   fieldPath: metadata.namespace
             - name: ADMISSION_WEBHOOK_NAME
               value: "openebs-admission-server"
+            - name: ADMISSION_WEBHOOK_FAILURE_POLICY
+              value: "Fail"
           # Process name used for matching is limited to the 15 characters
           # present in the pgrep output.
           # So fullname can't be used here with pgrep (>15 chars).A regular expression
@@ -683,7 +685,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 1.11.0
+    openebs.io/version: 1.12.0
 spec:
   selector:
     matchLabels:
@@ -697,13 +699,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 1.11.0
+        openebs.io/version: 1.12.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/provisioner-localpv:1.11.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/provisioner-localpv:1.12.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -734,7 +736,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-aws-operator"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-2871402746/quay.io/openebs/linux-utils:1.11.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/linux-utils:1.12.0-latest"
         # Process name used for matching is limited to the 15 characters
         # present in the pgrep output.
         # So fullname can't be used here with pgrep (>15 chars).A regular expression
