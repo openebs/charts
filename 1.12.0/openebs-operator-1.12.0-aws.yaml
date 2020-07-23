@@ -577,7 +577,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/node-disk-operator:0.7.0
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-1793225711/openebs/node-disk-operator:1.12.0-latest
           imagePullPolicy: IfNotPresent
           readinessProbe:
             exec:
