@@ -14,6 +14,6 @@
 #
 # List of OpenEBS Multiarch images
 #
-openebs/node-disk-manager:0.7.0-RC2
-openebs/node-disk-operator:0.7.0-RC2
-openebs/node-disk-exporter:0.7.0-RC2
+openebs/node-disk-manager:0.7.0
+openebs/node-disk-operator:0.7.0
+openebs/node-disk-exporter:0.7.0

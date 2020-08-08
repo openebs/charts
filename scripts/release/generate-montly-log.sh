@@ -61,6 +61,7 @@ change_log()
   cd repos/$1
   git pull
   git checkout $2
+  git pull
   git log --pretty=format:'-TPL- %s (%h) (@%an)' --date=short  --since="1 month"  >> ../../${CHANGE_LOG_REPO}
   git log --pretty=format:'(@%an)' --date=short  --since="1 month"  >> ../../${COMMITTER_LOG}
   cd ../..
@@ -138,6 +139,7 @@ committer_map()
   sed -i 's/@Jonathan Teh/@jonathan-teh/g' ${FILE}
   sed -i 's/@yannis218/@yannis218/g' ${FILE}
   sed -i 's/@Shashank Ranjan/@shashank855/g' ${FILE}
+  sed -i 's/@Tiago Castro/@tiagolobocastro/g' ${FILE}
 
   #Contributors -  Community Bridge
   sed -i 's/@Mehran Kholdi/@SeMeKh/g' ${FILE}
@@ -157,6 +159,8 @@ committer_map()
   sed -i 's/@Nikolay Rusinko/@nrusinko/g' ${FILE}
   sed -i 's/@Zach Dunn/@zadunn/g' ${FILE}
   sed -i 's/@wiwen/@Icedroid/g' ${FILE}
+  sed -i 's/@Michael Fornaro/@xUnholy/g' ${FILE}
+  sed -i 's/@Rahul M Chheda/@rahulchheda/g' ${FILE}
 
   FILE=""
 }

@@ -26,7 +26,6 @@ jiva-operator
 jiva-csi
 maya
 external-storage
-api
 upgrade
 #openebs/linux-utils
 #openebs/node-disk-manager
