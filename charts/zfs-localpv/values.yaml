@@ -1,0 +1,22 @@
+# Details of the ZFS CSI Driver container image to use.
+# Required.
+image:
+  registry: ""
+  repository: openebs/zfs-driver
+  tag: ci
+  pullPolicy: IfNotPresent
+
+# Install CRDs as a templates. Enabled by default.
+installCRDs: true
+
+controller:
+  serviceAccount:
+    create: true
+    name: controller-sa
+
+node:
+  serviceAccount:
+    create: true
+    name: node-sa
+
+imagePullSecrets: []

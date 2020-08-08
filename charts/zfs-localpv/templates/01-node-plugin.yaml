@@ -1,0 +1,139 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: {{ include "zfs-localpv.fullname" . }}-node
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "zfs-localpv.name" . }}
+      role: {{ include "zfs-localpv.name" . }}-node
+  template:
+    metadata:
+      labels:
+        app: {{ include "zfs-localpv.name" . }}
+        role: {{ include "zfs-localpv.name" . }}-node
+    spec:
+      priorityClassName: system-node-critical
+      serviceAccount: {{ include "zfs-localpv.fullname" . }}-node-sa
+      hostNetwork: true
+      containers:
+        - name: csi-node-driver-registrar
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.2.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm -rf /registration/zfs-localpv /registration/zfs-localpv-reg.sock"]
+          env:
+            - name: ADDRESS
+              value: /plugin/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/zfs-localpv/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_DRIVER
+              value: openebs-zfs
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: registration-dir
+              mountPath: /registration
+        - name: openebs-zfs-plugin
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          image: "{{ .Values.image.registry }}{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "--nodeid=$(OPENEBS_NODE_ID)"
+            - "--endpoint=$(OPENEBS_CSI_ENDPOINT)"
+            - "--plugin=$(OPENEBS_NODE_DRIVER)"
+          env:
+            - name: OPENEBS_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: OPENEBS_CSI_ENDPOINT
+              value: unix:///plugin/csi.sock
+            - name: OPENEBS_NODE_DRIVER
+              value: agent
+            - name: OPENEBS_NAMESPACE
+              value: openebs
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: device-dir
+              mountPath: /dev
+            - name: encr-keys
+              mountPath: /home/keys
+            - name: zfs-bin
+              mountPath: /sbin/zfs
+            - name: libzpool
+              mountPath: /lib/libzpool.so.2
+            - name: libzfscore
+              mountPath: /lib/libzfs_core.so.1
+            - name: libzfs
+              mountPath: /lib/libzfs.so.2
+            - name: libuutil
+              mountPath: /lib/libuutil.so.1
+            - name: libnvpair
+              mountPath: /lib/libnvpair.so.1
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet/
+              # needed so that any mounts setup inside this container are
+              # propagated back to the host machine.
+              mountPropagation: "Bidirectional"
+      volumes:
+        - name: device-dir
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: encr-keys
+          hostPath:
+            path: /home/keys
+            type: DirectoryOrCreate
+        - name: zfs-bin
+          hostPath:
+            path: /sbin/zfs
+            type: File
+        - name: libzpool
+          hostPath:
+            path: /lib/libzpool.so.2.0.0
+            type: File
+        - name: libzfscore
+          hostPath:
+            path: /lib/libzfs_core.so.1.0.0
+            type: File
+        - name: libzfs
+          hostPath:
+            path: /lib/libzfs.so.2.0.0
+            type: File
+        - name: libuutil
+          hostPath:
+            path: /lib/libuutil.so.1.0.1
+            type: File
+        - name: libnvpair
+          hostPath:
+            path: /lib/libnvpair.so.1.0.1
+            type: File
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: DirectoryOrCreate
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/zfs-localpv/
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet/
+            type: Directory
