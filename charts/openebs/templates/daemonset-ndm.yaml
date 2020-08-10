@@ -94,6 +94,8 @@ spec:
         - name: procmount
           mountPath: /host/proc
           readOnly: true
+        - name: devmount
+          mountPath: /dev
         - name: basepath
           mountPath: /var/openebs/ndm
 {{- if .Values.ndm.sparse }}
@@ -115,6 +117,12 @@ spec:
       - name: procmount
         hostPath:
           path: /proc
+          type: Directory
+      # the /dev directory is mounted so that we have access to the devices that
+      # are connected at runtime of the pod.
+      - name: devmount
+        hostPath:
+          path: /dev
           type: Directory
       - name: basepath
         hostPath:
