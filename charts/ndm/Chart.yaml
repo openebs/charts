@@ -1,0 +1,21 @@
+apiVersion: v1
+name: openebs-ndm
+description: Disk inventory and management in Kubernetes cluster
+version: 0.8.0
+appVersion: 0.8.0
+icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+home: http://www.openebs.io/
+keywords:
+  - cloud-native-storage
+  - block-storage
+  - ndm
+  - disk-inventory
+  - storage
+sources:
+  - https://github.com/openebs/node-disk-manager
+maintainers:
+  - name: kmova
+    email: kiran.mova@mayadata.io
+  - name: prateekpandey14
+    email: prateek.pandey@mayadata.io
+tillerVersion: ">=2.10.0"
