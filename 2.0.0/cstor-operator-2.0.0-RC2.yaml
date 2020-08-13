@@ -742,7 +742,7 @@ metadata:
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
-    openebs.io/version: dev
+    openebs.io/version: 2.0.0-RC2
 spec:
   selector:
     matchLabels:
@@ -759,7 +759,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-controller
         openebs.io/component-name: openebs-cstor-csi-controller
-        openebs.io/version: dev
+        openebs.io/version: 2.0.0-RC2
     spec:
       priorityClassName: system-cluster-critical
       serviceAccount: openebs-cstor-csi-controller-sa
@@ -1003,7 +1003,7 @@ metadata:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node
     openebs.io/component-name: openebs-cstor-csi-node
-    openebs.io/version: dev
+    openebs.io/version: 2.0.0-RC2
 spec:
   selector:
     matchLabels:
@@ -1018,7 +1018,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-node
         openebs.io/component-name: openebs-cstor-csi-node
-        openebs.io/version: dev
+        openebs.io/version: 2.0.0-RC2
     spec:
       priorityClassName: system-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
@@ -3755,7 +3755,7 @@ metadata:
   labels:
     name: cspc-operator
     openebs.io/component-name: cspc-operator
-    openebs.io/version: 2.0.0-RC1
+    openebs.io/version: 2.0.0-RC2
 spec:
   selector:
     matchLabels:
@@ -3769,7 +3769,7 @@ spec:
       labels:
         name: cspc-operator
         openebs.io/component-name: cspc-operator
-        openebs.io/version: 2.0.0-RC1
+        openebs.io/version: 2.0.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
@@ -3817,7 +3817,7 @@ metadata:
   labels:
     name: cvc-operator
     openebs.io/component-name: cvc-operator
-    openebs.io/version: 2.0.0-RC1
+    openebs.io/version: 2.0.0-RC2
 spec:
   selector:
     matchLabels:
@@ -3831,7 +3831,7 @@ spec:
       labels:
         name: cvc-operator
         openebs.io/component-name: cvc-operator
-        openebs.io/version: 2.0.0-RC1
+        openebs.io/version: 2.0.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
@@ -3888,7 +3888,7 @@ metadata:
   labels:
     app: cstor-admission-webhook
     openebs.io/component-name: cstor-admission-webhook
-    openebs.io/version: 2.0.0-RC1
+    openebs.io/version: 2.0.0-RC2
 spec:
   replicas: 1
   strategy:
@@ -3902,7 +3902,7 @@ spec:
       labels:
         app: cstor-admission-webhook
         openebs.io/component-name: cstor-admission-webhook
-        openebs.io/version: 2.0.0-RC1
+        openebs.io/version: 2.0.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
