@@ -168,6 +168,9 @@ featureGates:
   GPTBasedUUID:
     enabled: true
     featureGateFlag: "GPTBasedUUID"
+  APIService:
+    enabled: false
+    featureGateFlag: "APIService"
 
 crd:
   enableInstall: true

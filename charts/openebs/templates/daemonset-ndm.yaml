@@ -40,6 +40,9 @@ spec:
 {{- if .Values.featureGates.GPTBasedUUID.enabled }}
           - --feature-gates={{ .Values.featureGates.GPTBasedUUID.featureGateFlag }}
 {{- end}}
+{{- if .Values.featureGates.APIService.enabled }}
+          - --feature-gates={{ .Values.featureGates.APIService.featureGateFlag }}
+{{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:
