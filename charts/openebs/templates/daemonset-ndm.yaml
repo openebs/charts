@@ -31,6 +31,13 @@ spec:
     spec:
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       hostNetwork: true
+      # host PID is used to check status of iSCSI Service when the NDM
+      # API service is enabled
+{{- if .Values.featureGates.enabled }}
+{{- if .Values.featureGates.APIService.enabled }}
+      hostPID: true
+{{- end}}
+{{- end}}
       containers:
       - name: {{ template "openebs.name" . }}-ndm
         image: "{{ .Values.image.repository }}{{ .Values.ndm.image }}:{{ .Values.ndm.imageTag }}"
