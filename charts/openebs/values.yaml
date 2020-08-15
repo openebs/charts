@@ -49,6 +49,7 @@ provisioner:
   image: "openebs/openebs-k8s-provisioner"
   imageTag: "2.0.0"
   replicas: 1
+  enableLeaderElection: true
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -61,6 +62,7 @@ localprovisioner:
   image: "openebs/provisioner-localpv"
   imageTag: "2.0.0"
   replicas: 1
+  enableLeaderElection: true
   basePath: "/var/openebs/local"
   nodeSelector: {}
   tolerations: []
@@ -78,6 +80,7 @@ snapshotOperator:
     image: "openebs/snapshot-provisioner"
     imageTag: "2.0.0"
   replicas: 1
+  enableLeaderElection: true
   upgradeStrategy: "Recreate"
   nodeSelector: {}
   tolerations: []
