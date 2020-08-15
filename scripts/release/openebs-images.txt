@@ -14,7 +14,7 @@
 #
 # List of OpenEBS AMD64 images
 #
-openebs/linux-utils
+#openebs/linux-utils
 openebs/cstor-pool
 openebs/cstor-istgt
 openebs/jiva
@@ -37,5 +37,5 @@ openebs/cstor-pool-manager-amd64
 openebs/cstor-webhook-amd64
 openebs/upgrade-amd64
 openebs/migrate-amd64
-openebs/jiva-csi
-openebs/jiva-operator-amd64
+#openebs/jiva-csi
+#openebs/jiva-operator-amd64

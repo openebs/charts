@@ -87,17 +87,18 @@ done
 #OpenEBS Release repositories with non-mainstream 
 #branching convention
 change_log linux-utils master
-change_log node-disk-manager v0.7.x
+change_log node-disk-manager v0.8.x
 change_log zfs-localpv v0.9.x
 change_log e2e-tests master
 change_log openebs-docs master
 change_log openebs master
 change_log monitor-pv master
-change_log Mayastor master
+change_log Mayastor 0.3.0
 change_log rawfile-localpv master
 change_log charts master
 change_log charts gh-pages
 change_log website refactor-to-ghost-and-gatsby
+change_log performance-benchmark master
 
 
 committer_map()
@@ -110,6 +111,8 @@ committer_map()
   sed -i 's/@Jeffry Molanus/@gila/g' ${FILE}
   sed -i 's/@Karthik Satchitanand/@ksatchit/g' ${FILE}
   sed -i 's/@Murat Karslioglu/@muratkars/g' ${FILE}
+  sed -i 's/@Michael Fornaro/@xUnholy/g' ${FILE}
+  sed -i 's/@Peeyush Gupta/@Pensu/g' ${FILE}
 
   #Reviewers
   sed -i 's/@mayank/@mynktl/g' ${FILE}
@@ -140,15 +143,14 @@ committer_map()
   sed -i 's/@yannis218/@yannis218/g' ${FILE}
   sed -i 's/@Shashank Ranjan/@shashank855/g' ${FILE}
   sed -i 's/@Tiago Castro/@tiagolobocastro/g' ${FILE}
+  sed -i 's/@Mehran Kholdi/@SeMeKh/g' ${FILE}
 
   #Contributors -  Community Bridge
-  sed -i 's/@Mehran Kholdi/@SeMeKh/g' ${FILE}
-  sed -i 's/@Harsh Thakur/@harshthakur9030/g' ${FILE}
+  sed -i 's/@Harsh Thakur/@harshthakur9030/g' ${FILE} 
   sed -i 's/@vaniisgh/@vaniisgh/g' ${FILE}
 
   #Contributors -  Community
   sed -i 's/@Sumit Lalwani/@slalwani97/g' ${FILE}
-  sed -i 's/@Peeyush Gupta/@Pensu/g' ${FILE}
   sed -i 's/@Christopher J. Ruwe/@cruwe/g' ${FILE}
   sed -i 's/@Sjors Gielen/@sgielen/g' ${FILE}
   sed -i 's/@Shubham Bhardwaj/@ShubhamB99/g' ${FILE}
@@ -159,8 +161,20 @@ committer_map()
   sed -i 's/@Nikolay Rusinko/@nrusinko/g' ${FILE}
   sed -i 's/@Zach Dunn/@zadunn/g' ${FILE}
   sed -i 's/@wiwen/@Icedroid/g' ${FILE}
-  sed -i 's/@Michael Fornaro/@xUnholy/g' ${FILE}
   sed -i 's/@Rahul M Chheda/@rahulchheda/g' ${FILE}
+  sed -i 's/@paulyoong/@paulyoong/g' ${FILE}
+  sed -i 's/@chriswldenyer/@chriswldenyer/g' ${FILE}
+  sed -i 's/@Colin Jones/@cjones1024/g' ${FILE}
+  sed -i 's/@Doug Hoard/@dhoard/g' ${FILE}
+  sed -i 's/@Harsh Shekhar/@harshshekhar15/g' ${FILE}
+  sed -i 's/@Juan Eugenio Abadie/@whoan/g' ${FILE}
+  sed -i 's/@NightsWatch/@silentred/g' ${FILE}
+  sed -i 's/@Tom Marsh/@tjoshum/g' ${FILE}
+  sed -i 's/@Waqar Ahmed/@sonicaj/g' ${FILE}
+  sed -i 's/@Akın Özer/@akin-ozer/g' ${FILE}
+  sed -i 's/@Alex Perez-Pujol/@alexppg/g' ${FILE}
+  sed -i 's/@anupriya0703/@anupriya0703/g' ${FILE}
+  sed -i 's/@Ben Hundley/@FestivalBobcats/g' ${FILE}
 
   FILE=""
 }
