@@ -63,10 +63,8 @@ spec:
           value: "{{ template "openebs.fullname" . }}-apiservice"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
         # leader election is enabled. If spec.replicas equal to 1 then disable leader election
-{{- if eq .Values.provisioner.replicas 1.0 }}
         - name: LEADER_ELECTION_ENABLED
-          value: "false"
-{{- end }}
+          value: "{{ .Values.provisioner.enableLeaderElection }}"
         # The following values will be set as annotations to the PV object.
         # Refer : https://github.com/openebs/external-storage/pull/15
         #- name: OPENEBS_MONITOR_URL
