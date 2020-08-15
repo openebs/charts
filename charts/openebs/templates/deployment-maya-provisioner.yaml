@@ -62,7 +62,7 @@ spec:
         - name: OPENEBS_MAYA_SERVICE_NAME
           value: "{{ template "openebs.fullname" . }}-apiservice"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
-        # leader election is enabled. If spec.replicas equal to 1 then disable leader election
+        # leader election is enabled.
         - name: LEADER_ELECTION_ENABLED
           value: "{{ .Values.provisioner.enableLeaderElection }}"
         # The following values will be set as annotations to the PV object.
