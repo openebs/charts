@@ -105,7 +105,7 @@ spec:
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/39ef4d8c-75e1-4402-b107-a0147e9a4eec/openebs/m-apiserver:2.0.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/m-apiserver:2.0.0-latest
         ports:
         - containerPort: 5656
         env:
@@ -184,25 +184,25 @@ spec:
         #- name: OPENEBS_IO_LOCALPV_HOSTPATH_DIR
         #  value: "/var/openebs/local"
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/30eaf55c-e720-4cf0-bf85-0406a9e007a5/openebs/jiva:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/jiva:2.0.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/30eaf55c-e720-4cf0-bf85-0406a9e007a5/openebs/jiva:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/jiva:2.0.0-latest"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/36099034-0fa3-4760-8e2e-14aa8a562599/openebs/cstor-istgt:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/cstor-istgt:2.0.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/5f11eb47-4aa7-461a-a21c-b3f759c705fe/openebs/cstor-pool:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/cstor-pool:2.0.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/77306252-cbdf-4065-be95-416147ff6cdf/openebs/cstor-pool-mgmt:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/cstor-pool-mgmt:2.0.0-latest"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/08bac7b7-b983-4bf2-8afc-89c1d1caa085/openebs/cstor-volume-mgmt:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/cstor-volume-mgmt:2.0.0-latest"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/2ec4913a-c9d3-49ca-b023-fae5b01a89f2/openebs/m-exporter:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/m-exporter:2.0.0-latest"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/2ec4913a-c9d3-49ca-b023-fae5b01a89f2/openebs/m-exporter:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/m-exporter:2.0.0-latest"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/20a071e5-ad72-4986-9b8a-eac551bf0b78/openebs/linux-utils:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/linux-utils:2.0.0-latest"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -276,7 +276,7 @@ spec:
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/447d1bf4-692b-4f77-b841-154cb2fd2f45/openebs/openebs-k8s-provisioner:2.0.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/openebs-k8s-provisioner:2.0.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -348,7 +348,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/91903dc3-6923-4072-9393-5be850936067/openebs/snapshot-controller:2.0.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/snapshot-controller:2.0.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -376,7 +376,7 @@ spec:
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
         - name: snapshot-provisioner
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/16ac831f-3c07-4009-8416-c989b0d40c27/openebs/snapshot-provisioner:2.0.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/snapshot-provisioner:2.0.0-latest
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -487,7 +487,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/adce8a8d-5398-4b40-89e5-a8ddb6c4256b/openebs/provisioner-localpv:2.0.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/provisioner-localpv:2.0.0-latest
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -598,7 +598,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/814628c9-1fe1-4732-8690-51d0be8c7839/openebs/node-disk-operator:2.0.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/node-disk-operator:2.0.0-latest
           imagePullPolicy: IfNotPresent
           readinessProbe:
             exec:
@@ -625,7 +625,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/20a071e5-ad72-4986-9b8a-eac551bf0b78/openebs/linux-utils:2.0.0-latest"
+              value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/linux-utils:2.0.0-latest"
             # OPENEBS_IO_INSTALL_CRD environment variable is used to enable/disable CRD installation
             # from NDM operator. By default the CRDs will be installed
             #- name: OPENEBS_IO_INSTALL_CRD
@@ -668,7 +668,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/aefa47db-2b0a-4188-922b-f26263c562f0/openebs/admission-server:2.0.0-latest
+          image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/admission-server:2.0.0-latest
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -726,7 +726,7 @@ spec:
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/adce8a8d-5398-4b40-89e5-a8ddb6c4256b/openebs/provisioner-localpv:2.0.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/provisioner-localpv:2.0.0-latest
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -757,7 +757,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-aws-operator"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/20a071e5-ad72-4986-9b8a-eac551bf0b78/openebs/linux-utils:2.0.0-latest"
+          value: "117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/linux-utils:2.0.0-latest"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
         # leader election is enabled.
         #- name: LEADER_ELECTION_ENABLED
