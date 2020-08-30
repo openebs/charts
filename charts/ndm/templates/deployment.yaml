@@ -55,7 +55,7 @@ spec:
         - name: OPERATOR_NAME
           value: "node-disk-operator"
         - name: CLEANUP_JOB_IMAGE
-          value: "{{ .Values.cleanupUtil.image.registry }}{{ .Values.cleanupUtil.image.repository }}:{{ .Values.cleanupUtil.image.tag }}"
+          value: "{{ .Values.helperPod.image.registry }}{{ .Values.helperPod.image.repository }}:{{ .Values.helperPod.image.tag }}"
         # OPENEBS_IO_INSTALL_CRD environment variable is used to enable/disable CRD installation
         # from NDM Operator. By default the CRDs will be installed
         - name: OPENEBS_IO_INSTALL_CRD

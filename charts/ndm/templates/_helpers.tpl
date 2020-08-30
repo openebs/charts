@@ -70,14 +70,9 @@ Define meta labels for ndm components
 {{- define "ndm.common.metaLabels" -}}
 chart: {{ template "ndm.chart" . }}
 heritage: {{ .Release.Service }}
-{{- end -}}
-
-{{/*
-Define version label for ndm components
-*/}}
-{{- define "ndm.common.versionLabels" -}}
 openebs.io/version: {{ .Values.release.version | quote }}
 {{- end -}}
+
 
 {{/*
 Create match labels for ndm daemonset component
@@ -101,7 +96,6 @@ Create labels for ndm daemonset component
 */}}
 {{- define "ndm.labels" -}}
 {{ include "ndm.common.metaLabels" . }}
-{{ include "ndm.common.versionLabels" . }}
 {{ include "ndm.matchLabels" . }}
 {{ include "ndm.componentLabels" . }}
 {{- end -}}
@@ -128,7 +122,6 @@ Create labels for ndm daemonset component
 */}}
 {{- define "ndmOperator.labels" -}}
 {{ include "ndm.common.metaLabels" . }}
-{{ include "ndm.common.versionLabels" . }}
 {{ include "ndmOperator.matchLabels" . }}
 {{ include "ndmOperator.componentLabels" . }}
 {{- end -}}

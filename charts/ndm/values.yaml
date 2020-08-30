@@ -65,9 +65,9 @@ ndmOperator:
   replicas: 1
   upgradeStrategy: Recreate
 
-cleanupUtil:
+helperPod:
   image:
-    registry:
+    registry: ""
     repository: openebs/linux-utils
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
