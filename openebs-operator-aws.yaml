@@ -487,7 +487,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/provisioner-localpv:2.0.0-latest
+        image: 117940112483.dkr.ecr.us-east-1.amazonaws.com/3ed4f202-6b8f-4bc9-adaa-20ce0807bba3/cg-3606609021/openebs/node-disk-manager:2.0.0-latest
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
