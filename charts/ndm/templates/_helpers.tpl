@@ -2,14 +2,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "ndm.name" -}}
+{{- define "openebs-ndm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "ndm.chart" -}}
+{{- define "openebs-ndm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -18,7 +18,7 @@ Create a default fully qualified ndm daemonset app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "ndm.fullname" -}}
+{{- define "openebs-ndm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -31,7 +31,7 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 {{- end }}
 
-{{- define "ndmOperator.name" -}}
+{{- define "openebs-ndm.operator.name" -}}
 {{- default .Values.ndmOperator.name .Values.ndmOperator.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -40,7 +40,7 @@ Create a default fully qualified ndm operator app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "ndmOperator.fullname" -}}
+{{- define "openebs-ndm.operator.fullname" -}}
 {{- if .Values.ndmOperator.fullnameOverride }}
 {{- .Values.ndmOperator.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -56,9 +56,9 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "ndm.serviceAccountName" -}}
+{{- define "openebs-ndm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "ndm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "openebs-ndm.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -67,8 +67,8 @@ Create the name of the service account to use
 {{/*
 Define meta labels for ndm components
 */}}
-{{- define "ndm.common.metaLabels" -}}
-chart: {{ template "ndm.chart" . }}
+{{- define "openebs-ndm.common.metaLabels" -}}
+chart: {{ template "openebs-ndm.chart" . }}
 heritage: {{ .Release.Service }}
 openebs.io/version: {{ .Values.release.version | quote }}
 {{- end -}}
@@ -77,8 +77,8 @@ openebs.io/version: {{ .Values.release.version | quote }}
 {{/*
 Create match labels for ndm daemonset component
 */}}
-{{- define "ndm.matchLabels" -}}
-app: {{ template "ndm.name" . }}
+{{- define "openebs-ndm.matchLabels" -}}
+app: {{ template "openebs-ndm.name" . }}
 release: {{ .Release.Name }}
 component: {{ .Values.ndm.componentName | quote }}
 {{- end -}}
@@ -86,7 +86,7 @@ component: {{ .Values.ndm.componentName | quote }}
 {{/*
 Create component labels for ndm daemonset component
 */}}
-{{- define "ndm.componentLabels" -}}
+{{- define "openebs-ndm.componentLabels" -}}
 openebs.io/component-name: {{ .Values.ndm.componentName | quote }}
 {{- end -}}
 
@@ -94,34 +94,34 @@ openebs.io/component-name: {{ .Values.ndm.componentName | quote }}
 {{/*
 Create labels for ndm daemonset component
 */}}
-{{- define "ndm.labels" -}}
-{{ include "ndm.common.metaLabels" . }}
-{{ include "ndm.matchLabels" . }}
-{{ include "ndm.componentLabels" . }}
+{{- define "openebs-ndm.labels" -}}
+{{ include "openebs-ndm.common.metaLabels" . }}
+{{ include "openebs-ndm.matchLabels" . }}
+{{ include "openebs-ndm.componentLabels" . }}
 {{- end -}}
 
 {{/*
 Create match labels for ndm operator deployment
 */}}
-{{- define "ndmOperator.matchLabels" -}}
-app: {{ template "ndmOperator.name" . }}
+{{- define "openebs-ndm.operator.matchLabels" -}}
+app: {{ template "openebs-ndm.operator.name" . }}
 release: {{ .Release.Name }}
 component: {{ .Values.ndmOperator.name | quote }}
 {{- end -}}
 
 {{/*
-Create component labels for ndm daemonset component
+Create component labels for ndm operator component
 */}}
-{{- define "ndmOperator.componentLabels" -}}
+{{- define "openebs-ndm.operator.componentLabels" -}}
 openebs.io/component-name: {{ .Values.ndmOperator.name | quote }}
 {{- end -}}
 
 
 {{/*
-Create labels for ndm daemonset component
+Create labels for ndm operator component
 */}}
-{{- define "ndmOperator.labels" -}}
-{{ include "ndm.common.metaLabels" . }}
-{{ include "ndmOperator.matchLabels" . }}
-{{ include "ndmOperator.componentLabels" . }}
+{{- define "openebs-ndm.operator.labels" -}}
+{{ include "openebs-ndm.common.metaLabels" . }}
+{{ include "openebs-ndm.operator.matchLabels" . }}
+{{ include "openebs-ndm.operator.componentLabels" . }}
 {{- end -}}

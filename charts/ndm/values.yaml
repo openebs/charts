@@ -84,6 +84,7 @@ featureGates:
   APIService:
     enabled: true
     featureGateFlag: "APIService"
+    address: "0.0.0.0:9115"
 
 # Directory used by the OpenEBS to store debug information and so forth
 # that are generated in the course of running OpenEBS containers.

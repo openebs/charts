@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: {{ template "ndm.fullname" . }}
+  name: {{ template "openebs-ndm.fullname" . }}
   {{- if .Values.ndm.annotations }}
   annotations:
   {{ toYaml .Values.ndm.annotations | indent 4 }}
   {{- end }}
   labels:
-    {{- include "ndm.labels" . | nindent 4 }}
+    {{- include "openebs-ndm.labels" . | nindent 4 }}
 spec:
   updateStrategy:
 {{ toYaml .Values.ndm.updateStrategy | indent 4 }}
   selector:
     matchLabels:
-      {{- include "ndm.matchLabels" . | nindent 6 }}
+      {{- include "openebs-ndm.matchLabels" . | nindent 6 }}
   template:
     metadata:
       {{- if .Values.ndm.podAnnotations }}
@@ -22,12 +22,12 @@ spec:
       {{ toYaml .Values.ndm.podAnnotations | indent 8 }}
       {{- end }}
       labels:
-        {{- include "ndm.labels" . | nindent 8 }}
+        {{- include "openebs-ndm.labels" . | nindent 8 }}
         {{- if .Values.ndm.podLabels}}
         {{ toYaml .Values.ndm.podLabels | nindent 8 }}
         {{- end}}
     spec:
-      serviceAccountName: {{ template "ndm.serviceAccountName" . }}
+      serviceAccountName: {{ template "openebs-ndm.serviceAccountName" . }}
       hostNetwork: true
 {{- if .Values.featureGates.enabled }}
 {{- if .Values.featureGates.APIService.enabled }}
@@ -35,7 +35,7 @@ spec:
 {{- end}}
 {{- end}}
       containers:
-      - name: {{ template "ndm.name" . }}
+      - name: {{ template "openebs-ndm.name" . }}
         image: "{{ .Values.ndm.image.registry }}{{ .Values.ndm.image.repository }}:{{ .Values.ndm.image.tag }}"
         args:
           - -v=4
@@ -45,6 +45,7 @@ spec:
 {{- end}}
 {{- if .Values.featureGates.APIService.enabled }}
           - --feature-gates={{ .Values.featureGates.APIService.featureGateFlag }}
+          - --api-service-address={{ .Values.featureGates.APIService.address }}
 {{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.ndm.image.pullPolicy }}
@@ -113,7 +114,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: {{ include "ndm.fullname" . }}-config
+          name: {{ include "openebs-ndm.fullname" . }}-config
       - name: udev
         hostPath:
           path: /run/udev

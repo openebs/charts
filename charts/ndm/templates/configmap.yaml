@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "ndm.fullname" . }}-config
+  name: {{ include "openebs-ndm.fullname" . }}-config
 data:
   # node-disk-manager-config contains config of available probes and filters.
   # Probes and Filters will initialize with default values if config for that

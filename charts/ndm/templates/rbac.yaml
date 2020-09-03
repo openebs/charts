@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ include "ndm.serviceAccountName" . }}
+  name: {{ include "openebs-ndm.serviceAccountName" . }}
 {{- end }}
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: {{ include "ndm.fullname" . }}
+  name: {{ include "openebs-ndm.fullname" . }}
 rules:
   - apiGroups: ["*"]
     resources: ["nodes", "pods", "events", "configmaps", "jobs"]
@@ -29,16 +29,16 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: {{ include "ndm.fullname" . }}
+  name: {{ include "openebs-ndm.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ include "ndm.serviceAccountName" . }}
+    name: {{ include "openebs-ndm.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
   - kind: User
     name: system:serviceaccount:default:default
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: {{ include "ndm.fullname" . }}
+  name: {{ include "openebs-ndm.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
 ---
