@@ -27,7 +27,7 @@ if [ $# -ne 1 ]; then
 	usage
 fi
 
-RELEASE_TAG=$1
+RELEASE_TAG=${1#v}
 
 download_trivy() {
 	VERSION=$(curl --silent \
@@ -83,6 +83,7 @@ for OIMG in $OIMGLIST
 do
   trivy_scan $OIMG:$RELEASE_TAG
   quay_trivy_scan $OIMG:$RELEASE_TAG
+  echo
 done
 
 #Images that do not follow the openebs release version
@@ -91,14 +92,15 @@ for FIMG in $FIMGLIST
 do
   trivy_scan ${FIMG}
   quay_trivy_scan ${FIMG}
+  echo
 done
 
 #ARM Images
-AIMGLIST=$(cat  openebs-arm-tags.txt | grep -v "#" |tr "\n" " ")
+AIMGLIST=$(cat  openebs-arm-images.txt | grep -v "#" |tr "\n" " ")
 for AIMG in $AIMGLIST
 do
-  trivy_scan ${AIMG}
-  quay_trivy_scan ${AIMG}
+  trivy_scan ${AIMG}:$RELEASE_TAG
+  quay_trivy_scan ${AIMG}:$RELEASE_TAG
 done
 
 #Multi arch images that are only available from docker
@@ -106,6 +108,7 @@ MIMGLIST=$(cat  openebs-multiarch-tags.txt | grep -v "#" |tr "\n" " ")
 for MIMG in $MIMGLIST
 do
   trivy_scan ${MIMG}
+  echo
 done
 
 echo 

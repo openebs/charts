@@ -14,7 +14,7 @@
 #
 # List of OpenEBS Multiarch images
 #
-openebs/linux-utils:2.0.0
-openebs/node-disk-manager:0.8.0
-openebs/node-disk-operator:0.8.0
-openebs/node-disk-exporter:0.8.0
+openebs/linux-utils:2.1.0
+openebs/node-disk-manager:0.8.1
+openebs/node-disk-operator:0.8.1
+openebs/node-disk-exporter:0.8.1

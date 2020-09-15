@@ -22,8 +22,6 @@ cstor-csi
 cstor-operators
 api
 jiva
-jiva-operator
-jiva-csi
 maya
 external-storage
 upgrade
@@ -32,5 +30,7 @@ upgrade
 #openebs/zfs-localpv
 #openebs/monitor-pv
 #openebs/Mayastor
+#jiva-operator
+#jiva-csi
 
 

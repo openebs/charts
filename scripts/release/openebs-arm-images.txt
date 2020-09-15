@@ -14,7 +14,6 @@
 #
 #List of ARM Images
 #
-openebs/linux-utils-arm64
 openebs/cstor-pool-arm64
 openebs/cstor-istgt-arm64
 openebs/jiva-arm64

@@ -88,12 +88,12 @@ done
 #branching convention
 change_log linux-utils master
 change_log node-disk-manager v0.8.x
-change_log zfs-localpv v0.9.x
+change_log zfs-localpv v1.0.x
 change_log e2e-tests master
 change_log openebs-docs master
 change_log openebs master
 change_log monitor-pv master
-change_log Mayastor 0.3.0
+change_log Mayastor master
 change_log rawfile-localpv master
 change_log charts master
 change_log charts gh-pages
@@ -130,6 +130,7 @@ committer_map()
   sed -i 's/@Aman Gupta/@w3aman/g' ${FILE}
   sed -i 's/@Filippo Bosi/@filippobosi/g' ${FILE}
   sed -i 's/@Amrish Kushwaha/@IsAmrish/g' ${FILE}
+  sed -i 's/@isamrish/@IsAmrish/g' ${FILE}
   sed -i 's/@giri/@gprasath/g' ${FILE}
   sed -i 's/@Ranjith R/@ranjithwingrider/g' ${FILE}
   sed -i 's/@Somesh Kumar/@somesh2905/g' ${FILE}
