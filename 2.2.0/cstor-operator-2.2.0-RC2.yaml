@@ -3662,33 +3662,94 @@ status:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: cstorbackups.openebs.io
+  name: cstorbackups.cstor.openebs.io
 spec:
-  group: openebs.io
-  version: v1alpha1
-  scope: Namespaced
-  names:
-    plural: cstorbackups
-    singular: cstorbackup
-    kind: CStorBackup
-    shortNames:
-    - cbkp
-    - cbkps
-    - cbackups
-    - cbackup
   additionalPrinterColumns:
     - JSONPath: .spec.volumeName
-      name: volume
-      description: volume on which backup performed
+      description: Name of the volume for which this backup is destined
+      name: Volume
       type: string
     - JSONPath: .spec.backupName
-      name: backup/schedule
-      description: Backup/schedule name
+      description: Name of the backup or scheduled backup
+      name: Backup/Schedule
       type: string
     - JSONPath: .status
+      description: Identifies the phase of the backup
       name: Status
-      description: Backup status
       type: string
+  group: cstor.openebs.io
+  names:
+    kind: CStorBackup
+    listKind: CStorBackupList
+    plural: cstorbackups
+    shortNames:
+      - cbackup
+    singular: cstorbackup
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      description: CStorBackup describes a cstor backup resource created as a custom
+        resource
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: CStorBackupSpec is the spec for a CStorBackup resource
+          properties:
+            backupDest:
+              description: BackupDest is the remote address for backup transfer
+              type: string
+            backupName:
+              description: BackupName is the name of the backup or scheduled backup
+              type: string
+            localSnap:
+              description: LocalSnap is the flag to enable local snapshot only
+              type: boolean
+            prevSnapName:
+              description: PrevSnapName is the last completed-backup's snapshot name
+              type: string
+            snapName:
+              description: SnapName is the name of the current backup snapshot
+              type: string
+            volumeName:
+              description: VolumeName is the name of the volume for which this backup
+                is destined
+              type: string
+          required:
+            - backupName
+            - snapName
+            - volumeName
+          type: object
+        status:
+          description: CStorBackupStatus is a string type that represents the status
+            of the backup
+          type: string
+      required:
+        - spec
+      type: object
+  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
 ---
 ############################################################
 ####                                                    ####
@@ -3700,29 +3761,80 @@ kind: CustomResourceDefinition
 metadata:
   name: cstorcompletedbackups.openebs.io
 spec:
-  group: openebs.io
-  version: v1alpha1
-  scope: Namespaced
-  names:
-    plural: cstorcompletedbackups
-    singular: cstorcompletedbackup
-    kind: CStorCompletedBackup
-    shortNames:
-    - cbkpc
-    - cbackupcompleted
   additionalPrinterColumns:
     - JSONPath: .spec.volumeName
-      name: volume
-      description: volume on which backup performed
+      description: Volume name on which backup is performed
+      name: Volume
       type: string
     - JSONPath: .spec.backupName
-      name: backup/schedule
-      description: Backup/schedule name
+      description: Name of the backup or scheduled backup
+      name: Backup/Schedule
       type: string
-    - JSONPath: .spec.prevSnapName
-      name: lastSnap
-      description: Last successful backup snapshot
+    - JSONPath: .spec.lastSnapName
+      description: Last successfully backup snapshot
+      name: LastSnap
       type: string
+  group: cstor.openebs.io
+  names:
+    kind: CStorCompletedBackup
+    listKind: CStorCompletedBackupList
+    plural: cstorcompletedbackups
+    shortNames:
+      - ccompletedbackup
+    singular: cstorcompletedbackup
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      description: CStorCompletedBackup describes a cstor completed-backup resource
+        created as custom resource
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: CStorCompletedBackupSpec is the spec for a CStorBackup resource
+          properties:
+            backupName:
+              description: BackupName is the name of backup or scheduled backup
+              type: string
+            lastSnapName:
+              description: LastSnapName is the name of last completed-backup's snapshot
+                name
+              type: string
+            secondLastSnapName:
+              description: SecondLastSnapName is the name of second last 'successfully'
+                completed-backup's snapshot
+              type: string
+            volumeName:
+              description: VolumeName is the name of volume for which this backup
+                is destined
+              type: string
+          type: object
+      required:
+        - spec
+      type: object
+  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
 ---
 ############################################################
 ####                                                    ####
@@ -3734,31 +3846,106 @@ kind: CustomResourceDefinition
 metadata:
   name: cstorrestores.openebs.io
 spec:
-  group: openebs.io
-  version: v1alpha1
-  scope: Namespaced
-  names:
-    plural: cstorrestores
-    singular: cstorrestore
-    kind: CStorRestore
-    shortNames:
-    - crst
-    - crsts
-    - crestores
-    - crestore
   additionalPrinterColumns:
     - JSONPath: .spec.restoreName
-      name: backup
-      description: backup name which is  restored
+      description: Name of the snapshot which is restored
+      name: Backup
       type: string
     - JSONPath: .spec.volumeName
-      name: volume
-      description: volume on which restore performed
+      description: Volume on which restore is performed
+      name: Volume
       type: string
     - JSONPath: .status
+      description: Identifies the state of the restore
       name: Status
-      description: Restore status
       type: string
+  group: cstor.openebs.io
+  names:
+    kind: CStorRestore
+    listKind: CStorRestoreList
+    plural: cstorrestores
+    shortNames:
+      - crestore
+    singular: cstorrestore
+  preserveUnknownFields: false
+  scope: Namespaced
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      description: CStorRestore describes a cstor restore resource created as a custom
+        resource
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: CStorRestoreSpec is the spec for a CStorRestore resource
+          properties:
+            localRestore:
+              description: Local defines whether restore is from local/remote
+              type: boolean
+            maxretrycount:
+              description: MaxRestoreRetryCount is the maximum number of attempt,
+                will be performed to restore
+              type: integer
+            restoreName:
+              description: RestoreName holds restore name
+              type: string
+            restoreSrc:
+              description: RestoreSrc can be ip:port in case of restore from remote
+                or volumeName in case of local restore
+              type: string
+            retrycount:
+              description: RetryCount represents the number of restore attempts performed
+                for the restore
+              type: integer
+            size:
+              anyOf:
+                - type: integer
+                - type: string
+              description: Size represents the size of a snapshot to restore
+              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+              x-kubernetes-int-or-string: true
+            storageClass:
+              description: StorageClass represents name of StorageClass of restore
+                volume
+              type: string
+            volumeName:
+              description: VolumeName is used to restore the data to corresponding
+                volume
+              type: string
+          required:
+            - restoreName
+            - restoreSrc
+            - volumeName
+          type: object
+        status:
+          description: CStorRestoreStatus is a string type that represents the status
+            of the restore
+          type: string
+      required:
+        - spec
+      type: object
+  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
