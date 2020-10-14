@@ -3759,7 +3759,7 @@ status:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: cstorcompletedbackups.openebs.io
+  name: cstorcompletedbackups.cstor.openebs.io
 spec:
   additionalPrinterColumns:
     - JSONPath: .spec.volumeName
@@ -3844,7 +3844,7 @@ status:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: cstorrestores.openebs.io
+  name: cstorrestores.cstor.openebs.io
 spec:
   additionalPrinterColumns:
     - JSONPath: .spec.restoreName
