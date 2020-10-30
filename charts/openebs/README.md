@@ -84,7 +84,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `snapshotOperator.replicas`             | Number of Snapshot Operator Replicas          | `1`                                       |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
 | `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`         |
-| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `0.9.0`                                   |
+| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `0.9.1`                                   |
 | `ndm.sparse.path`                       | Directory where Sparse files are created      | `/var/openebs/sparse`                     |
 | `ndm.sparse.size`                       | Size of the sparse file in bytes              | `10737418240`                             |
 | `ndm.sparse.count`                      | Number of sparse files to be created          | `0`                                       |
@@ -97,7 +97,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`        |
-| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `0.9.0`                                   |
+| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `0.9.1`                                   |
 | `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
 | `jiva.imageTag`                         | Image Tag for Jiva                            | `2.2.0`                                  |
 | `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |
