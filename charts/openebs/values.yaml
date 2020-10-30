@@ -92,7 +92,7 @@ snapshotOperator:
 ndm:
   enabled: true
   image: "openebs/node-disk-manager"
-  imageTag: "0.9.0"
+  imageTag: "0.9.1"
   sparse:
     path: "/var/openebs/sparse"
     size: "10737418240"
@@ -115,7 +115,7 @@ ndm:
 ndmOperator:
   enabled: true
   image: "openebs/node-disk-operator"
-  imageTag: "0.9.0"
+  imageTag: "0.9.1"
   replicas: 1
   upgradeStrategy: Recreate
   nodeSelector: {}
