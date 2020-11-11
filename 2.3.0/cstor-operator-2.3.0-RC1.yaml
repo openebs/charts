@@ -53,7 +53,7 @@ rules:
 - nonResourceURLs: ["/metrics"]
   verbs: ["get"]
 - apiGroups: ["*"]
-  resources: ["upgradetasks"]
+  resources: ["upgradetasks", "migrationtasks"]
   verbs: ["*"]
 - apiGroups: ["*"]
   resources: ["poddisruptionbudgets"]
@@ -4533,4 +4533,3 @@ spec:
                 - "ndo"
             initialDelaySeconds: 30
             periodSeconds: 60
-
