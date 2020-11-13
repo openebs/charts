@@ -1775,6 +1775,10 @@ spec:
   selector:
     matchLabels:
       app: openebs-zfs-node
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 100%
+    type: RollingUpdate
   template:
     metadata:
       labels:
