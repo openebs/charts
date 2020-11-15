@@ -2,6 +2,29 @@ apiVersion: v1
 entries:
   openebs:
   - apiVersion: v1
+    appVersion: 2.3.0
+    created: "2020-11-15T12:17:37.956858245Z"
+    description: Containerized Storage for Containers
+    digest: 377ae57785bc9f0eb9c60ef7358fd5f3202376beb47a93e4be1846a598b11523
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: kiran.mova@openebs.io
+      name: kmova
+    - email: prateek.pandey@openebs.io
+      name: prateekpandey14
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.3.0/openebs-2.3.0.tgz
+    version: 2.3.0
+  - apiVersion: v1
     appVersion: 2.2.0
     created: "2020-10-31T00:23:51.796671069Z"
     description: Containerized Storage for Containers
