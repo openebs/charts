@@ -37,6 +37,10 @@ spec:
       - name: {{ template "openebs.fullname" . }}-ndm-operator
         image: "{{ .Values.image.repository }}{{ .Values.ndmOperator.image }}:{{ .Values.ndmOperator.imageTag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if .Values.ndmOperator.resources }}
+        resources:
+{{ toYaml .Values.ndmOperator.resources | trimSuffix "\n" | indent 10 }}
+{{- end }}
         readinessProbe:
           exec:
             command:

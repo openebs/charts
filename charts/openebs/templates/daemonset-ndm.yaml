@@ -52,6 +52,10 @@ spec:
 {{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if .Values.ndm.resources }}
+        resources:
+{{ toYaml .Values.ndm.resources | trimSuffix "\n" | indent 10 }}
+{{- end }}
         securityContext:
           privileged: true
         env:
