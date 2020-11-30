@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: CSIDriver
+metadata:
+  name: cstor.csi.openebs.io
+spec:
+  # Supports persistent inline volumes.
+  volumeLifecycleModes:
+  - Persistent
+  # Not yet supported but added just to support upgrade control plane seamlessly
+  - Ephemeral
+  # To determine at runtime which mode a volume uses, pod info and its
+  # "csi.storage.k8s.io/ephemeral" entry are needed.
+  podInfoOnMount: true
+  attachRequired: true

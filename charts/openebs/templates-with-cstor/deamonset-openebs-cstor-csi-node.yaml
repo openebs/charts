@@ -1,0 +1,130 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: openebs-cstor-csi-node
+  namespace: openebs
+  labels:
+    app: openebs-cstor-csi-node
+    name: openebs-cstor-csi-node
+    openebs.io/component-name: openebs-cstor-csi-node
+    openebs.io/version: 2.3.0
+spec:
+  selector:
+    matchLabels:
+      app: openebs-cstor-csi-node
+      role: openebs-cstor-csi
+      name: openebs-cstor-csi-node
+      openebs.io/component-name: openebs-cstor-csi-node
+  template:
+    metadata:
+      labels:
+        app: openebs-cstor-csi-node
+        role: openebs-cstor-csi
+        name: openebs-cstor-csi-node
+        openebs.io/component-name: openebs-cstor-csi-node
+        openebs.io/version: 2.3.0
+    spec:
+      priorityClassName: system-node-critical
+      serviceAccount: openebs-cstor-csi-node-sa
+      hostNetwork: true
+      containers:
+        - name: csi-node-driver-registrar
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.0.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm -rf /registration/cstor.csi.openebs.io /registration/cstor.csi.openebs.io-reg.sock"]
+          env:
+            - name: ADDRESS
+              value: /plugin/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/cstor.csi.openebs.io/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_DRIVER
+              value: openebs-cstor-csi
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: registration-dir
+              mountPath: /registration
+        - name: cstor-csi-plugin
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          image: openebs/cstor-csi-driver:2.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--nodeid=$(OPENEBS_NODE_ID)"
+            - "--endpoint=$(OPENEBS_CSI_ENDPOINT)"
+            - "--url=$(OPENEBS_CSI_API_URL)"
+            - "--plugin=$(OPENEBS_NODE_DRIVER)"
+          env:
+            - name: OPENEBS_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: OPENEBS_CSI_ENDPOINT
+              value: unix:///plugin/csi.sock
+            - name: OPENEBS_NODE_DRIVER
+              value: node
+            - name: OPENEBS_CSI_API_URL
+              value: https://openebs.io
+              # OpenEBS namespace where the openebs cstor operator components
+              # has been installed
+            - name: OPENEBS_NAMESPACE
+              value: openebs
+              # Enable/Disable auto-remount feature, when volumes
+              # recovers form the read-only state
+            - name: REMOUNT
+              value: "false"
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /plugin
+            - name: device-dir
+              mountPath: /dev
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet/
+              # needed so that any mounts setup inside this container are
+              # propagated back to the host machine.
+              mountPropagation: "Bidirectional"
+            - name: host-root
+              mountPath: /host
+              mountPropagation: "HostToContainer"
+            - name: chroot-iscsiadm
+              mountPath: /sbin/iscsiadm
+              subPath: iscsiadm
+      volumes:
+        - name: device-dir
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: DirectoryOrCreate
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/cstor.csi.openebs.io/
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet/
+            type: Directory
+        - name: chroot-iscsiadm
+          configMap:
+            defaultMode: 0555
+            name: openebs-cstor-csi-iscsiadm
+        - name: host-root
+          hostPath:
+            path: /
+            type: Directory

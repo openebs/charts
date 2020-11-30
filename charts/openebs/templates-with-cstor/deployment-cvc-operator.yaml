@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cvc-operator
+  namespace: openebs
+  labels:
+    name: cvc-operator
+    openebs.io/component-name: cvc-operator
+    openebs.io/version: 2.3.0
+spec:
+  selector:
+    matchLabels:
+      name: cvc-operator
+      openebs.io/component-name: cvc-operator
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: cvc-operator
+        openebs.io/component-name: cvc-operator
+        openebs.io/version: 2.3.0
+    spec:
+      serviceAccountName: openebs-maya-operator
+      containers:
+      - name: cvc-operator
+        imagePullPolicy: IfNotPresent
+        image: openebs/cvc-operator:2.3.0
+        env:
+        # OPENEBS_IO_BASE_DIR is used to configure base directory for openebs on host path.
+        # Where OpenEBS can store required files. Default base path will be /var/openebs
+        # - name: OPENEBS_IO_BASE_DIR
+        #   value: "/var/openebs"
+        # OPENEBS_IO_CSTOR_TARGET_DIR can be used to specify the hostpath
+        # that to be used for saving the core dump of cstor volume pod.
+        # The default path used is /var/openebs/sparse
+        #- name: OPENEBS_IO_CSTOR_TARGET_DIR
+        #  value: "/var/openebs/sparse"
+        - name: OPENEBS_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: OPENEBS_SERVICEACCOUNT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+        - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
+          value: "openebs/cstor-istgt:2.3.0"
+        - name:  OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
+          value: "openebs/cstor-volume-manager:2.3.0"
+        - name:  OPENEBS_IO_VOLUME_MONITOR_IMAGE
+          value: "openebs/m-exporter:2.3.0"
