@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openebs-cstor-admission-server
+  namespace: openebs
+  labels:
+    app: cstor-admission-webhook
+    openebs.io/component-name: cstor-admission-webhook
+    openebs.io/version: 2.3.0
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: null
+  selector:
+    matchLabels:
+      app: cstor-admission-webhook
+  template:
+    metadata:
+      labels:
+        app: cstor-admission-webhook
+        openebs.io/component-name: cstor-admission-webhook
+        openebs.io/version: 2.3.0
+    spec:
+      serviceAccountName: openebs-maya-operator
+      containers:
+        - name: admission-webhook
+          image: openebs/cstor-webhook:2.3.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - -alsologtostderr
+            - -v=2
+            - 2>&1
+          env:
+            - name: OPENEBS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ADMISSION_WEBHOOK_NAME
+              value: "openebs-cstor-admission-server"
+            - name: ADMISSION_WEBHOOK_FAILURE_POLICY
+              value: "Fail"
