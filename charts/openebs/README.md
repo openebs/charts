@@ -62,26 +62,32 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `apiserver.imageTag`                    | Image Tag for API Server                      | `2.3.0`                                  |
 | `apiserver.replicas`                    | Number of API Server Replicas                 | `1`                                       |
 | `apiserver.sparse.enabled`              | Create Sparse Pool based on Sparsefile        | `false`                                   |
+| `apiserver.resources`                   | Set resource limits for API Server            | `{}`                                      |
 | `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
 | `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
 | `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.3.0`                                  |
 | `provisioner.replicas`                  | Number of Provisioner Replicas                | `1`                                       |
+| `provisioner.resources`                 | Set resource limits for Provisioner           | `{}`                                      |
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
 | `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.3.0`                                  |
 | `localprovisioner.replicas`             | Number of localProvisioner Replicas           | `1`                                       |
 | `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
+| `localprovisioner.resources`            | Set resource limits for localProvisioner      | `{}`                                      |
 | `webhook.enabled`                       | Enable admission server                       | `true`                                    |
 | `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
 | `webhook.imageTag`                      | Image Tag for admission server                | `2.3.0`                                  |
 | `webhook.replicas`                      | Number of admission server Replicas           | `1`                                       |
 | `webhook.hostNetwork`                   | Use hostNetwork in admission server           | `false`                                   |
+| `webhook.resources`                     | Set resource limits for admission server      | `{}`                                      |
 | `snapshotOperator.enabled`              | Enable Snapshot Provisioner                   | `true`                                    |
 | `snapshotOperator.provisioner.image`    | Image for Snapshot Provisioner                | `openebs/snapshot-provisioner`            |
 | `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `2.3.0`                                  |
 | `snapshotOperator.controller.image`     | Image for Snapshot Controller                 | `openebs/snapshot-controller`             |
 | `snapshotOperator.controller.imageTag`  | Image Tag for Snapshot Controller             | `2.3.0`                                  |
 | `snapshotOperator.replicas`             | Number of Snapshot Operator Replicas          | `1`                                       |
+| `snapshotOperator.provisioner.resources`| Set resource limits for Snapshot Provisioner  | `{}`                                      |
+| `snapshotOperator.controller.resources` | Set resource limits for Snapshot Controller   | `{}`                                      |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
 | `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`         |
 | `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.0.0`                                   |
@@ -95,9 +101,11 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
 | `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd`|
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
+| `ndm.resources`                         | Set resource limits for NDM                   | `{}`                                      |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`        |
 | `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.0.0`                                   |
+| `ndmOperator.resources`                 | Set resource limits for NDM Operator          | `{}`                                      |
 | `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
 | `jiva.imageTag`                         | Image Tag for Jiva                            | `2.3.0`                                  |
 | `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |

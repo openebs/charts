@@ -47,6 +47,10 @@ spec:
       containers:
         - name: admission-webhook
           image: "{{ .Values.image.repository }}{{ .Values.webhook.image }}:{{ .Values.webhook.imageTag }}"
+{{- if .Values.webhook.resources }}
+          resources:
+{{ toYaml .Values.webhook.resources | trimSuffix "\n" | indent 12 }}
+{{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - -alsologtostderr

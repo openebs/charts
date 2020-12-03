@@ -35,6 +35,16 @@ apiserver:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
+  ## apiserver resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
+
 
 defaultStorageConfig:
   enabled: "true"
@@ -56,6 +66,15 @@ provisioner:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
+  ## provisioner resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
 
 localprovisioner:
   enabled: true
@@ -70,15 +89,42 @@ localprovisioner:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
+  ## localprovisioner resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
 
 snapshotOperator:
   enabled: true
   controller:
     image: "openebs/snapshot-controller"
     imageTag: "2.3.0"
+    ## snapshot controller resource requests and limits
+    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+    resources: {}
+      # limits:
+      #   cpu: 1000m
+      #   memory: 2Gi
+      # requests:
+      #   cpu: 500m
+      #   memory: 1Gi
   provisioner:
     image: "openebs/snapshot-provisioner"
     imageTag: "2.3.0"
+    ## snapshot provisioner resource requests and limits
+    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+    resources: {}
+      # limits:
+      #   cpu: 1000m
+      #   memory: 2Gi
+      # requests:
+      #   cpu: 500m
+      #   memory: 1Gi
   replicas: 1
   enableLeaderElection: true
   upgradeStrategy: "Recreate"
@@ -111,6 +157,15 @@ ndm:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
+  ## ndm resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
 
 ndmOperator:
   enabled: true
@@ -127,6 +182,15 @@ ndmOperator:
     initialDelaySeconds: 4
     periodSeconds: 10
     failureThreshold: 1
+  ## ndmOperator resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
 
 webhook:
   enabled: true
@@ -141,6 +205,15 @@ webhook:
   tolerations: []
   affinity: {}
   hostNetwork: false
+  ## admission-server resource requests and limits
+  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 1Gi
+    # requests:
+    #   cpu: 250m
+    #   memory: 500Mi
 
 jiva:
   image: "openebs/jiva"
