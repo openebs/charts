@@ -32,6 +32,10 @@ spec:
         openebs.io/component-name: ndm-operator
         openebs.io/version: {{ .Values.release.version }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       containers:
       - name: {{ template "openebs.fullname" . }}-ndm-operator

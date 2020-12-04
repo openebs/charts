@@ -30,6 +30,10 @@ spec:
         openebs.io/version: {{ .Values.release.version }}
         openebs.io/component-name: openebs-snapshot-operator
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       containers:
       - name: {{ template "openebs.name" . }}-snapshot-controller
