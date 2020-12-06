@@ -21,6 +21,7 @@ spec:
     matchLabels:
       app: {{ template "openebs.name" . }}
       release: {{ .Release.Name }}
+      component: apiserver
   template:
     metadata:
       labels:

@@ -17,6 +17,7 @@ spec:
     matchLabels:
       app: {{ template "openebs.name" . }}
       release: {{ .Release.Name }}
+      component: snapshot-operator
   strategy:
     type: "Recreate"
     rollingUpdate: null
