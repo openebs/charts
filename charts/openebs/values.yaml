@@ -11,6 +11,9 @@ serviceAccount:
   create: true
   name:
 
+imagePullSecrets:
+  #  - name: image-pull-secret
+
 release:
   # "openebs.io/version" label for control plane components
   version: "2.3.0"

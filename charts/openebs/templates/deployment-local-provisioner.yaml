@@ -30,6 +30,10 @@ spec:
         openebs.io/component-name: openebs-localpv-provisioner
         openebs.io/version: {{ .Values.release.version }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       containers:
       - name: {{ template "openebs.name" . }}-localpv-provisioner
