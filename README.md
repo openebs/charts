@@ -16,6 +16,9 @@ When new changes to helm chart are pushed to master branch, the changes are pick
 - Upload the new version of the charts to the [GitHub releases](https://github.com/openebs/charts/releases).
 - Update the helm repo index file and push to the [GitHub Pages branch](https://github.com/openebs/charts/tree/gh-pages).
 
+## Mayastor Helm Chart
+
+Helm chart for Mayastor is currently maintained [along the Mayastor code-base](https://github.com/openebs/Mayastor/tree/develop/chart). Please, note, that it is being actively maintained and can change without warning.
 
 ## OpenEBS Artifacts
 
