@@ -18,7 +18,7 @@ When new changes to helm chart are pushed to master branch, the changes are pick
 
 ## Mayastor Helm Chart
 
-Helm chart for Mayastor is currently maintained [along the Mayastor code-base](https://github.com/openebs/Mayastor/tree/develop/chart). Please, note, that it is being actively maintained and can change without warning.
+Helm chart for Mayastor is currently maintained [along the Mayastor code-base](https://github.com/openebs/Mayastor/tree/develop/chart). Please, note, that it is being actively developed and can change or break without warning.
 
 ## OpenEBS Artifacts
 
