@@ -63,6 +63,7 @@ provisioner:
   imageTag: "2.4.0"
   replicas: 1
   enableLeaderElection: true
+  patchJivaNodeAffinity: enabled
   nodeSelector: {}
   tolerations: []
   affinity: {}

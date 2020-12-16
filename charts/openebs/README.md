@@ -68,6 +68,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.4.0`                                  |
 | `provisioner.replicas`                  | Number of Provisioner Replicas                | `1`                                       |
 | `provisioner.resources`                 | Set resource limits for Provisioner           | `{}`                                      |
+| `provisioner.patchJivaNodeAffinity`     | Enable/disable node affinity on jiva deployment| `enabled`                                 |
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
 | `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.4.0`                                  |
