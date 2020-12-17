@@ -65,7 +65,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `apiserver.resources`                   | Set resource limits for API Server            | `{}`                                      |
 | `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
 | `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
-| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.4.0`                                  |
+| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.4.1`                                  |
 | `provisioner.replicas`                  | Number of Provisioner Replicas                | `1`                                       |
 | `provisioner.resources`                 | Set resource limits for Provisioner           | `{}`                                      |
 | `provisioner.patchJivaNodeAffinity`     | Enable/disable node affinity on jiva replica deployment| `enabled`                                 |
