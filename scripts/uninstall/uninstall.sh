@@ -14,8 +14,8 @@
 # limitations under the License.
 
 
-# uninstall OpenEBS Helm chart
-helm delete openebs -n openebs
+# uninstall OpenEBS Helm chart if openebs was installed using helm chart
+# helm delete openebs -n openebs
 
 # cleanup PVC
 echo "Cleaning PVC"
