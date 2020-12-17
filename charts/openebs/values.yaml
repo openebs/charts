@@ -60,7 +60,7 @@ varDirectoryPath:
 provisioner:
   enabled: true
   image: "openebs/openebs-k8s-provisioner"
-  imageTag: "2.4.0"
+  imageTag: "2.4.1"
   replicas: 1
   enableLeaderElection: true
   patchJivaNodeAffinity: enabled
