@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: local-device-pvc
 spec:
-  storageClassName: openebs-device
+  storageClassName: local-device
   accessModes:
     - ReadWriteOnce
   resources:
