@@ -100,7 +100,7 @@ data:
         name: path filter
         state: true
         include: ""
-        exclude: "loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
+        exclude: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -110,7 +110,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 2.4.0
+    openebs.io/version: 2.5.0
 spec:
   selector:
     matchLabels:
@@ -123,7 +123,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 2.4.0
+        openebs.io/version: 2.5.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -141,7 +141,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.0.1
+        image: openebs/node-disk-manager:1.1.0
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -233,7 +233,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 2.4.0
+    openebs.io/version: 2.5.0
 spec:
   selector:
     matchLabels:
@@ -247,12 +247,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 2.4.0
+        openebs.io/version: 2.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.0.1
+          image: openebs/node-disk-operator:1.1.0
           imagePullPolicy: IfNotPresent
           readinessProbe:
             exec:
@@ -279,11 +279,15 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.4.0"
+              value: "openebs/linux-utils:2.5.0"
             # OPENEBS_IO_INSTALL_CRD environment variable is used to enable/disable CRD installation
             # from NDM operator. By default the CRDs will be installed
             #- name: OPENEBS_IO_INSTALL_CRD
             #  value: "true"
+            # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
+            # to the cleanup pod launched by NDM operator
+            #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
+            #  value: ""
           # Process name used for matching is limited to the 15 characters
           # present in the pgrep output.
           # So fullname can be used here with pgrep (cmd is < 15 chars).
@@ -303,7 +307,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 2.4.0
+    openebs.io/version: 2.5.0
 spec:
   selector:
     matchLabels:
@@ -317,13 +321,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 2.4.0
+        openebs.io/version: 2.5.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:2.4.0
+        image: openebs/provisioner-localpv:2.5.0
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -354,11 +358,15 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator-lite"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.4.0"
+          value: "openebs/linux-utils:2.5.0"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
         # leader election is enabled.
         #- name: LEADER_ELECTION_ENABLED
         #  value: "true"
+        # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
+        # to the helper pod launched by local-pv hostpath provisioner
+        #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
+        #  value: ""
         # Process name used for matching is limited to the 15 characters
         # present in the pgrep output.
         # So fullname can't be used here with pgrep (>15 chars).A regular expression
