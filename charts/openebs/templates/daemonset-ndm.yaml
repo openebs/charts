@@ -53,6 +53,10 @@ spec:
 {{- end}}
 {{- if .Values.featureGates.APIService.enabled }}
           - --feature-gates={{ .Values.featureGates.APIService.featureGateFlag }}
+          - --api-service-address={{ .Values.featureGates.APIService.address }}
+{{- end}}
+{{- if .Values.featureGates.UseOSDisk.enabled }}
+          - --feature-gates={{ .Values.featureGates.UseOSDisk.featureGateFlag }}
 {{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
