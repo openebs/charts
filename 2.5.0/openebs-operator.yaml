@@ -493,7 +493,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.1.0
+        image: openebs/node-disk-manager:1.1.1
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -604,7 +604,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.1.0
+          image: openebs/node-disk-operator:1.1.1
           imagePullPolicy: IfNotPresent
           readinessProbe:
             exec:
