@@ -25,6 +25,8 @@ jiva
 maya
 external-storage
 upgrade
+dynamic-localpv-provisioner
+m-exporter
 #openebs/linux-utils
 #openebs/node-disk-manager
 #openebs/zfs-localpv
