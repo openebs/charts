@@ -1372,7 +1372,7 @@ spec:
               # Enable/Disable auto-remount feature, when volumes
               # recovers form the read-only state
             - name: REMOUNT
-              value: "false"
+              value: "true"
           volumeMounts:
             - name: plugin-dir
               mountPath: /plugin
