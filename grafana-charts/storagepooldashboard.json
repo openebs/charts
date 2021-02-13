@@ -1,48 +1,57 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_OPENEBS_PROMETHEUS",
+      "label": "OpenEBS Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.2.0"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "prometheus",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
-    "list": [
-      {
-        "$$hashKey": "object:277",
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
   "id": 103496,
   "iteration": 1612454983940,
-  "links": [
-    {
-      "icon": "external link",
-      "includeVars": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "cStor volume replica dashboard",
-      "type": "link",
-      "url": "/grafana/d/644d0435-03e1-4da3-b768-7968f526cf68/cstor-volume-replicas-dashboard?submenu"
-    },
-    {
-      "icon": "doc",
-      "includeVars": true,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "report",
-      "tooltip": "",
-      "type": "link",
-      "url": "https://director.mayadata.io/reporter/?dashboard=5d86b1fd-b2e7-4bb2-befa-4dae5b6167d6"
-    }
-  ],
   "panels": [
     {
-      "content": "<html>\n<head>\n\n<script>\nwindow.onload = load('$Pool', '$spc','$cluster','$projectid','$groupid','$kind');\n\nfunction getCell(name, value) {\n  return \"<div class=\\\"outlet-header-meta-bar_item\\\"><div class=\\\"outlet-header-meta-bar_title\\\"><span>\"+name+\"</span></div><div class=\\\"outlet-header-meta-bar_value\\\"><span>\"+value+\"</span></div></div>\";\n}\n\nfunction load(poolNameStr, spcStr,clusterNameStr,projectIdStr,groupIdStr,kindStr) {\nvar poolNameStr = poolNameStr.replace( /[{}]/g, '' );\nvar spcStr = spcStr.replace( /[{}]/g, '' );\nvar clusterNameStr = clusterNameStr.replace( /[{}]/g, '' );\nvar projectIdStr = projectIdStr.replace( /[{}]/g, '' );\nvar groupIdStr = groupIdStr.replace( /[{}]/g, '' );\nvar kindStr = kindStr.replace( /[{}]/g, '' );\n// var pools = poolsStr.replace( /[{}]/g, '' );\n// var rc = replicaCount.replace( /[{}]/g, '' );\n// if(!rc) {\n//   rc = \"none\";\n// }\n// var uptimes = uptime.replace( /[{}]/g, '' );\n// if(uptimes) {\n// var seconds = parseInt(uptimes, 10);\n\n// var days = Math.floor(seconds / (3600*24));\n// seconds  -= days*3600*24;\n// var hrs   = Math.floor(seconds / 3600);\n// seconds  -= hrs*3600;\n// var mnts = Math.floor(seconds / 60);\n// seconds  -= mnts*60;\n// uptimes = days+\" days, \"+hrs+\" Hrs, \"+mnts+\" Mins, \"+seconds+\" Secs\";\n// }\n// else {\n//   uptimes = \"No Data\";\n// }\n\n\n\nz=\"\";\nz+=getCell(\"Pool Name\", poolNameStr);\nz+=getCell(\"Cluster\", clusterNameStr);\n//z+=getCell(\"Name\", volName);\nz+=getCell(kindStr, spcStr.link(\"/grafana/d/storage-pool-claim-dashboard/storage-pool-claim-dashboard?submenu&var-spc=\" + spcStr + \"&var-projectid=\" + projectIdStr + \"&var-groupid=\" + groupIdStr));\n//z+=getCell(\"Pool Name\", pools);\n//z+=getCell(\"No. of Replicas\", rc);\n//z+=getCell(\"\",\"\")\n\ndocument.getElementById(\"volume-info\").innerHTML = z;\n}\n</script>\n</head>\n\n<body>\n\n<div id=\"volume-info\" class=\"outlet-header-bar\"></div>\n\n</body>\n\n</html>",
+      "content": "<html>\n<head>\n\n<script>\nwindow.onload = load('$Pool', '$spc','$kind');\n\nfunction getCell(name, value) {\n  return \"<div class=\\\"outlet-header-meta-bar_item\\\"><div class=\\\"outlet-header-meta-bar_title\\\"><span>\"+name+\"</span></div><div class=\\\"outlet-header-meta-bar_value\\\"><span>\"+value+\"</span></div></div>\";\n}\n\nfunction load(poolNameStr, spcStr,kindStr) {\nvar poolNameStr = poolNameStr.replace( /[{}]/g, '' );\nvar spcStr = spcStr.replace( /[{}]/g, '' );\nvar kindStr = kindStr.replace( /[{}]/g, '' );\n// var pools = poolsStr.replace( /[{}]/g, '' );\n// var rc = replicaCount.replace( /[{}]/g, '' );\n// if(!rc) {\n//   rc = \"none\";\n// }\n// var uptimes = uptime.replace( /[{}]/g, '' );\n// if(uptimes) {\n// var seconds = parseInt(uptimes, 10);\n\n// var days = Math.floor(seconds / (3600*24));\n// seconds  -= days*3600*24;\n// var hrs   = Math.floor(seconds / 3600);\n// seconds  -= hrs*3600;\n// var mnts = Math.floor(seconds / 60);\n// seconds  -= mnts*60;\n// uptimes = days+\" days, \"+hrs+\" Hrs, \"+mnts+\" Mins, \"+seconds+\" Secs\";\n// }\n// else {\n//   uptimes = \"No Data\";\n// }\n\n\n\nz=\"\";\nz+=getCell(\"Pool Name\", poolNameStr);\n//z+=getCell(\"Name\", volName);\nz+=getCell(\"Pool Name\", pools);\n//z+=getCell(\"No. of Replicas\", rc);\n//z+=getCell(\"\",\"\")\n\ndocument.getElementById(\"volume-info\").innerHTML = z;\n}\n</script>\n</head>\n\n<body>\n\n<div id=\"volume-info\" class=\"outlet-header-bar\"></div>\n\n</body>\n\n</html>",
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -655,26 +664,6 @@
         "datasource": "DS_OPENEBS_PROMETHEUS",
         "hide": 2,
         "includeAll": false,
-        "label": "cluster",
-        "multi": false,
-        "name": "cluster",
-        "options": [],
-        "query": "label_values(openebs_pool_status{cstor_pool=~\"$Pool\"},job)",
-        "refresh": 2,
-        "regex": "/cluster_uuid_(.*)_.*/",
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "DS_OPENEBS_PROMETHEUS",
-        "hide": 2,
-        "includeAll": false,
         "label": "spc",
         "multi": false,
         "name": "spc",
@@ -697,42 +686,6 @@
         "label": "pool",
         "multi": false,
         "name": "pool",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "projectid",
-        "multi": false,
-        "name": "projectid",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "groupid",
-        "multi": false,
-        "name": "groupid",
         "options": [
           {
             "selected": false,
