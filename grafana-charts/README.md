@@ -17,7 +17,7 @@
 
 ### Note: For Storage Pool Dashboard and LocalPV Dashboard you will need to provide variables manually in the query params of the dashboard URL.
 
-#### For Storage pool dasboard, the Grafana URL looks like this:  
+#### For Storage pool dashboard, the Grafana URL looks like this:  
 http://localhost:3000/d/5d86b1fd-b2e7-4bb2-befa-4dae5b6167d6/storage-pool-dashboard?var-pool=cstorpool-abhishek-dh27&var-kind=CStorPoolCluster&orgId=1  
 * Name - Storage Pool Dashboard  
 * UID- 5d86b1fd-b2e7-4bb2-befa-4dae5b6167d6  
