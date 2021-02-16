@@ -244,7 +244,9 @@
   "refresh": "1m",
   "schemaVersion": 16,
   "style": "light",
-  "tags": [],
+  "tags": [
+    "OpenEBS"
+  ],
   "templating": {
     "list": [
       {
