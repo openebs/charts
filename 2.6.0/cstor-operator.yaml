@@ -897,6 +897,22 @@ spec:
   podInfoOnMount: true
   attachRequired: false
 ---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: openebs-csi-controller-critical
+value: 900000000
+globalDefault: false
+description: "This priority class should be used for the CStor CSI driver controller deployment only."
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: openebs-csi-node-critical
+value: 900001000
+globalDefault: false
+description: "This priority class should be used for the CStor CSI driver node deployment only."
+---
 
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1055,7 +1071,7 @@ spec:
         openebs.io/component-name: openebs-cstor-csi-controller
         openebs.io/version: 2.6.0
     spec:
-      priorityClassName: system-cluster-critical
+      priorityClassName: openebs-csi-controller-critical
       serviceAccount: openebs-cstor-csi-controller-sa
       containers:
         - name: csi-resizer
@@ -1310,7 +1326,7 @@ spec:
         openebs.io/component-name: openebs-cstor-csi-node
         openebs.io/version: 2.6.0
     spec:
-      priorityClassName: system-node-critical
+      priorityClassName: openebs-csi-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
       hostNetwork: true
       containers:
