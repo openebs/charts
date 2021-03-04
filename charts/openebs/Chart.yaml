@@ -1,7 +1,7 @@
 apiVersion: v1
-version: 2.6.0
+version: 2.7.0-RC1
 name: openebs
-appVersion: 2.6.0
+appVersion: 2.7.0-RC1
 description: Containerized Storage for Containers
 icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
