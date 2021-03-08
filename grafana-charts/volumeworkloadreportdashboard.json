@@ -304,42 +304,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "projectid",
-        "multi": false,
-        "name": "projectid",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "groupid",
-        "multi": false,
-        "name": "groupid",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
       }
     ]
   },
