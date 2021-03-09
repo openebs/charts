@@ -15,15 +15,7 @@
 8. To create openebs dashboard, go to the import and paste the json from this folder.
 9. You should be able to get the graph of openebs volumes in the UI.
 
-### Note: For Storage Pool Dashboard and LocalPV Dashboard you will need to provide variables manually in the query params of the dashboard URL.
-
-#### For Storage pool dashboard, the Grafana URL looks like this:  
-http://localhost:3000/d/5d86b1fd-b2e7-4bb2-befa-4dae5b6167d6/storage-pool-dashboard?var-pool=cstorpool-abhishek-dh27&var-kind=CStorPoolCluster&orgId=1  
-* Name - Storage Pool Dashboard  
-* UID- 5d86b1fd-b2e7-4bb2-befa-4dae5b6167d6  
-* Query Params :-  
-  1. var-pool  
-  2. var-kind  
+### Note: For LocalPV Dashboard you will need to provide variables manually in the query params of the dashboard URL.
 
 #### For LocalPV dashboard, the Grafana URL looks like this:  
 http://localhost:3000/d/2e59785a-af05-465e-b9a3-fca65a0e8572/localpv-dashboard?refresh=1m&var-openebs_volume=kubera-demo-minio-pv-claim&var-pvcname=kubera-demo-minio-pv-claim&var-namespace=default&var-storageclass=openebs-hostpath&var-type=local-hostpath&var-orgId=1&orgId=1  
