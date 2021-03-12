@@ -33,68 +33,68 @@ repeat the process for all dashboard files
 9. You should be able to get the graph of openebs volumes in the UI.
 
 * ### When using default Prometheus setup(or your own setup):   
-It can be done in 2 ways. First way is to follow the 9 steps given below or the second way is the add the custom rules for `openebs-volumes`, `openebs-pools` and `pv-exporter` to let Prometheus scrape metrics from them. For the later way you can refer to the `openebs-volumes`, `openebs-pools` and `pv-exporter` jobs described inside the `openebs-monitoring-pg.yaml`.
+ It can be done in 2 ways. First way is to follow the 9 steps given below or the second way is the add the custom rules for `openebs-volumes`, `openebs-pools` and `pv-exporter` to let Prometheus scrape metrics from them. For the later way you can refer to the `openebs-volumes`, `openebs-pools` and `pv-exporter` jobs described inside the `openebs-monitoring-pg.yaml`.
 
 1. Make sure that the cStor target pods or any other volumes(jiva or localpv) created by OpenEBS storage engines have the following annotations added to them:
-```
-prometheus.io/scrape: 'true'
-prometheus.io/path: '/data/metrics'
-prometheus.io/port: '80'
-```
-If not present add the above annotations to let Prometheus monitor custom kubernetes pods.
+   ```
+   prometheus.io/scrape: 'true'
+   prometheus.io/path: '/data/metrics'
+   prometheus.io/port: '80'
+   ```
+   If not present add the above annotations to let Prometheus monitor custom kubernetes pods.
 
-See the annotations of one of the cstor-pool created:   
-![Screenshot from 2021-03-12 11-36-46](https://user-images.githubusercontent.com/44068648/110899568-57818000-8327-11eb-8ba5-21eaf3c784bb.png)
+   See the annotations of one of the cstor-pool created:   
+   ![Screenshot from 2021-03-12 11-36-46](https://user-images.githubusercontent.com/44068648/110899568-57818000-8327-11eb-8ba5-21eaf3c784bb.png)
 
-By default the VolumeMonitor is set to ON in the cStor and Jira StorageClass. Volume metrics are exported when this parameter is set to ON. Grafana charts can be built for the above Prometheus metrics. Refer: [monitor-jira-volume](https://docs.openebs.io/docs/next/jivaguide.html#monitoring-a-jiva-volume) & [monitor-cstor-volume](https://docs.openebs.io/docs/next/ugcstor.html#monitoring-a-cStor-Volume).   
-Also note that `maya-volume-exporter` runs as sidecar in volume-controller which is invoked automatically while provisioning volume.
+    By default the VolumeMonitor is set to ON in the cStor and Jira StorageClass. Volume metrics are exported when this parameter is set to ON. Grafana charts can     be built for the above Prometheus metrics. Refer: [monitor-jira-volume](https://docs.openebs.io/docs/next/jivaguide.html#monitoring-a-jiva-volume) & [monitor-     cstor-volume](https://docs.openebs.io/docs/next/ugcstor.html#monitoring-a-cStor-Volume).   
+    Also note that `maya-volume-exporter` runs as sidecar in volume-controller which is invoked automatically while provisioning volume.
 
-#### How will the above annotation work?
-Look at the kubernetes-pods job of config-map.yaml you are using to configure prometheus,
-```
-- job_name: 'kubernetes-pods'
-
-        kubernetes_sd_configs:
-        - role: pod
-
-        relabel_configs:
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-          action: keep
-          regex: true
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-          action: replace
-          target_label: __metrics_path__
-          regex: (.+)
-        - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-          action: replace
-          regex: ([^:]+)(?::\d+)?;(\d+)
-          replacement: $1:$2
-          target_label: __address__
-        - action: labelmap
-          regex: __meta_kubernetes_pod_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          action: replace
-          target_label: kubernetes_namespace
-        - source_labels: [__meta_kubernetes_pod_name]
-          action: replace
-          target_label: kubernetes_pod_name
-```
-Check this three relabel configuration
-```
-- source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-    action: keep
-    regex: true
-- source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-    action: replace
-    target_label: __metrics_path__
-    regex: (.+)
-- source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
-    action: replace
-    regex: ([^:]+)(?::\d+)?;(\d+)
-    replacement: $1:$2
-    target_label: __address__
-```
-Here, `__metrics_path__` and `port` and whether to scrap metrics from this pod are being read from pod annotations.
+    #### How will the above annotation work?
+    Look at the kubernetes-pods job of config-map.yaml you are using to configure prometheus,
+    ```
+    - job_name: 'kubernetes-pods'
+ 
+            kubernetes_sd_configs:
+            - role: pod
+ 
+            relabel_configs:
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+              action: keep
+              regex: true
+            - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+              action: replace
+              target_label: __metrics_path__
+              regex: (.+)
+            - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+              action: replace
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+              target_label: __address__
+             - action: labelmap
+               regex: __meta_kubernetes_pod_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              action: replace
+              target_label: kubernetes_namespace
+            - source_labels: [__meta_kubernetes_pod_name]
+              action: replace
+              target_label: kubernetes_pod_name
+    ```
+    Check this three relabel configuration
+    ```
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+    - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+    ```
+    Here, `__metrics_path__` and `port` and whether to scrap metrics from this pod are being read from pod annotations.
 
 2. Run `kubectl get nodes -o wide` to get the node’s IP.
 3. Run `kubectl get svc -n <namespace>` and note down the port allocated to Prometheus and Grafana services. Here `<namespace>` must be replaced with the namespace in which the Prometheus and Grafana services are running. If the services are not already created then create a new NodePort service for both of them.
@@ -102,14 +102,14 @@ Here, `__metrics_path__` and `port` and whether to scrap metrics from this pod a
 5. Login into it(default username and password is admin), add data source name as DS_OPENEBS_PROMETHEUS, select datasource type Prometheus and pass the `<nodeip:nodeport>`of Prometheus in the url field and click on run and test.
 6. Now go to the next tab (Dashboard) and import the desired dashboard.You should be able to get preloaded dashboard of prometheus.
 7. For the dashboards, some changes need to be made in their respective json files. Replace the query in the dashboard's template section in the following way:   
-replace `storage_pool_claim` with `openebs_io_cstor_pool_cluster` or `openebs_io_storage_pool_claim` depending on the OpenEBS version   
-replace `cstor_pool` with `openebs_io_cstor_pool_instance` or `openebs_io_cstor_pool` depending on the OpenEBS version   
-replace `openebs_pv` with `openebs_io_persistent_volume`   
-replace `openebs_pvc` with `openebs_io_persistent_volume_claim`   
+   - replace `storage_pool_claim` with `openebs_io_cstor_pool_cluster` or `openebs_io_storage_pool_claim` depending on the OpenEBS version   
+   - replace `cstor_pool` with `openebs_io_cstor_pool_instance` or `openebs_io_cstor_pool` depending on the OpenEBS version   
+   - replace `openebs_pv` with `openebs_io_persistent_volume`   
+   - replace `openebs_pvc` with `openebs_io_persistent_volume_claim`   
 
-For localpv dashboard:   
-replace `openebs_pv` with `persistentvolume`   
-replace `openebs_pvc` with `persistentvolumeclaim`  
+   For localpv dashboard:   
+    - replace `openebs_pv` with `persistentvolume`   
+    - replace `openebs_pvc` with `persistentvolumeclaim`  
 
 8. To create openebs dashboard, go to the import and paste the json from this folder.
 9. You should be able to get the graph of openebs volumes in the UI.
