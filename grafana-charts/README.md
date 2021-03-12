@@ -5,18 +5,34 @@
 * OpenEBS Volumes created(up and running)
 
 ### Steps 
-* When applying the configs using [openebs-monitoring-pg.yaml](https://raw.githubusercontent.com/Ab-hishek/openebs-monitoring/master/openebs-monitoring-pg.yaml):
-1. Run kubectl apply -f [openebs-monitoring-pg.yaml](https://raw.githubusercontent.com/Ab-hishek/openebs-monitoring/master/openebs-monitoring-pg.yaml)
+* ### When applying the configs using [openebs-monitoring-pg.yaml](https://raw.githubusercontent.com/Ab-hishek/openebs-monitoring/master/openebs-monitoring-pg.yaml):
+1. Run kubectl apply -f [openebs-monitoring-pg.yaml](https://raw.githubusercontent.com/Ab-hishek/openebs-monitoring/master/openebs-monitoring-pg.yaml).It will be deployed in the namespace: `openebs`(hardcoded in the yaml file).   
+PS: You need to be sure that OpenEBS was installed in openebs namespace.
 2. Run `kubectl get pods -n openebs -o wide` to verify and to get where Prometheus and Grafana instances are running.
+![Screenshot from 2021-03-12 10-28-57](https://user-images.githubusercontent.com/44068648/110894400-d96cab80-831d-11eb-9208-9b56cf16ad92.png)
 3. Run `kubectl get nodes -o wide` to get the node’s IP.
+![Screenshot from 2021-03-12 10-10-00](https://user-images.githubusercontent.com/44068648/110894128-4f244780-831d-11eb-85b7-e7d193864153.png)
+Look at the Internal-IP of the nodes in the above image
 4. Run `kubectl get svc -n openebs` and note down the port allocated to Prometheus and Grafana services.
+![Screenshot from 2021-03-12 10-12-06](https://user-images.githubusercontent.com/44068648/110894207-77ac4180-831d-11eb-9875-a4f7ea9e484c.png)
 5. Open your browser and open `<nodeip:nodeport>`(32514 for Prometheus and 32515 for Grafana) and you should be able to see the Prometheus’s expression browser and Grafana’s UI on your browser.
-6. Login into it(default username and password is admin), add data source name as DS_OPENEBS_PROMETHEUS, select datasource type Prometheus and pass the `<nodeip:nodeport>`of Prometheus in the url field and click on run and test.
-7. Now go to the next tab (Dashboard) and import the desired dashboard.You should be able to get preloaded dashboard of prometheus.
-8. To create openebs dashboard, go to the import and paste the json from this folder.
+6. Login into Grafana(default username and password is admin), add data source name as DS_OPENEBS_PROMETHEUS, select datasource type Prometheus and pass the `<nodeip:nodeport>`of Prometheus in the url field and click on run and test.
+![grafana_login](https://user-images.githubusercontent.com/44068648/110895474-d96dab00-831f-11eb-962f-8c218a4983b5.png)
+![grafana_add_datasource](https://user-images.githubusercontent.com/44068648/110895551-fc985a80-831f-11eb-8225-9001ede94e26.png)
+![grafana_add_datasource_1](https://user-images.githubusercontent.com/44068648/110895604-15087500-8320-11eb-812d-12502e0bec4f.png)
+7. Now go to the next tab (Dashboard) and import the desired dashboard.You should be able to get preloaded dashboard of prometheus.   
+![grafana_dashboard](https://user-images.githubusercontent.com/44068648/110895704-3701f780-8320-11eb-8c73-85d66c707bf0.png)
+8. To create openebs dashboard, go to the import and paste the json from this folder.      
+click on +, import   
+![grafana_import](https://user-images.githubusercontent.com/44068648/110895788-539e2f80-8320-11eb-939a-ab08abc9a84c.png)   
+To import OpenEBS dashboards, you will have to import them separately. You can upload the json files one by one, or open a json file and copy paste the content.   
+![grafana_dashboard_import_1](https://user-images.githubusercontent.com/44068648/110898237-de812900-8324-11eb-89b1-bba2233e1cae.png)   
+select the datasource click import   
+![grafana_add_datasource_2](https://user-images.githubusercontent.com/44068648/110898282-f193f900-8324-11eb-802c-d33b0ae6c35e.png)   
+repeat the process for all dashboard files 
 9. You should be able to get the graph of openebs volumes in the UI.
 
-* When using default Prometheus setup(or your own setup):
+* ### When using default Prometheus setup(or your own setup):   
 It can be done in 2 ways. First way is to follow the 9 steps given below or the second way is the add the custom rules for `openebs-volumes`, `openebs-pools` and `pv-exporter` to let Prometheus scrape metrics from them. For the later way you can refer to the `openebs-volumes`, `openebs-pools` and `pv-exporter` jobs described inside the `openebs-monitoring-pg.yaml`.
 
 1. Make sure that the cStor target pods or any other volumes(jiva or localpv) created by OpenEBS storage engines have the following annotations added to them:
@@ -26,6 +42,9 @@ prometheus.io/path: '/data/metrics'
 prometheus.io/port: '80'
 ```
 If not present add the above annotations to let Prometheus monitor custom kubernetes pods.
+
+See the annotations of one of the cstor-pool created:   
+![Screenshot from 2021-03-12 11-36-46](https://user-images.githubusercontent.com/44068648/110899568-57818000-8327-11eb-8ba5-21eaf3c784bb.png)
 
 By default the VolumeMonitor is set to ON in the cStor and Jira StorageClass. Volume metrics are exported when this parameter is set to ON. Grafana charts can be built for the above Prometheus metrics. Refer: [monitor-jira-volume](https://docs.openebs.io/docs/next/jivaguide.html#monitoring-a-jiva-volume) & [monitor-cstor-volume](https://docs.openebs.io/docs/next/ugcstor.html#monitoring-a-cStor-Volume).   
 Also note that `maya-volume-exporter` runs as sidecar in volume-controller which is invoked automatically while provisioning volume.
@@ -78,7 +97,7 @@ Check this three relabel configuration
 Here, `__metrics_path__` and `port` and whether to scrap metrics from this pod are being read from pod annotations.
 
 2. Run `kubectl get nodes -o wide` to get the node’s IP.
-3. Run `kubectl get svc -n <namespace>` and note down the port allocated to Prometheus and Grafana services. Here `<namespace>` must be replaced with the namespace in which the Prometheus and Grafana services are running. If the services are not already created then create a new NodePOrt service for both of them.
+3. Run `kubectl get svc -n <namespace>` and note down the port allocated to Prometheus and Grafana services. Here `<namespace>` must be replaced with the namespace in which the Prometheus and Grafana services are running. If the services are not already created then create a new NodePort service for both of them.
 4. Open your browser and open `<nodeip:nodeport>`(for Prometheus and Grafana) and you should be able to see the Prometheus’s expression browser and Grafana’s UI on your browser.
 5. Login into it(default username and password is admin), add data source name as DS_OPENEBS_PROMETHEUS, select datasource type Prometheus and pass the `<nodeip:nodeport>`of Prometheus in the url field and click on run and test.
 6. Now go to the next tab (Dashboard) and import the desired dashboard.You should be able to get preloaded dashboard of prometheus.
