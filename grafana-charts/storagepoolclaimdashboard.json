@@ -49,19 +49,6 @@
   "graphTooltip": 0,
   "id": null,
   "iteration": 1542963642391,
-  "links": [
-    {
-      "icon": "doc",
-      "includeVars": true,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "report",
-      "tooltip": "",
-      "type": "link",
-      "url": "${MAYA_URL}/reporter/?dashboard=23c14553-6c62-41b6-9eb3-c0e75531e617"
-    }
-  ],
   "panels": [
     {
       "aliasColors": {},
