@@ -51,7 +51,7 @@
   "iteration": 1612454983940,
   "panels": [
     {
-      "content": "<html>\n<head>\n\n<script>\nwindow.onload = load('$Pool', '$spc','$kind');\n\nfunction getCell(name, value) {\n  return \"<div class=\\\"outlet-header-meta-bar_item\\\"><div class=\\\"outlet-header-meta-bar_title\\\"><span>\"+name+\"</span></div><div class=\\\"outlet-header-meta-bar_value\\\"><span>\"+value+\"</span></div></div>\";\n}\n\nfunction load(poolNameStr, spcStr,kindStr) {\nvar poolNameStr = poolNameStr.replace( /[{}]/g, '' );\nvar spcStr = spcStr.replace( /[{}]/g, '' );\nvar kindStr = kindStr.replace( /[{}]/g, '' );\n// var pools = poolsStr.replace( /[{}]/g, '' );\n// var rc = replicaCount.replace( /[{}]/g, '' );\n// if(!rc) {\n//   rc = \"none\";\n// }\n// var uptimes = uptime.replace( /[{}]/g, '' );\n// if(uptimes) {\n// var seconds = parseInt(uptimes, 10);\n\n// var days = Math.floor(seconds / (3600*24));\n// seconds  -= days*3600*24;\n// var hrs   = Math.floor(seconds / 3600);\n// seconds  -= hrs*3600;\n// var mnts = Math.floor(seconds / 60);\n// seconds  -= mnts*60;\n// uptimes = days+\" days, \"+hrs+\" Hrs, \"+mnts+\" Mins, \"+seconds+\" Secs\";\n// }\n// else {\n//   uptimes = \"No Data\";\n// }\n\n\n\nz=\"\";\nz+=getCell(\"Pool Name\", poolNameStr);\n//z+=getCell(\"Name\", volName);\nz+=getCell(\"Pool Name\", pools);\n//z+=getCell(\"No. of Replicas\", rc);\n//z+=getCell(\"\",\"\")\n\ndocument.getElementById(\"volume-info\").innerHTML = z;\n}\n</script>\n</head>\n\n<body>\n\n<div id=\"volume-info\" class=\"outlet-header-bar\"></div>\n\n</body>\n\n</html>",
+      "content": "<html>\n<head>\n\n<script>\nwindow.onload = load('$Pool', '$spc');\n\nfunction getCell(name, value) {\n  return \"<div class=\\\"outlet-header-meta-bar_item\\\"><div class=\\\"outlet-header-meta-bar_title\\\"><span>\"+name+\"</span></div><div class=\\\"outlet-header-meta-bar_value\\\"><span>\"+value+\"</span></div></div>\";\n}\n\nfunction load(poolNameStr, spcStr) {\nvar poolNameStr = poolNameStr.replace( /[{}]/g, '' );\nvar spcStr = spcStr.replace( /[{}]/g, '' );\n// var pools = poolsStr.replace( /[{}]/g, '' );\n// var rc = replicaCount.replace( /[{}]/g, '' );\n// if(!rc) {\n//   rc = \"none\";\n// }\n// var uptimes = uptime.replace( /[{}]/g, '' );\n// if(uptimes) {\n// var seconds = parseInt(uptimes, 10);\n\n// var days = Math.floor(seconds / (3600*24));\n// seconds  -= days*3600*24;\n// var hrs   = Math.floor(seconds / 3600);\n// seconds  -= hrs*3600;\n// var mnts = Math.floor(seconds / 60);\n// seconds  -= mnts*60;\n// uptimes = days+\" days, \"+hrs+\" Hrs, \"+mnts+\" Mins, \"+seconds+\" Secs\";\n// }\n// else {\n//   uptimes = \"No Data\";\n// }\n\n\n\nz=\"\";\nz+=getCell(\"Pool Name\", poolNameStr);\n//z+=getCell(\"Name\", volName);\nz+=getCell(\"Pool Name\", pools);\n//z+=getCell(\"No. of Replicas\", rc);\n//z+=getCell(\"\",\"\")\n\ndocument.getElementById(\"volume-info\").innerHTML = z;\n}\n</script>\n</head>\n\n<body>\n\n<div id=\"volume-info\" class=\"outlet-header-bar\"></div>\n\n</body>\n\n</html>",
       "gridPos": {
         "h": 3,
         "w": 24,
@@ -105,7 +105,7 @@
           "expr": "openebs_pool_status{cstor_pool=~\"$Pool\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "status",
+          "legendFormat": "{{cstor_pool}}",
           "refId": "A"
         }
       ],
@@ -311,7 +311,7 @@
           "expr": "(openebs_used_pool_capacity{cstor_pool=~\"$Pool\"})/(1024*1024*1024)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "usage",
+          "legendFormat": "{{cstor_pool}}",
           "refId": "A"
         }
       ],
@@ -399,7 +399,7 @@
           "expr": "(openebs_free_pool_capacity{cstor_pool=~\"$Pool\"})/(1024*1024*1024)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "free size",
+          "legendFormat": "{{cstor_pool}}",
           "refId": "A"
         }
       ],
@@ -644,13 +644,13 @@
         "allValue": null,
         "current": {},
         "datasource": "DS_OPENEBS_PROMETHEUS",
-        "hide": 2,
+        "hide": 0,
         "includeAll": false,
         "label": "Pool",
         "multi": false,
         "name": "Pool",
         "options": [],
-        "query": "label_values(openebs_pool_status{cstor_pool=~\"$pool\"},cstor_pool)",
+        "query": "label_values(openebs_pool_status, cstor_pool)",
         "refresh": 2,
         "regex": "",
         "sort": 0,
@@ -679,42 +679,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "pool",
-        "multi": false,
-        "name": "pool",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "hide": 2,
-        "includeAll": false,
-        "label": "kind",
-        "multi": false,
-        "name": "kind",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "type": "custom"
       }
     ]
   },

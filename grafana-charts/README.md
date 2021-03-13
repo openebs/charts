@@ -248,7 +248,6 @@ spec:
       hostNetwork: true
       hostPID: true
 ```
-
 ### Note: For LocalPV Dashboard you will need to provide variables manually in the query params of the dashboard URL.
 
 #### For LocalPV dashboard, the Grafana URL looks like this:  
