@@ -867,7 +867,9 @@
   "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "OpenEBS"
+  ],
   "templating": {
     "list": [
       {
