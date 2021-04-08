@@ -149,6 +149,7 @@ ndm:
     count: "0"
   filters:
     enableOsDiskExcludeFilter: true
+    osDiskExcludePaths: "/,/etc/hosts,/boot"
     enableVendorFilter: true
     excludeVendors: "CLOUDBYT,OpenEBS"
     enablePathFilter: true
