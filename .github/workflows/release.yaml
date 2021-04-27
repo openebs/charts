@@ -11,9 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Fetch history
-        run: git fetch --prune --unshallow
+        with:
+          fetch-depth: 0
 
       - name: Configure Git
         run: |
@@ -25,13 +24,7 @@ jobs:
         with:
           version: v3.4.0
 
-      - name: Add dependency chart repos
-        run: |
-          helm repo add stable https://charts.helm.sh/stable
-          helm repo add incubator https://charts.helm.sh/incubator
-          helm repo add openebs https://openebs.github.io/charts
-
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.0.0
+        uses: helm/chart-releaser-action@v1.2.0
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
