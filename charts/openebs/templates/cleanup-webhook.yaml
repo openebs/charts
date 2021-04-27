@@ -1,3 +1,9 @@
+# HELM first deletes RBAC, then it tries to delete other resources like SPC and PVC. 
+# We've got validating webhook on SPC and PVC.
+# But even that the policy of this webhook is Ignore, it fails because the ServiceAccount 
+# does not have permission to access resources like BDC anymore which are used for validation.
+# Therefore we first need to delete webhook so we can delete the rest of the deployments.
+{{- $kubeMinor := .Capabilities.KubeVersion.Minor | replace "+" "" }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -22,8 +28,9 @@ spec:
       {{- end }}
       containers:
         - name: kubectl
-          image: "{{ .Values.hyperkubeImage.repository }}:{{ .Values.hyperkubeImage.tag }}"
-          imagePullPolicy: "{{ .Values.hyperkubeImage.pullPolicy }}"
+          {{- /* bitnami maintains an image for all k8s versions */}}
+          {{- /* see: https://hub.docker.com/r/bitnami/kubectl */}}
+          image: {{ printf "%s/%s:%s.%s" "bitnami" "kubectl" .Capabilities.KubeVersion.Major $kubeMinor }}
           command:
           - /bin/sh
           - -c
