@@ -1,6 +1,16 @@
-name: Lint and Test Charts
+name: Chart Lint and Test
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'charts/openebs/**'
+    branches:
+      - master
+  pull_request:
+    paths:
+      - 'charts/openebs/**'
+    branches:
+      - master
 
 jobs:
   lint-test:
@@ -8,26 +18,43 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Fetch history
-        run: git fetch --prune --unshallow
-
-      - name: Run chart-testing (lint)
-        id: lint
-        uses: helm/chart-testing-action@v1.0.0-rc.2
         with:
-          command: lint
-          config: ct.yaml
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --config ct.yaml)
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+      - name: Run chart-testing (lint)
+        run: ct lint --config ct.yaml
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.0.0-rc.1
-        with:
-          installLocalPathProvisioner: true
-        # Only build a kind cluster if there are chart changes to test.
-        if: steps.lint.outputs.changed == 'true'
+        uses: helm/kind-action@v1.0.0
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add openebs-ndm https://openebs.github.io/node-disk-manager
+          helm repo add openebs-localpv https://openebs.github.io/dynamic-localpv-provisioner
+          helm repo add openebs-jiva https://openebs.github.io/jiva-operator
+          helm repo add openebs-cstor https://openebs.github.io/cstor-operators
+          helm repo add openebs-zfslocalpv https://openebs.github.io/zfs-localpv
+          helm repo update
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.0.0-rc.2
-        with:
-          command: install
-          config: ct.yaml
+        run: ct install --config ct.yaml
