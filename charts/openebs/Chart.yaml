@@ -1,5 +1,5 @@
 apiVersion: v1
-version: 2.9.0-RC1
+version: 2.9.0-RC2
 name: openebs
 appVersion: 2.9.0
 description: Containerized Storage for Containers
