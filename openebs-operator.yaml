@@ -1,6 +1,6 @@
 #
 #                             DEPRECATION NOTICE
-#    This operator file is deprecated in 2.9.0 in favour of individual operators
+#    This operator file will be deprecated in 3.0.0 in favour of individual operators
 #       for each storage engine and the file will be removed in version 3.0.0
 #
 #
@@ -1253,4 +1253,3 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 60
 ---
-
