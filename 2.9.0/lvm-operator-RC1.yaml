@@ -1112,7 +1112,7 @@ metadata:
   namespace: kube-system
   labels:
     openebs.io/component-name: openebs-lvm-controller
-    openebs.io/version: 0.5.0
+    openebs.io/version: 0.5.0-RC1
 spec:
   selector:
     matchLabels:
@@ -1126,7 +1126,7 @@ spec:
         app: openebs-lvm-controller
         role: openebs-lvm
         openebs.io/component-name: openebs-lvm-controller
-        openebs.io/version: 0.5.0
+        openebs.io/version: 0.5.0-RC1
     spec:
       affinity:
         podAntiAffinity:
@@ -1189,7 +1189,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: openebs-lvm-plugin
-          image: openebs/lvm-driver:0.5.0
+          image: openebs/lvm-driver:0.5.0-RC1
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -1322,7 +1322,7 @@ metadata:
   namespace: kube-system
   labels:
     openebs.io/component-name: openebs-lvm-node
-    openebs.io/version: 0.5.0
+    openebs.io/version: 0.5.0-RC1
 spec:
   selector:
     matchLabels:
@@ -1337,7 +1337,7 @@ spec:
         app: openebs-lvm-node
         role: openebs-lvm
         openebs.io/component-name: openebs-lvm-node
-        openebs.io/version: 0.5.0
+        openebs.io/version: 0.5.0-RC1
     spec:
       priorityClassName: system-node-critical
       serviceAccount: openebs-lvm-node-sa
@@ -1374,7 +1374,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: openebs/lvm-driver:0.5.0
+          image: openebs/lvm-driver:0.5.0-RC1
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"
