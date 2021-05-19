@@ -303,50 +303,38 @@ jiva:
     openebsNDM:
       enabled: false
 
-# Sample configuration if you want to configure jiva csi driver with custom values.
-# This is a small part of the full configuration. Full configuration available
-# here - https://openebs.github.io/jiva-operator
-# To write configuration remove `Comment: >` or put a `#` before this like - `#Comment: >`
-Comment: >
-  imagePullSecrets: []
-  # - name: "image-pull-secret"
+  # Sample configuration if you want to configure jiva csi driver with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/jiva-operator
 
-  rbac:
-    create: true
-    pspEnabled: false
-
-  jivaOperator:
-    componentName: "jiva-operator"
-    controller:
-      image:
-        registry:
-        repository: openebs/jiva
-        tag: 2.9.0
-    replica:
-      image:
-        registry:
-        repository: openebs/jiva
-        tag: 2.9.0
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/jiva-operator
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-
-  jivaCSIPlugin:
-    name: jiva-csi-plugin
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/jiva-csi
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-    remount: "true"
+#  rbac:
+#    create: true
+#    pspEnabled: false
+#
+#  jivaOperator:
+#    controller:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/jiva
+#        tag: 2.9.0
+#    replica:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/jiva
+#        tag: 2.9.0
+#    image:
+#      registry: quay.io/
+#      repository: openebs/jiva-operator
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
+#
+#  jivaCSIPlugin:
+#    remount: "true"
+#    image:
+#      registry: quay.io/
+#      repository: openebs/jiva-csi
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
 
 cstor:
 
@@ -382,169 +370,139 @@ cstor:
   openebsNDM:
     enabled: false
 
-# Sample configuration if you want to configure cstor csi driver with custom values.
-# This is a small part of the full configuration. Full configuration available
-# here - https://openebs.github.io/cstor-operators
-# To write configuration remove `Comment: >` or put a `#` before this like - `#Comment: >`
-Comment: >
-  imagePullSecrets: []
-  # - name: "image-pull-secret"
+  # Sample configuration if you want to configure cstor csi driver with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/cstor-operators
 
-  rbac:
-    create: true
-    pspEnabled: false
-
-  cspcOperator:
-    componentName: cspc-operator
-    poolManager:
-      image:
-        registry: quay.io/
-        repository: openebs/cstor-pool-manager
-        tag: 2.9.0
-    cstorPool:
-      image:
-        registry: quay.io/
-        repository: openebs/cstor-pool
-        tag: 2.9.0
-    cstorPoolExporter:
-      image:
-        registry: quay.io/
-        repository: openebs/m-exporter
-        tag: 2.9.0
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/cspc-operator
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-
-  cvcOperator:
-    componentName: cvc-operator
-    target:
-      image:
-        registry: quay.io/
-        repository: openebs/cstor-istgt
-        tag: 2.9.0
-    volumeMgmt:
-      image:
-        registry: quay.io/
-        repository: openebs/cstor-volume-manager
-        tag: 2.9.0
-    volumeExporter:
-      image:
-        registry: quay.io/
-        repository: openebs/m-exporter
-        tag: 2.9.0
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/cvc-operator
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-
-  cstorCSIPlugin:
-    name: cstor-csi-plugin
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/cstor-csi-driver
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-    remount: "true"
-
-  admissionServer:
-    componentName: cstor-admission-webhook
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/cstor-webhook
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
+#  imagePullSecrets: []
+#
+#  rbac:
+#    create: true
+#    pspEnabled: false
+#
+#  cspcOperator:
+#    poolManager:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/cstor-pool-manager
+#        tag: 2.9.0
+#    cstorPool:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/cstor-pool
+#        tag: 2.9.0
+#    cstorPoolExporter:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/m-exporter
+#        tag: 2.9.0
+#    image:
+#      registry: quay.io/
+#      repository: openebs/cspc-operator
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
+#
+#  cvcOperator:
+#    target:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/cstor-istgt
+#        tag: 2.9.0
+#    volumeMgmt:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/cstor-volume-manager
+#        tag: 2.9.0
+#    volumeExporter:
+#      image:
+#        registry: quay.io/
+#        repository: openebs/m-exporter
+#        tag: 2.9.0
+#    image:
+#      registry: quay.io/
+#      repository: openebs/cvc-operator
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
+#
+#  cstorCSIPlugin:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/cstor-csi-driver
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
+#
+#  admissionServer:
+#    componentName: cstor-admission-webhook
+#    image:
+#      registry: quay.io/
+#      repository: openebs/cstor-webhook
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
 
 # ndm configuration goes here
 # https://openebs.github.io/node-disk-manager
 openebs-ndm:
   enabled: false
 
-# Sample configuration if you want to configure openebs ndm with custom values.
-# This is a small part of the full configuration. Full configuration available
-# here - https://openebs.github.io/node-disk-manager
-# To write configuration remove `Comment: >` or put a `#` before this like - `#Comment: >`
-Comment: >
-  imagePullSecrets: []
-  #  - name: "image-pull-secret"
+  # Sample configuration if you want to configure openebs ndm with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/node-disk-manager
 
-  ndm:
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/node-disk-manager
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 1.4.1
-    sparse:
-      path: "/var/openebs/sparse"
-      size: "10737418240"
-      count: "0"
-    updateStrategy:
-      type: RollingUpdate
-    filters:
-      enableOsDiskExcludeFilter: true
-      osDiskExcludePaths: "/,/etc/hosts,/boot"
-      enableVendorFilter: true
-      excludeVendors: "CLOUDBYT,OpenEBS"
-      enablePathFilter: true
-      includePaths: ""
-      excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
-    probes:
-      enableSeachest: false
-      enableUdevProbe: true
-      enableSmartProbe: true
-
-  ndmOperator:
-    image:
-      registry: quay.io/
-      repository: openebs/node-disk-operator
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 1.4.1
-
-  helperPod:
-    image:
-      registry: quay.io/
-      repository: openebs/linux-utils
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
-
-  featureGates:
-    enabled: true
-    GPTBasedUUID:
-      enabled: true
-      featureGateFlag: "GPTBasedUUID"
-    APIService:
-      enabled: true
-      featureGateFlag: "APIService"
-      address: "0.0.0.0:9115"
-    UseOSDisk:
-      enabled: false
-      featureGateFlag: "UseOSDisk"
-
-  # Directory used by the OpenEBS to store debug information and so forth
-  # that are generated in the course of running OpenEBS containers.
-  varDirectoryPath:
-    baseDir: "/var/openebs"
-
+#  imagePullSecrets: []
 #
+#  ndm:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/node-disk-manager
+#      pullPolicy: IfNotPresent
+#      tag: 1.4.1
+#    sparse:
+#      path: "/var/openebs/sparse"
+#      size: "10737418240"
+#      count: "0"
+#    filters:
+#      enableOsDiskExcludeFilter: true
+#      osDiskExcludePaths: "/,/etc/hosts,/boot"
+#      enableVendorFilter: true
+#      excludeVendors: "CLOUDBYT,OpenEBS"
+#      enablePathFilter: true
+#      includePaths: ""
+#      excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
+#    probes:
+#      enableSeachest: false
+#      enableUdevProbe: true
+#      enableSmartProbe: true
+#
+#  ndmOperator:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/node-disk-operator
+#      pullPolicy: IfNotPresent
+#      tag: 1.4.1
+#
+#  helperPod:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/linux-utils
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
+#
+#  featureGates:
+#    enabled: true
+#    GPTBasedUUID:
+#      enabled: true
+#      featureGateFlag: "GPTBasedUUID"
+#    APIService:
+#      enabled: true
+#      featureGateFlag: "APIService"
+#      address: "0.0.0.0:9115"
+#    UseOSDisk:
+#      enabled: false
+#      featureGateFlag: "UseOSDisk"
+#
+#  varDirectoryPath:
+#    baseDir: "/var/openebs"
+
   # local pv provisioner configuration goes here
   # do not enable or configure any sub dependency here
   # ref - https://openebs.github.io/dynamic-localpv-provisioner
@@ -563,69 +521,53 @@ localpv-provisioner:
   openebsNDM:
     enabled: false
 
-# Sample configuration if you want to configure openebs locapv with custom values.
-# This is a small part of the full configuration. Full configuration available
-# here - https://openebs.github.io/dynamic-localpv-provisioner
-# To write configuration remove `Comment: >` or put a `#` before this like - `#Comment: >`
-Comment: >
-  imagePullSecrets: []
-  #  - name: img-pull-secret
+  # Sample configuration if you want to configure openebs locapv with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/dynamic-localpv-provisioner
 
-  rbac:
-    create: true
-    pspEnabled: false
-
-  localpv:
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : quay.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/provisioner-localpv
-      tag: 2.9.0
-      pullPolicy: IfNotPresent
-    updateStrategy:
-      type: RollingUpdate
-    # If set to false, containers created by the localpv provisioner will run without extra privileges.
-    privileged: true
-    healthCheck:
-      initialDelaySeconds: 30
-      periodSeconds: 60
-    replicas: 1
-    enableLeaderElection: true
-    basePath: "/var/openebs/local"
-
-  helperPod:
-    image:
-      registry: quay.io/
-      repository: openebs/linux-utils
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 2.9.0
+#  imagePullSecrets: []
+#
+#  rbac:
+#    create: true
+#    pspEnabled: false
+#
+#  localpv:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/provisioner-localpv
+#      tag: 2.9.0
+#      pullPolicy: IfNotPresent
+#    healthCheck:
+#      initialDelaySeconds: 30
+#      periodSeconds: 60
+#    replicas: 1
+#    enableLeaderElection: true
+#    basePath: "/var/openebs/local"
+#
+#  helperPod:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/linux-utils
+#      pullPolicy: IfNotPresent
+#      tag: 2.9.0
 
 # zfs local pv configuration goes here
 # ref - https://openebs.github.io/zfs-localpv
 zfs-localpv:
   enabled: false
 
-# Sample configuration if you want to configure zfs locapv with custom values.
-# This is a small part of the full configuration. Full configuration available
-# here - https://openebs.github.io/zfs-localpv
-# To write configuration remove `Comment: >` or put a `#` before this like - `#Comment: >`
-Comment: >
-  imagePullSecrets: []
-  # - name: "image-pull-secret"
+  # Sample configuration if you want to configure zfs locapv with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/zfs-localpv
 
-  rbac:
-    pspEnabled: false
-
-  # zfsPlugin is the common csi container used by the
-  # controller statefulset and node daemonset
-  zfsPlugin:
-    image:
-      # Make sure that registry name end with a '/'.
-      # For example : k8s.gcr.io/ is a correct value here and quay.io is incorrect
-      registry: quay.io/
-      repository: openebs/zfs-driver
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: 1.7.0
+#  imagePullSecrets: []
+#
+#  rbac:
+#    pspEnabled: false
+#
+#  zfsPlugin:
+#    image:
+#      registry: quay.io/
+#      repository: openebs/zfs-driver
+#      pullPolicy: IfNotPresent
+#      tag: 1.7.0
