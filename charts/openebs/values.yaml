@@ -269,6 +269,7 @@ analytics:
   # Specify in hours the duration after which a ping event needs to be sent.
   pingInterval: "24h"
 
+<<<<<<< HEAD
 jiva:
 
   # non csi configuration
@@ -571,3 +572,11 @@ zfs-localpv:
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
 #      tag: 1.7.0
+=======
+cleanup:
+  image:
+    # Make sure that registry name end with a '/'.
+    # For example : quay.io/ is a correct value here and quay.io is incorrect
+    registry:
+    repository: bitnami/kubectl
+>>>>>>> refact(charts): make cleanup pre hook image configurable
