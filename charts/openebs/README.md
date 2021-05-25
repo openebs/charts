@@ -136,7 +136,8 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
 | `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
 | `cleanup.image.registry`                | Cleanup pre hook image registry               | `nil`                                     |
-| `cleanup.image.repository`              | Cleanup pre hook image repository             | `"bitnami/kubectl"`                                      |
+| `cleanup.image.repository`              | Cleanup pre hook image repository             | `"bitnami/kubectl"`                       |
+| `cleanup.image.tag`                     | Cleanup pre hook image tag             | `if not provided determined by the k8s version`                       |
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,

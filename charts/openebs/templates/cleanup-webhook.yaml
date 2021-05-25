@@ -30,7 +30,11 @@ spec:
         - name: kubectl
           {{- /* bitnami maintains an image for all k8s versions */}}
           {{- /* see: https://hub.docker.com/r/bitnami/kubectl */}}
+          {{- if .Values.cleanup.image.tag }}
+          image: "{{ .Values.cleanup.image.registry }}{{ .Values.cleanup.image.repository }}:{{ .Values.cleanup.image.tag }}"
+          {{- else }}
           image: "{{ .Values.cleanup.image.registry }}{{ .Values.cleanup.image.repository }}:{{ .Capabilities.KubeVersion.Major }}.{{ $kubeMinor }}"
+          {{- end }}
           command:
           - /bin/sh
           - -c
