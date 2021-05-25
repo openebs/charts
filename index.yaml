@@ -1,6 +1,50 @@
 apiVersion: v1
 entries:
   openebs:
+  - apiVersion: v2
+    appVersion: 2.9.0
+    created: "2021-05-25T16:41:40.750966848Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 1.4.1
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 2.9.0
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 2.9.0
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 2.9.0
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 1.7.0
+    description: Containerized Storage for Containers
+    digest: 556eeb5f755af2a58b9541464529c51f4007846966aa42ba839c60f725da3b89
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: kiran.mova@openebs.io
+      name: kmova
+    - email: prateek.pandey@openebs.io
+      name: prateekpandey14
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.9.1/openebs-2.9.1.tgz
+    version: 2.9.1
   - apiVersion: v1
     appVersion: 2.9.0
     created: "2021-05-15T14:06:46.3765271Z"
@@ -576,4 +620,4 @@ entries:
     urls:
     - https://github.com/openebs/charts/releases/download/openebs-1.10.2/openebs-1.10.2.tgz
     version: 1.10.2
-generated: "2021-05-15T14:06:46.376778103Z"
+generated: "2021-05-25T16:41:40.75113505Z"
