@@ -571,3 +571,10 @@ zfs-localpv:
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
 #      tag: 1.7.0
+cleanup:
+  image:
+    # Make sure that registry name end with a '/'.
+    # For example : quay.io/ is a correct value here and quay.io is incorrect
+    registry:
+    repository: bitnami/kubectl
+    tag:
