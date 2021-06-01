@@ -1,4 +1,3 @@
-{{- if .Values.webhook.enabled }}
 # HELM first deletes RBAC, then it tries to delete other resources like SPC and PVC. 
 # We've got validating webhook on SPC and PVC.
 # But even that the policy of this webhook is Ignore, it fails because the ServiceAccount 
@@ -23,9 +22,9 @@ spec:
         app: {{ template "openebs.name" . }}
     spec:
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
-      {{- if .Values.webhook.tolerations }}
+      {{- if .Values.cleanup.tolerations }}
       tolerations:
-{{ toYaml .Values.webhook.tolerations | indent 8 }}
+{{ toYaml .Values.cleanup.tolerations | indent 8 }}
       {{- end }}
       containers:
         - name: kubectl
@@ -40,6 +39,5 @@ spec:
           - /bin/sh
           - -c
           - >
-              kubectl delete validatingWebhookConfiguration openebs-validation-webhook-cfg || true;
+              kubectl delete validatingWebhookConfiguration openebs-validation-webhook-cfg --ignore-not-found;
       restartPolicy: OnFailure
-{{- end }}

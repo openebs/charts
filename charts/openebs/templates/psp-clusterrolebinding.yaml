@@ -14,4 +14,3 @@ subjects:
     name: {{ template "openebs.serviceAccountName" . }}
     namespace: {{ $.Release.Namespace }}
 {{- end }}
-
