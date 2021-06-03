@@ -148,8 +148,7 @@ helm install --name openebs -f values.yaml openebs/openebs
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
-## Dependency helm charts
-
+## Below charts are dependent charts of this chart
 -  [openebs-ndm](https://openebs.github.io/node-disk-manager)
 -  [localpv-provisioner](https://openebs.github.io/dynamic-localpv-provisioner)
 -  [cstor](https://openebs.github.io/cstor-operators)
@@ -157,7 +156,7 @@ helm install --name openebs -f values.yaml openebs/openebs
 -  [zfs-localpv](https://openebs.github.io/zfs-localpv)
 -  [lvm-localpv](https://openebs.github.io/lvm-localpv)
 
-## Dependency and sub dependency tree
+## Dependency tree of this chart
 ```bash
 openebs
 ├── openebs-ndm
