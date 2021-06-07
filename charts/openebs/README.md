@@ -161,10 +161,10 @@ helm install --name openebs -f values.yaml openebs/openebs
 openebs
 ├── openebs-ndm
 ├── localpv-provisioner
-│   └── openebs-ndm
+│   └── openebs-ndm (optional)
 ├── jiva
 │   └── localpv-provisioner
-│       └── openebs-ndm
+│       └── openebs-ndm (optional)
 ├── cstor
 │   └── openebs-ndm
 ├── zfs-localpv
