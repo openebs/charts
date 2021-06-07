@@ -55,7 +55,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localpv-provisioner.enabled=true
 ```
 
-#### Install ZFS localpv CSI driver
+#### Install ZFS Local PV
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
