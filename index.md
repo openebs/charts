@@ -8,7 +8,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```bash
-$ helm repo add openebs https://openebs.github.io/charts
+helm repo add openebs https://openebs.github.io/charts
 ```
 
 You can then run `helm search repo openebs` to see the charts.
@@ -21,19 +21,74 @@ Once OpenEBS repository has been successfully fetched into the local system, it 
 helm repo update
 ```
 
-#### Install using Helm 3
-
-First, create the namespace: `kubectl create namespace <YOUR NAMESPACE>`
-
+#### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
 ```bash
-helm install openebs --namespace <YOUR NAMESPACE> openebs/openebs
+helm install openebs openebs/openebs --namespace openebs --create-namespace
 ```
 
-#### Install using Helm 2
-
+#### Install cStor with CSI driver
 ```bash
-helm install --name openebs --namespace <YOUR NAMESPACE> openebs/openebs
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set cstor.enabled=true \
+--set openebs-ndm.enabled=true
+```
+
+#### Install Jiva with CSI driver
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set jiva.enabled=true \
+--set openebs-ndm.enabled=true \
+--set localpv-provisioner.enabled=true
+```
+
+#### Install ZFS Local PV
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set zfs-localpv.enabled=true
+```
+
+#### Install LVM Local PV
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set lvm-localpv.enabled=true
+```
+
+#### Install Local PV hostpath and device
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set openebs-ndm.enabled=true \
+--set localpv-provisioner.enabled=true
 ```
 
 For more details on installing OpenEBS please see the [chart readme](https://github.com/openebs/charts/blob/master/charts/openebs/README.md).
-
