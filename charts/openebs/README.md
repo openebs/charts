@@ -171,12 +171,12 @@ openebs
 └── lvm-localpv
 ```
 
-#### Install non CSI components
+#### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace
 ```
 
-#### Install cStor CSI driver
+#### Install cStor with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
@@ -190,7 +190,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set openebs-ndm.enabled=true
 ```
 
-#### Install jiva CSI driver
+#### Install Jiva with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
@@ -205,7 +205,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localpv-provisioner.enabled=true
 ```
 
-#### Install ZFS localpv CSI driver
+#### Install ZFS Local PV
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
@@ -218,7 +218,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set zfs-localpv.enabled=true
 ```
 
-#### Install LVM localpv CSI driver
+#### Install LVM Local PV
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
@@ -231,7 +231,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set lvm-localpv.enabled=true
 ```
 
-#### Install local pv provisioner
+#### Install Local PV hostpath and device
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
@@ -240,4 +240,5 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set openebs-ndm.enabled=true \
 --set localpv-provisioner.enabled=true
 ```
+
 > **Tip**: You can install multiple csi driver by merging the configuration.
