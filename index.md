@@ -26,7 +26,7 @@ helm repo update
 helm install openebs openebs/openebs --namespace openebs --create-namespace
 ```
 
-#### Install cStor CSI driver
+#### Install cStor with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
