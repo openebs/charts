@@ -21,7 +21,7 @@ Once OpenEBS repository has been successfully fetched into the local system, it 
 helm repo update
 ```
 
-#### Install non CSI components
+#### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace
 ```
@@ -92,4 +92,3 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 ```
 
 For more details on installing OpenEBS please see the [chart readme](https://github.com/openebs/charts/blob/master/charts/openebs/README.md).
-
