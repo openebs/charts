@@ -40,7 +40,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set openebs-ndm.enabled=true
 ```
 
-#### Install jiva CSI driver
+#### Install Jiva with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
