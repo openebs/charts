@@ -81,7 +81,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set lvm-localpv.enabled=true
 ```
 
-#### Install local pv provisioner
+#### Install Local PV hostpath and device
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
