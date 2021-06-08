@@ -4750,6 +4750,10 @@ spec:
       - name: cvc-operator
         imagePullPolicy: IfNotPresent
         image: openebs/cvc-operator:2.10.0-RC1
+        args:
+          - "--v=2"
+          - "--leader-election=false"
+          - "--bind=$(OPENEBS_CVC_POD_IP)"
         env:
         # OPENEBS_IO_BASE_DIR is used to configure base directory for openebs on host path.
         # Where OpenEBS can store required files. Default base path will be /var/openebs
@@ -4767,6 +4771,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: OPENEBS_CVC_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         - name: OPENEBS_SERVICEACCOUNT_NAME
           valueFrom:
             fieldRef:
