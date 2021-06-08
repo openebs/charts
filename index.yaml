@@ -3,6 +3,54 @@ entries:
   openebs:
   - apiVersion: v2
     appVersion: 2.9.0
+    created: "2021-06-08T06:26:16.991616688Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 1.4.1
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 2.9.0
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 2.9.0
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 2.9.0
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 1.7.0
+    - condition: lvm-localpv.enabled
+      name: lvm-localpv
+      repository: https://openebs.github.io/lvm-localpv
+      version: 0.5.0
+    description: Containerized Storage for Containers
+    digest: e65310974d5a7de92142182a0fcc27df4c0e9b5084ac16a92210bd46192c77c0
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: kiran.mova@openebs.io
+      name: kmova
+    - email: prateek.pandey@openebs.io
+      name: prateekpandey14
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.9.3/openebs-2.9.3.tgz
+    version: 2.9.3
+  - apiVersion: v2
+    appVersion: 2.9.0
     created: "2021-05-31T07:38:00.294251718Z"
     dependencies:
     - condition: openebs-ndm.enabled
@@ -664,4 +712,4 @@ entries:
     urls:
     - https://github.com/openebs/charts/releases/download/openebs-1.10.2/openebs-1.10.2.tgz
     version: 1.10.2
-generated: "2021-05-31T07:38:00.294469919Z"
+generated: "2021-06-08T06:26:16.991859797Z"
