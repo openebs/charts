@@ -147,3 +147,98 @@ helm install --name openebs -f values.yaml openebs/openebs
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
+
+## Below charts are dependent charts of this chart
+-  [openebs-ndm](https://openebs.github.io/node-disk-manager)
+-  [localpv-provisioner](https://openebs.github.io/dynamic-localpv-provisioner)
+-  [cstor](https://openebs.github.io/cstor-operators)
+-  [jiva](https://openebs.github.io/jiva-operator)
+-  [zfs-localpv](https://openebs.github.io/zfs-localpv)
+-  [lvm-localpv](https://openebs.github.io/lvm-localpv)
+
+## Dependency tree of this chart
+```bash
+openebs
+├── openebs-ndm
+├── localpv-provisioner
+│   └── openebs-ndm (optional)
+├── jiva
+│   └── localpv-provisioner
+│       └── openebs-ndm (optional)
+├── cstor
+│   └── openebs-ndm
+├── zfs-localpv
+└── lvm-localpv
+```
+
+#### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace
+```
+
+#### Install cStor with CSI driver
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set cstor.enabled=true \
+--set openebs-ndm.enabled=true
+```
+
+#### Install Jiva with CSI driver
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set jiva.enabled=true \
+--set openebs-ndm.enabled=true \
+--set localpv-provisioner.enabled=true
+```
+
+#### Install ZFS Local PV
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set zfs-localpv.enabled=true
+```
+
+#### Install LVM Local PV
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set webhook.enabled=false \
+--set snapshotOperator.enabled=false \
+--set provisioner.enabled=false \
+--set apiserver.enabled=false \
+--set lvm-localpv.enabled=true
+```
+
+#### Install Local PV hostpath and device
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set localprovisioner.enabled=false \
+--set ndm.enabled=false \
+--set ndmOperator.enabled=false \
+--set openebs-ndm.enabled=true \
+--set localpv-provisioner.enabled=true
+```
+
+> **Tip**: You can install multiple csi driver by merging the configuration.
