@@ -28,6 +28,12 @@ Before installing OpenEBS Helm charts, you need to add the [OpenEBS Helm reposit
 helm repo add openebs https://openebs.github.io/charts
 ```
 
+## Update the dependent charts
+
+```bash
+helm dependency update
+```
+
 ## Installing OpenEBS
 
 ```bash
