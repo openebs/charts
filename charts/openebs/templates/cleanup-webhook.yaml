@@ -40,6 +40,6 @@ spec:
           - /bin/sh
           - -c
           - >
-              kubectl delete validatingWebhookConfiguration openebs-validation-webhook-cfg;
+              kubectl delete validatingWebhookConfiguration openebs-validation-webhook-cfg || true;
       restartPolicy: OnFailure
 {{- end }}
