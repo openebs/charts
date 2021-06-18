@@ -3549,7 +3549,7 @@ spec:
       containers:
         - name: jiva-operator
           # Replace this with the built image name
-          image: openebs/jiva-operator:2.10.0
+          image: openebs/jiva-operator:2.10.1
           command:
           - jiva-operator
           imagePullPolicy: IfNotPresent
@@ -3733,7 +3733,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: jiva-csi-plugin
-          image: openebs/jiva-csi:2.10.0
+          image: openebs/jiva-csi:2.10.1
           env:
             - name: OPENEBS_JIVA_CSI_CONTROLLER
               value: controller
@@ -3958,7 +3958,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: openebs/jiva-csi:2.10.0
+          image: openebs/jiva-csi:2.10.1
           args:
             - "--name=jiva.csi.openebs.io"
             - "--nodeid=$(OPENEBS_NODE_ID)"
