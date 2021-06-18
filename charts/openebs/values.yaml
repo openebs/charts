@@ -326,7 +326,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.10.0
+#      tag: 2.10.1
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -334,7 +334,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 2.10.0
+#      tag: 2.10.1
 
 cstor:
 
