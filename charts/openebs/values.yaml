@@ -18,284 +18,34 @@ release:
   # "openebs.io/version" label for control plane components
   version: "2.10.0"
 
-image:
-  pullPolicy: IfNotPresent
-  repository: ""
-
-apiserver:
-  enabled: true
-  image: "openebs/m-apiserver"
-  imageTag: "2.10.0"
-  replicas: 1
-  ports:
-    externalPort: 5656
-    internalPort: 5656
-  sparse:
-    enabled: "false"
-  nodeSelector: {}
+cleanup:
+  image:
+    # Make sure that registry name end with a '/'.
+    # For example : quay.io/ is a correct value here and quay.io is incorrect
+    registry:
+    repository: bitnami/kubectl
+    tag:
   tolerations: []
-  affinity: {}
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  ## apiserver resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
 
+# jiva csi driver configuration
+# do not enable or configure any sub dependency here
+# only jiva csi related settings can be added here
+# ref - https://openebs.github.io/jiva-operator
 
-defaultStorageConfig:
-  enabled: "true"
+# jiva chart dependency tree is here -
+# jiva
+# | - localpv-provisioner
+# | | - openebs-ndm
 
-# Directory used by the OpenEBS to store debug information and so forth
-# that are generated in the course of running OpenEBS containers.
-varDirectoryPath:
-  baseDir: "/var/openebs"
-
-provisioner:
-  enabled: true
-  image: "openebs/openebs-k8s-provisioner"
-  imageTag: "2.10.0"
-  replicas: 1
-  enableLeaderElection: true
-  patchJivaNodeAffinity: enabled
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  ## provisioner resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
-
-# If you want to enable local pv as a dependency chart then set
-# `localprovisioner.enabled: false` and enable it as dependency chart.
-# If you are using custom configuration then update those configuration
-# under `localpv-provisioner` key.
-localprovisioner:
-  enabled: true
-  image: "openebs/provisioner-localpv"
-  imageTag: "2.10.0"
-  replicas: 1
-  enableLeaderElection: true
-  basePath: "/var/openebs/local"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  ## localprovisioner resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
-
-snapshotOperator:
-  enabled: true
-  controller:
-    image: "openebs/snapshot-controller"
-    imageTag: "2.10.0"
-    ## snapshot controller resource requests and limits
-    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-    resources: {}
-      # limits:
-      #   cpu: 1000m
-      #   memory: 2Gi
-      # requests:
-      #   cpu: 500m
-      #   memory: 1Gi
-  provisioner:
-    image: "openebs/snapshot-provisioner"
-    imageTag: "2.10.0"
-    ## snapshot provisioner resource requests and limits
-    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-    resources: {}
-      # limits:
-      #   cpu: 1000m
-      #   memory: 2Gi
-      # requests:
-      #   cpu: 500m
-      #   memory: 1Gi
-  replicas: 1
-  enableLeaderElection: true
-  upgradeStrategy: "Recreate"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-
-# If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
-# `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
-# custom configuration then update those configuration under `openebs-ndm` key.
-ndm:
-  enabled: true
-  image: "openebs/node-disk-manager"
-  imageTag: "1.5.0"
-  sparse:
-    path: "/var/openebs/sparse"
-    size: "10737418240"
-    count: "0"
-  filters:
-    enableOsDiskExcludeFilter: true
-    osDiskExcludePaths: "/,/etc/hosts,/boot"
-    enableVendorFilter: true
-    excludeVendors: "CLOUDBYT,OpenEBS"
-    enablePathFilter: true
-    includePaths: ""
-    excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
-  probes:
-    enableSeachest: false
-  nodeSelector: {}
-  tolerations: []
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  ## ndm resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
-
-# If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
-# `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
-# custom configuration then update those configuration under `openebs-ndm` key.
-ndmOperator:
-  enabled: true
-  image: "openebs/node-disk-operator"
-  imageTag: "1.5.0"
-  replicas: 1
-  upgradeStrategy: Recreate
-  nodeSelector: {}
-  tolerations: []
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  readinessCheck:
-    initialDelaySeconds: 4
-    periodSeconds: 10
-    failureThreshold: 1
-  ## ndmOperator resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
-
-webhook:
-  enabled: true
-  image: "openebs/admission-server"
-  imageTag: "2.10.0"
-  failurePolicy: "Fail"
-  replicas: 1
-  healthCheck:
-    initialDelaySeconds: 30
-    periodSeconds: 60
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-  hostNetwork: false
-  ## admission-server resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-  resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 1Gi
-    # requests:
-    #   cpu: 250m
-    #   memory: 500Mi
-
-# If you are migrating from 2.x to 3.x and if you are using custom values
-# then put this configuration under `localpv-provisioner` and `openebs-ndm` key.
-helper:
-  image: "openebs/linux-utils"
-  imageTag: "2.10.0"
-
-# These are ndm related configuration. If you want to enable openebs as a dependency
-# chart then set `ndm.enabled: false`, `ndmOperator.enabled: false` and enable it as
-# dependency chart. If you are using custom configuration then update those configuration
-# under `openebs-ndm` key.
-featureGates:
-  enabled: true
-  GPTBasedUUID:
-    enabled: true
-    featureGateFlag: "GPTBasedUUID"
-  APIService:
-    enabled: false
-    featureGateFlag: "APIService"
-    address: "0.0.0.0:9115"
-  UseOSDisk:
-    enabled: false
-    featureGateFlag: "UseOSDisk"
-
-crd:
-  enableInstall: true
-
-# If you are migrating from 2.x to 3.x and if you are using custom values
-# then put these configuration under `cstor` key.
-policies:
-  monitoring:
-    enabled: true
-    image: "openebs/m-exporter"
-    imageTag: "2.10.0"
-
-analytics:
-  enabled: true
-  # Specify in hours the duration after which a ping event needs to be sent.
-  pingInterval: "24h"
-
+# Enable localpv-provisioner and openebs-ndm as root dependency not as
+# sub dependency.
+# openebs
+# | - jiva(enable)
+# | | - localpv-provisioner(disable)
+# | | | - openebs-ndm(disable)
+# | - localpv-provisioner(enable)
+# | - openebs-ndm(enable)
 jiva:
-
-  # non csi configuration
-  image: "openebs/jiva"
-  imageTag: "2.10.0"
-  replicas: 3
-  defaultStoragePath: "/var/openebs"
-
-  # jiva csi driver configuration
-  # do not enable or configure any sub dependency here
-  # only jiva csi related settings can be added here
-  # ref - https://openebs.github.io/jiva-operator
-
-  # jiva chart dependency tree is here -
-  # jiva
-  # | - localpv-provisioner
-  # | | - openebs-ndm
-
-  # Enable localpv-provisioner and openebs-ndm as root dependency not as
-  # sub dependency.
-  # openebs
-  # | - jiva(enable)
-  # | | - localpv-provisioner(disable)
-  # | | | - openebs-ndm(disable)
-  # | - localpv-provisioner(enable)
-  # | - openebs-ndm(enable)
-
   enabled: false
   openebsLocalpv:
     enabled: false
@@ -303,9 +53,9 @@ jiva:
     openebsNDM:
       enabled: false
 
-  # Sample configuration if you want to configure jiva csi driver with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/jiva-operator
+# Sample configuration if you want to configure jiva csi driver with custom values.
+# This is a small part of the full configuration. Full configuration available
+# here - https://openebs.github.io/jiva-operator
 
 #  rbac:
 #    create: true
@@ -336,43 +86,28 @@ jiva:
 #      pullPolicy: IfNotPresent
 #      tag: 2.10.1
 
+# cstor csi driver configuration
+# do not enable or configure any sub dependency here
+# only cstor csi related settings can be added here
+# ref - https://openebs.github.io/cstor-operators
+
+# cstor chart dependency tree is here -
+# cstor
+# | - openebs-ndm
+
+# Enable openebs-ndm as root dependency not as sub dependency.
+# openebs
+# | - cstor(enable)
+# | | - openebs-ndm(disable)
+# | - openebs-ndm(enable)
 cstor:
-
-  # non csi configuration
-  pool:
-    image: "openebs/cstor-pool"
-    imageTag: "2.10.0"
-  poolMgmt:
-    image: "openebs/cstor-pool-mgmt"
-    imageTag: "2.10.0"
-  target:
-    image: "openebs/cstor-istgt"
-    imageTag: "2.10.0"
-  volumeMgmt:
-    image: "openebs/cstor-volume-mgmt"
-    imageTag: "2.10.0"
-
-  # cstor csi driver configuration
-  # do not enable or configure any sub dependency here
-  # only cstor csi related settings can be added here
-  # ref - https://openebs.github.io/cstor-operators
-
-  # cstor chart dependency tree is here -
-  # cstor
-  # | - openebs-ndm
-
-  # Enable openebs-ndm as root dependency not as sub dependency.
-  # openebs
-  # | - cstor(enable)
-  # | | - openebs-ndm(disable)
-  # | - openebs-ndm(enable)
   enabled: false
   openebsNDM:
     enabled: false
 
-  # Sample configuration if you want to configure cstor csi driver with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/cstor-operators
+# Sample configuration if you want to configure cstor csi driver with custom values.
+# This is a small part of the full configuration. Full configuration available
+# here - https://openebs.github.io/cstor-operators
 
 #  imagePullSecrets: []
 #
@@ -444,9 +179,9 @@ cstor:
 openebs-ndm:
   enabled: false
 
-  # Sample configuration if you want to configure openebs ndm with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/node-disk-manager
+# Sample configuration if you want to configure openebs ndm with custom values.
+# This is a small part of the full configuration. Full configuration available
+# here - https://openebs.github.io/node-disk-manager
 
 #  imagePullSecrets: []
 #
@@ -503,27 +238,27 @@ openebs-ndm:
 #  varDirectoryPath:
 #    baseDir: "/var/openebs"
 
-  # local pv provisioner configuration goes here
-  # do not enable or configure any sub dependency here
-  # ref - https://openebs.github.io/dynamic-localpv-provisioner
+# local pv provisioner configuration goes here
+# do not enable or configure any sub dependency here
+# ref - https://openebs.github.io/dynamic-localpv-provisioner
 
-  # local pv chart dependency tree is here -
-  # localpv-provisioner
-  # | - openebs-ndm
+# local pv chart dependency tree is here -
+# localpv-provisioner
+# | - openebs-ndm
 
-  # Enable openebs-ndm as root dependency not as sub dependency.
-  # openebs
-  # | - localpv-provisioner(enable)
-  # | | - openebs-ndm(disable)
-  # | - openebs-ndm(enable)
+# Enable openebs-ndm as root dependency not as sub dependency.
+# openebs
+# | - localpv-provisioner(enable)
+# | | - openebs-ndm(disable)
+# | - openebs-ndm(enable)
 localpv-provisioner:
   enabled: false
   openebsNDM:
     enabled: false
 
-  # Sample configuration if you want to configure openebs locapv with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/dynamic-localpv-provisioner
+# Sample configuration if you want to configure openebs locapv with custom values.
+# This is a small part of the full configuration. Full configuration available
+# here - https://openebs.github.io/dynamic-localpv-provisioner
 
 #  imagePullSecrets: []
 #
@@ -556,9 +291,9 @@ localpv-provisioner:
 zfs-localpv:
   enabled: false
 
-  # Sample configuration if you want to configure zfs locapv with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/zfs-localpv
+# Sample configuration if you want to configure zfs locapv with custom values.
+# This is a small part of the full configuration. Full configuration available
+# here - https://openebs.github.io/zfs-localpv
 
 #  imagePullSecrets: []
 #
@@ -592,11 +327,3 @@ lvm-localpv:
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
 #      tag: 0.5.0
-
-cleanup:
-  image:
-    # Make sure that registry name end with a '/'.
-    # For example : quay.io/ is a correct value here and quay.io is incorrect
-    registry:
-    repository: bitnami/kubectl
-    tag:
