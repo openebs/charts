@@ -132,6 +132,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `featureGates.APIService.enabled`       | Enable APIService in NDM                      | `false`                                  |
 | `featureGates.UseOSDisk.enabled`        | Enable using unused partitions on OS Disk     | `false`                                  |
 | `featureGates.MountChangeDetection.enabled` | Enable feature-gate to detect mountpoint/filesystem changes | `false`                                   |
+| `crd.enableInstall`                     | Enable installation of CRDs by OpenEBS        | `true`                                    |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
 | `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.11.0`                                  |
 | `analytics.enabled`                     | Enable sending stats to Google Analytics      | `true`                                    |

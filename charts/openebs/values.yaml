@@ -255,6 +255,9 @@ featureGates:
     enabled: false
     featureGateFlag: "MountChangeDetection"
 
+crd:
+  enableInstall: true
+
 # If you are migrating from 2.x to 3.x and if you are using custom values
 # then put these configuration under `cstor` key.
 policies:
