@@ -58,6 +58,9 @@ spec:
 {{- if .Values.featureGates.UseOSDisk.enabled }}
           - --feature-gates={{ .Values.featureGates.UseOSDisk.featureGateFlag }}
 {{- end}}
+{{- if .Values.featureGates.MountChangeDetection.enabled }}
+          - --feature-gates={{ .Values.featureGates.MountChangeDetection.featureGateFlag }}
+{{- end}}
 {{- end}}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if .Values.ndm.resources }}
