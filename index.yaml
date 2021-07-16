@@ -2,6 +2,54 @@ apiVersion: v1
 entries:
   openebs:
   - apiVersion: v2
+    appVersion: 2.11.0
+    created: "2021-07-16T10:56:08.941101907Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 1.6.0
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 2.11.0
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 2.11.0
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 2.11.0
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 1.9.0
+    - condition: lvm-localpv.enabled
+      name: lvm-localpv
+      repository: https://openebs.github.io/lvm-localpv
+      version: 0.7.0
+    description: Containerized Storage for Containers
+    digest: f3078e318f1f234facd25a3b4caeda4770bfd7732297abec6f54a7ed7d229618
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: kiran.mova@openebs.io
+      name: kmova
+    - email: prateek.pandey@openebs.io
+      name: prateekpandey14
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.11.0/openebs-2.11.0.tgz
+    version: 2.11.0
+  - apiVersion: v2
     appVersion: 2.10.0
     created: "2021-07-05T06:55:20.637911938Z"
     dependencies:
@@ -856,4 +904,4 @@ entries:
     urls:
     - https://github.com/openebs/charts/releases/download/openebs-1.10.2/openebs-1.10.2.tgz
     version: 1.10.2
-generated: "2021-07-05T06:55:20.638126036Z"
+generated: "2021-07-16T10:56:08.941537433Z"
