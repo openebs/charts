@@ -430,7 +430,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC1
 spec:
   selector:
     matchLabels:
@@ -443,7 +443,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC1
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -461,7 +461,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.6.0
+        image: openebs/node-disk-manager:1.6.0-RC1
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -560,7 +560,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC1
 spec:
   selector:
     matchLabels:
@@ -574,12 +574,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.6.0
+          image: openebs/node-disk-operator:1.6.0-RC1
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
@@ -598,7 +598,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.11.0"
+              value: "openebs/linux-utils:2.11.0-RC1"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS

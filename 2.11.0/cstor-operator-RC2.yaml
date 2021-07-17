@@ -1051,7 +1051,7 @@ metadata:
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -1068,7 +1068,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-controller
         openebs.io/component-name: openebs-cstor-csi-controller
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       priorityClassName: openebs-csi-controller-critical
       serviceAccount: openebs-cstor-csi-controller-sa
@@ -1137,7 +1137,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: cstor-csi-plugin
-          image: openebs/cstor-csi-driver:2.11.0
+          image: openebs/cstor-csi-driver:2.11.0-RC2
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -1310,7 +1310,7 @@ metadata:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node
     openebs.io/component-name: openebs-cstor-csi-node
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -1325,7 +1325,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-node
         openebs.io/component-name: openebs-cstor-csi-node
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       priorityClassName: openebs-csi-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
@@ -1364,7 +1364,7 @@ spec:
             capabilities:
               add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: openebs/cstor-csi-driver:2.11.0
+          image: openebs/cstor-csi-driver:2.11.0-RC2
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"
@@ -4664,7 +4664,7 @@ metadata:
   labels:
     name: cspc-operator
     openebs.io/component-name: cspc-operator
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -4678,13 +4678,13 @@ spec:
       labels:
         name: cspc-operator
         openebs.io/component-name: cspc-operator
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
       - name: cspc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cspc-operator:2.11.0
+        image: openebs/cspc-operator:2.11.0-RC2
         env:
         - name: OPENEBS_NAMESPACE
           valueFrom:
@@ -4713,11 +4713,11 @@ spec:
         #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
         #  value: ""
         - name: OPENEBS_IO_CSPI_MGMT_IMAGE
-          value: "openebs/cstor-pool-manager:2.11.0"
+          value: "openebs/cstor-pool-manager:2.11.0-RC2"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "openebs/cstor-pool:2.11.0"
+          value: "openebs/cstor-pool:2.11.0-RC2"
         - name:  OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "openebs/m-exporter:2.11.0"
+          value: "openebs/m-exporter:2.11.0-RC2"
         - name: RESYNC_INTERVAL
           value: "30"
 ---
@@ -4729,7 +4729,7 @@ metadata:
   labels:
     name: cvc-operator
     openebs.io/component-name: cvc-operator
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -4743,13 +4743,13 @@ spec:
       labels:
         name: cvc-operator
         openebs.io/component-name: cvc-operator
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
       - name: cvc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cvc-operator:2.11.0
+        image: openebs/cvc-operator:2.11.0-RC2
         args:
           - "--v=2"
           - "--leader-election=false"
@@ -4780,11 +4780,11 @@ spec:
             fieldRef:
               fieldPath: spec.serviceAccountName
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "openebs/cstor-istgt:2.11.0"
+          value: "openebs/cstor-istgt:2.11.0-RC2"
         - name:  OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-manager:2.11.0"
+          value: "openebs/cstor-volume-manager:2.11.0-RC2"
         - name:  OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:2.11.0"
+          value: "openebs/m-exporter:2.11.0-RC2"
 ---
 apiVersion: v1
 kind: Service
@@ -4811,7 +4811,7 @@ metadata:
   labels:
     app: cstor-admission-webhook
     openebs.io/component-name: cstor-admission-webhook
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   replicas: 1
   strategy:
@@ -4825,12 +4825,12 @@ spec:
       labels:
         app: cstor-admission-webhook
         openebs.io/component-name: cstor-admission-webhook
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
         - name: admission-webhook
-          image: openebs/cstor-webhook:2.11.0
+          image: openebs/cstor-webhook:2.11.0-RC2
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -5283,7 +5283,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -5296,7 +5296,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -5314,7 +5314,7 @@ spec:
       #hostPID: true
       containers:
         - name: node-disk-manager
-          image: openebs/node-disk-manager:1.6.0
+          image: openebs/node-disk-manager:1.6.0-RC2
           args:
             - -v=4
             # The feature-gate is used to enable the new UUID algorithm.
@@ -5413,7 +5413,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 2.11.0
+    openebs.io/version: 2.11.0-RC2
 spec:
   selector:
     matchLabels:
@@ -5427,12 +5427,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 2.11.0
+        openebs.io/version: 2.11.0-RC2
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.6.0
+          image: openebs/node-disk-operator:1.6.0-RC2
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
@@ -5451,7 +5451,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.11.0"
+              value: "openebs/linux-utils:2.11.0-RC2"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
