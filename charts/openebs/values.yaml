@@ -87,7 +87,7 @@ provisioner:
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
-  imageTag: "2.11.0"
+  imageTag: "2.11.1"
   replicas: 1
   enableLeaderElection: true
   basePath: "/var/openebs/local"
@@ -537,7 +537,7 @@ localpv-provisioner:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/provisioner-localpv
-#      tag: 2.11.0
+#      tag: 2.11.1
 #      pullPolicy: IfNotPresent
 #    healthCheck:
 #      initialDelaySeconds: 30
