@@ -14,22 +14,25 @@ serviceAccount:
   name:
 
 imagePullSecrets: []
-  #  - name: image-pull-secret
+# - name: image-pull-secret
 
 release:
   # "openebs.io/version" label for control plane components
   version: "2.12.0"
 
-# Legacy components will be installed if it is enabled.
-# Legacy components are - admission-server, api-server, snapshot-operator
-# and storage-provisioner
-legacy:
-  enabled: true
-
 image:
   pullPolicy: IfNotPresent
   repository: ""
 
+# Legacy components will be installed if it is enabled.
+# Legacy components are - admission-server, api-server, snapshot-operator
+# and provisioner used by non-csi cstor and jiva provisioners
+legacy:
+  enabled: true
+
+# Used by jiva and cstor (non csi) for volume management
+# also installs and updates the CRDs for jiva and cstor (non-csi)
+# Will be disabled in OpenEBS 3.0 in favor of CSI Drivers
 apiserver:
   enabled: true
   image: "openebs/m-apiserver"
@@ -46,25 +49,28 @@ apiserver:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
-  ## apiserver resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # apiserver resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
+  # limits:
+  #   cpu: 1000m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 500m
+  #   memory: 1Gi
 
-
+# Used by apiserver to create default storage classes and pools.
 defaultStorageConfig:
   enabled: "true"
+
 
 # Directory used by the OpenEBS to store debug information and so forth
 # that are generated in the course of running OpenEBS containers.
 varDirectoryPath:
   baseDir: "/var/openebs"
 
+# Out of tree Kubernetes provisioner for jiva and cstor
+# Will be disabled in OpenEBS 3.0 in favor of CSI Drivers
 provisioner:
   enabled: true
   image: "openebs/openebs-k8s-provisioner"
@@ -78,20 +84,16 @@ provisioner:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
-  ## provisioner resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # provisioner resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
+  # limits:
+  #   cpu: 1000m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 500m
+  #   memory: 1Gi
 
-# If you want to enable local pv as a dependency chart then set
-# `localprovisioner.enabled: false` and enable it as dependency chart.
-# If you are using custom configuration then update those configuration
-# under `localpv-provisioner` key.
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
@@ -110,42 +112,44 @@ localprovisioner:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
-  ## localprovisioner resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # localprovisioner resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
+  # limits:
+  #   cpu: 1000m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 500m
+  #   memory: 1Gi
+
+# Out of tree Kubernetes snapshot provisioner for cstor
+# Will be disabled in OpenEBS 3.0 in favor of CSI Drivers
+snapshotOperator:
+  enabled: true
+  controller:
+    image: "openebs/snapshot-controller"
+    imageTag: "2.12.0"
+    # snapshot controller resource requests and limits
+    # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+    resources: {}
     # limits:
     #   cpu: 1000m
     #   memory: 2Gi
     # requests:
     #   cpu: 500m
     #   memory: 1Gi
-
-snapshotOperator:
-  enabled: true
-  controller:
-    image: "openebs/snapshot-controller"
-    imageTag: "2.12.0"
-    ## snapshot controller resource requests and limits
-    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
-    resources: {}
-      # limits:
-      #   cpu: 1000m
-      #   memory: 2Gi
-      # requests:
-      #   cpu: 500m
-      #   memory: 1Gi
   provisioner:
     image: "openebs/snapshot-provisioner"
     imageTag: "2.12.0"
-    ## snapshot provisioner resource requests and limits
-    ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+    # snapshot provisioner resource requests and limits
+    # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
     resources: {}
-      # limits:
-      #   cpu: 1000m
-      #   memory: 2Gi
-      # requests:
-      #   cpu: 500m
-      #   memory: 1Gi
+    # limits:
+    #   cpu: 1000m
+    #   memory: 2Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 1Gi
   replicas: 1
   enableLeaderElection: true
   upgradeStrategy: "Recreate"
@@ -156,9 +160,6 @@ snapshotOperator:
     initialDelaySeconds: 30
     periodSeconds: 60
 
-# If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
-# `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
-# custom configuration then update those configuration under `openebs-ndm` key.
 ndm:
   enabled: true
   image: "openebs/node-disk-manager"
@@ -182,19 +183,16 @@ ndm:
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
-  ## ndm resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # ndm resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
+  # limits:
+  #   cpu: 1000m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 500m
+  #   memory: 1Gi
 
-# If you want to enable openebs as a dependency chart then set `ndm.enabled: false`,
-# `ndmOperator.enabled: false` and enable it as dependency chart. If you are using
-# custom configuration then update those configuration under `openebs-ndm` key.
 ndmOperator:
   enabled: true
   image: "openebs/node-disk-operator"
@@ -209,15 +207,15 @@ ndmOperator:
   readinessCheck:
     initialDelaySeconds: 5
     periodSeconds: 10
-  ## ndmOperator resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # ndmOperator resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
-    # limits:
-    #   cpu: 1000m
-    #   memory: 2Gi
-    # requests:
-    #   cpu: 500m
-    #   memory: 1Gi
+  # limits:
+  #   cpu: 1000m
+  #   memory: 2Gi
+  # requests:
+  #   cpu: 500m
+  #   memory: 1Gi
 
 ndmExporter:
   enabled: false
@@ -244,6 +242,8 @@ ndmExporter:
     # and listen-port flag will not be set and container port will be empty.
     metricsPort: 9100
 
+# Used by jiva and cstor (non csi) for validation the volume delete requests
+# Will be disabled in OpenEBS 3.0 in favor of CSI Drivers
 webhook:
   enabled: true
   image: "openebs/admission-server"
@@ -257,26 +257,22 @@ webhook:
   tolerations: []
   affinity: {}
   hostNetwork: false
-  ## admission-server resource requests and limits
-  ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
+  # admission-server resource requests and limits
+  # Reference: http://kubernetes.io/docs/user-guide/compute-resources/
   resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 1Gi
-    # requests:
-    #   cpu: 250m
-    #   memory: 500Mi
+  # limits:
+  #   cpu: 500m
+  #   memory: 1Gi
+  # requests:
+  #   cpu: 250m
+  #   memory: 500Mi
 
-# If you are migrating from 2.x to 3.x and if you are using custom values
-# then put this configuration under `localpv-provisioner` and `openebs-ndm` key.
+# Used by ndm and localprovisioner to carry out tasks like
+# creating or deleting directory, filesystem, etc.
 helper:
   image: "openebs/linux-utils"
   imageTag: "2.12.0"
 
-# These are ndm related configuration. If you want to enable openebs as a dependency
-# chart then set `ndm.enabled: false`, `ndmOperator.enabled: false` and enable it as
-# dependency chart. If you are using custom configuration then update those configuration
-# under `openebs-ndm` key.
 featureGates:
   enabled: true
   GPTBasedUUID:
@@ -296,8 +292,8 @@ featureGates:
 crd:
   enableInstall: true
 
-# If you are migrating from 2.x to 3.x and if you are using custom values
-# then put these configuration under `cstor` key.
+# Used by jiva and cstor (non csi) for validation the volume delete requests
+# Will be disabled in OpenEBS 3.0 in favor of CSI Drivers
 policies:
   monitoring:
     enabled: true
@@ -310,7 +306,6 @@ analytics:
   pingInterval: "24h"
 
 jiva:
-
   # non csi configuration
   image: "openebs/jiva"
   imageTag: "2.12.1"
@@ -322,26 +317,7 @@ jiva:
   # only jiva csi related settings can be added here
   # ref - https://openebs.github.io/jiva-operator
 
-  # jiva chart dependency tree is here -
-  # jiva
-  # | - localpv-provisioner
-  # | | - openebs-ndm
-
-  # Enable localpv-provisioner and openebs-ndm as root dependency not as
-  # sub dependency.
-  # openebs
-  # | - jiva(enable)
-  # | | - localpv-provisioner(disable)
-  # | | | - openebs-ndm(disable)
-  # | - localpv-provisioner(enable)
-  # | - openebs-ndm(enable)
-
   enabled: false
-  openebsLocalpv:
-    enabled: false
-  localpv-provisioner:
-    openebsNDM:
-      enabled: false
 
   # Sample configuration if you want to configure jiva csi driver with custom values.
   # This is a small part of the full configuration. Full configuration available
@@ -354,16 +330,16 @@ jiva:
 #  jivaOperator:
 #    controller:
 #      image:
-#        registry: quay.io/
+#        registry:
 #        repository: openebs/jiva
 #        tag: 2.12.1
 #    replica:
 #      image:
-#        registry: quay.io/
+#        registry:
 #        repository: openebs/jiva
 #        tag: 2.12.1
 #    image:
-#      registry: quay.io/
+#      registry:
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
 #      tag: 2.12.1
@@ -371,7 +347,7 @@ jiva:
 #  jivaCSIPlugin:
 #    remount: "true"
 #    image:
-#      registry: quay.io/
+#      registry:
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
 #      tag: 2.12.1
@@ -397,18 +373,7 @@ cstor:
   # only cstor csi related settings can be added here
   # ref - https://openebs.github.io/cstor-operators
 
-  # cstor chart dependency tree is here -
-  # cstor
-  # | - openebs-ndm
-
-  # Enable openebs-ndm as root dependency not as sub dependency.
-  # openebs
-  # | - cstor(enable)
-  # | | - openebs-ndm(disable)
-  # | - openebs-ndm(enable)
   enabled: false
-  openebsNDM:
-    enabled: false
 
   # Sample configuration if you want to configure cstor csi driver with custom values.
   # This is a small part of the full configuration. Full configuration available
@@ -479,117 +444,6 @@ cstor:
 #      pullPolicy: IfNotPresent
 #      tag: 2.12.0
 
-# ndm configuration goes here
-# https://openebs.github.io/node-disk-manager
-openebs-ndm:
-  enabled: false
-
-  # Sample configuration if you want to configure openebs ndm with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/node-disk-manager
-
-#  imagePullSecrets: []
-#
-#  ndm:
-#    image:
-#      registry: quay.io/
-#      repository: openebs/node-disk-manager
-#      pullPolicy: IfNotPresent
-#      tag: 1.6.1
-#    sparse:
-#      path: "/var/openebs/sparse"
-#      size: "10737418240"
-#      count: "0"
-#    filters:
-#      enableOsDiskExcludeFilter: true
-#      osDiskExcludePaths: "/,/etc/hosts,/boot"
-#      enableVendorFilter: true
-#      excludeVendors: "CLOUDBYT,OpenEBS"
-#      enablePathFilter: true
-#      includePaths: ""
-#      excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
-#    probes:
-#      enableSeachest: false
-#      enableUdevProbe: true
-#      enableSmartProbe: true
-#
-#  ndmOperator:
-#    image:
-#      registry: quay.io/
-#      repository: openebs/node-disk-operator
-#      pullPolicy: IfNotPresent
-#      tag: 1.6.1
-#
-#  helperPod:
-#    image:
-#      registry: quay.io/
-#      repository: openebs/linux-utils
-#      pullPolicy: IfNotPresent
-#      tag: 2.12.0
-#
-#  featureGates:
-#    enabled: true
-#    GPTBasedUUID:
-#      enabled: true
-#      featureGateFlag: "GPTBasedUUID"
-#    APIService:
-#      enabled: true
-#      featureGateFlag: "APIService"
-#      address: "0.0.0.0:9115"
-#    UseOSDisk:
-#      enabled: false
-#      featureGateFlag: "UseOSDisk"
-#
-#  varDirectoryPath:
-#    baseDir: "/var/openebs"
-
-  # local pv provisioner configuration goes here
-  # do not enable or configure any sub dependency here
-  # ref - https://openebs.github.io/dynamic-localpv-provisioner
-
-  # local pv chart dependency tree is here -
-  # localpv-provisioner
-  # | - openebs-ndm
-
-  # Enable openebs-ndm as root dependency not as sub dependency.
-  # openebs
-  # | - localpv-provisioner(enable)
-  # | | - openebs-ndm(disable)
-  # | - openebs-ndm(enable)
-localpv-provisioner:
-  enabled: false
-  openebsNDM:
-    enabled: false
-
-  # Sample configuration if you want to configure openebs locapv with custom values.
-  # This is a small part of the full configuration. Full configuration available
-  # here - https://openebs.github.io/dynamic-localpv-provisioner
-
-#  imagePullSecrets: []
-#
-#  rbac:
-#    create: true
-#    pspEnabled: false
-#
-#  localpv:
-#    image:
-#      registry: quay.io/
-#      repository: openebs/provisioner-localpv
-#      tag: 2.12.0
-#      pullPolicy: IfNotPresent
-#    healthCheck:
-#      initialDelaySeconds: 30
-#      periodSeconds: 60
-#    replicas: 1
-#    enableLeaderElection: true
-#    basePath: "/var/openebs/local"
-#
-#  helperPod:
-#    image:
-#      registry: quay.io/
-#      repository: openebs/linux-utils
-#      pullPolicy: IfNotPresent
-#      tag: 2.12.0
 
 # zfs local pv configuration goes here
 # ref - https://openebs.github.io/zfs-localpv
