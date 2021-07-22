@@ -1,4 +1,4 @@
-{{- if .Values.webhook.enabled }}
+{{- if and (.Values.webhook.enabled) (.Values.legacy.enabled) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

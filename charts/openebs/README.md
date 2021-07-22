@@ -188,10 +188,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
 --set ndm.enabled=false \
 --set ndmOperator.enabled=false \
---set webhook.enabled=false \
---set snapshotOperator.enabled=false \
---set provisioner.enabled=false \
---set apiserver.enabled=false \
+--set legacy.enabled=false \
 --set cstor.enabled=true \
 --set openebs-ndm.enabled=true
 ```
@@ -202,10 +199,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
 --set ndm.enabled=false \
 --set ndmOperator.enabled=false \
---set webhook.enabled=false \
---set snapshotOperator.enabled=false \
---set provisioner.enabled=false \
---set apiserver.enabled=false \
+--set legacy.enabled=false \
 --set jiva.enabled=true \
 --set openebs-ndm.enabled=true \
 --set localpv-provisioner.enabled=true
@@ -217,10 +211,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
 --set ndm.enabled=false \
 --set ndmOperator.enabled=false \
---set webhook.enabled=false \
---set snapshotOperator.enabled=false \
---set provisioner.enabled=false \
---set apiserver.enabled=false \
+--set legacy.enabled=false \
 --set zfs-localpv.enabled=true
 ```
 
@@ -230,10 +221,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localprovisioner.enabled=false \
 --set ndm.enabled=false \
 --set ndmOperator.enabled=false \
---set webhook.enabled=false \
---set snapshotOperator.enabled=false \
---set provisioner.enabled=false \
---set apiserver.enabled=false \
+--set legacy.enabled=false \
 --set lvm-localpv.enabled=true
 ```
 
@@ -244,6 +232,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set ndm.enabled=false \
 --set ndmOperator.enabled=false \
 --set openebs-ndm.enabled=true \
+--set legacy.enabled=false \
 --set localpv-provisioner.enabled=true
 ```
 

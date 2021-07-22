@@ -1,4 +1,4 @@
-{{- if .Values.apiserver.enabled }}
+{{- if and (.Values.apiserver.enabled) (.Values.legacy.enabled) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
