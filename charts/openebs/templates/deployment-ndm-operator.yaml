@@ -1,5 +1,6 @@
 {{- if .Values.ndmOperator.enabled }}
----
+{{- $ndmValues := index .Values "openebs-ndm" }}
+{{- if not $ndmValues.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,5 +86,6 @@ spec:
 {{- if .Values.ndmOperator.tolerations }}
       tolerations:
 {{ toYaml .Values.ndmOperator.tolerations | indent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}

@@ -1,4 +1,6 @@
 {{- if .Values.localprovisioner.enabled }}
+{{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
+{{- if not $localpvprovisionerValues.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -111,5 +113,6 @@ spec:
 {{- if .Values.localprovisioner.affinity }}
       affinity:
 {{ toYaml .Values.localprovisioner.affinity | indent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}

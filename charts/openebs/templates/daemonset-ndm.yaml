@@ -1,4 +1,6 @@
 {{- if .Values.ndm.enabled }}
+{{- $ndmValues := index .Values "openebs-ndm" }}
+{{- if not $ndmValues.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -176,5 +178,6 @@ spec:
 {{- if .Values.ndm.tolerations }}
       tolerations:
 {{ toYaml .Values.ndm.tolerations | indent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}
