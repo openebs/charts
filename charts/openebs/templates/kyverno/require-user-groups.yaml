@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: require-user-groups
-  namespace: openebs
   annotations:
     policies.kyverno.io/category: Pod Security Standards (Privileged)
     policies.kyverno.io/severity: medium
@@ -56,3 +56,4 @@ spec:
            spec:
              =(securityContext):
                =(fsGroup): 'RunAsAny'
+{{- end }}

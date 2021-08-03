@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: allow-host-ports
-  namespace: openebs
   annotations:
     policies.kyverno.io/category: Pod Security Standards (Privileged)
     policies.kyverno.io/severity: medium
@@ -28,3 +28,4 @@ spec:
             =(hostPort):
               =(min): ">0"
               =(max): "<65535"
+{{- end }}

@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: require-default-proc-mount
-  namespace: openebs
   annotations:
     policies.kyverno.io/category: Pod Security Standards (Baseline)
     policies.kyverno.io/severity: medium
@@ -29,3 +29,4 @@ spec:
             containers:
               - =(securityContext):
                   =(procMount): "Default"
+{{- end }}

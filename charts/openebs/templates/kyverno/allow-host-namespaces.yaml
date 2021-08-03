@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: allow-host-namespaces
-  namespace: openebs
   annotations:
     policies.kyverno.io/category: Pod Security Standards
     policies.kyverno.io/severity: medium
@@ -18,7 +18,6 @@ spec:
     - name: host-namespaces
       match:
         resources:
-          name: "openebs-*"
           kinds:
             - Pod
       validate:
@@ -30,3 +29,4 @@ spec:
             =(hostPID): "true"
             =(hostIPC): "true"
             =(hostNetwork): "true"
+{{- end }}

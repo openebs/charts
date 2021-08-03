@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: allow-selinux
-  namespace: openebs
   annotations:
     policies.kyverno.io/title: Allow SELinux
     policies.kyverno.io/category: Pod Security Standards (Baseline)
@@ -17,7 +17,6 @@ spec:
     - name: seLinux
       match:
         resources:
-          name: "openebs-*"
           kinds:
             - Pod
       validate:
@@ -32,3 +31,4 @@ spec:
             containers:
               - =(securityContext):
                   =(seLinuxOptions): "on"
+{{- end }}

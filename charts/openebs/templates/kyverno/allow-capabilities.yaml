@@ -1,8 +1,8 @@
+{{- if Values.rbac.kyverno Enabled }}
 apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+kind: Policy
 metadata:
   name: allow-add-capabilities
-  namespace: openebs
   annotations:
     policies.kyverno.io/category: Pod Security Standards
     policies.kyverno.io/severity: medium
@@ -16,7 +16,6 @@ spec:
     - name: capabilities
       match:
         resources:
-          name: "openebs-*"
           kinds:
             - Pod
       validate:
@@ -28,3 +27,4 @@ spec:
               - =(securityContext):
                   =(capabilities):
                     =(add): "*"
+{{- end }}
