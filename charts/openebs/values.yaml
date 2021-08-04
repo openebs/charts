@@ -18,6 +18,12 @@ release:
   # "openebs.io/version" label for control plane components
   version: "2.11.0"
 
+# Legacy components will be installed if it is enabled.
+# Legacy components are - admission-server, api-server, snapshot-operator
+# and storage-provisioner
+legacy:
+  enabled: true
+
 image:
   pullPolicy: IfNotPresent
   repository: ""

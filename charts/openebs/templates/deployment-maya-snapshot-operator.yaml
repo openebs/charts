@@ -1,4 +1,4 @@
-{{- if .Values.snapshotOperator.enabled }}
+{{- if and (.Values.snapshotOperator.enabled) (.Values.legacy.enabled) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:

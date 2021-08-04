@@ -1,4 +1,4 @@
-{{- if .Values.apiserver.enabled }}
+{{- if and (.Values.apiserver.enabled) (.Values.legacy.enabled) }}
 apiVersion: v1
 kind: Service
 metadata:

@@ -1,4 +1,4 @@
-{{- if .Values.provisioner.enabled }}
+{{- if and (.Values.provisioner.enabled) (.Values.legacy.enabled) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
