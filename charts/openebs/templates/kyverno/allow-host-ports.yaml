@@ -1,4 +1,4 @@
-{{- if Values.rbac.kyverno Enabled }}
+{{- if .Values.rbac.kyvernoEnabled }}
 apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
@@ -11,7 +11,7 @@ metadata:
       Access to host ports allows potential snooping of network traffic and should be
       allowed, or at minimum restricted to a known list.      
 spec:
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: true
   rules:
     - name: host-ports

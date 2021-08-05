@@ -1,4 +1,4 @@
-{{- if Values.rbac.kyverno Enabled }}
+{{- if .Values.rbac.kyvernoEnabled }}
 apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
@@ -12,7 +12,7 @@ metadata:
       network namespace) allow access to shared information and can be used to elevate
       privileges. Pods should  allowed access to host namespaces.      
 spec:
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: true
   rules:
     - name: host-namespaces

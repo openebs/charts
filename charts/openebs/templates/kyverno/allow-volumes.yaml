@@ -1,4 +1,4 @@
-{{- if Values.rbac.kyverno Enabled }}
+{{- if .Values.rbac.kyvernoEnabled }}
 apiVersion: kyverno.io/v1
 kind: Policy
 metadata:
@@ -10,7 +10,7 @@ metadata:
     policies.kyverno.io/description: >-
             In the privileged mode all types of the volumes allowed.
 spec:
-  validationFailureAction: audit
+  validationFailureAction: enforce
   background: true
   rules:
     - name: volumes
