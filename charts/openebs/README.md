@@ -61,6 +61,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | ----------------------------------------| --------------------------------------------- | ----------------------------------------- |
 | `rbac.create`                           | Enable RBAC Resources                         | `true`                                    |
 | `rbac.pspEnabled`                       | Create pod security policy resources          | `false`                                   |
+| `rbac.kyvernoEnabled`                   | Create Kyverno policy resources               | `false`                                   |
 | `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
 | `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `apiserver.enabled`                     | Enable API Server                             | `true`                                    |
@@ -222,3 +223,20 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 ```
 
 > **Tip**: You can install multiple csi driver by merging the configuration.
+
+## Kyverno
+
+Install [Kyverno](https://kyverno.io/docs/installation/) in your Kubernetes cluster using [Helm](https://kyverno.io/docs/installation/#install-kyverno-using-helm) or [YAMLs](https://kyverno.io/docs/installation/#install-kyverno-using-yamls).
+
+Apply Default Kyverno policies using
+```bash
+kubectl apply -f <fileName.yaml>
+```
+Check the default kyverno policies in Kubernetes cluster
+```bash
+kubectl get pol
+```
+Download the latest version of `openebs-operator.yaml` file.
+```bash
+kubectl apply -f https://openebs.github.io/charts/openebs-operator.yaml
+```
