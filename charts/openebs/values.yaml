@@ -6,6 +6,7 @@ rbac:
   # Specifies whether RBAC resources should be created
   create: true
   pspEnabled: false
+  kyvernoEnabled: false
 
 serviceAccount:
   create: true
