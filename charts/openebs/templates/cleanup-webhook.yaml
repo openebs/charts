@@ -1,4 +1,4 @@
-{{- if .Values.webhook.enabled }}
+{{- if and (.Values.webhook.enabled) (.Values.legacy.enabled) }}
 # HELM first deletes RBAC, then it tries to delete other resources like SPC and PVC. 
 # We've got validating webhook on SPC and PVC.
 # But even that the policy of this webhook is Ignore, it fails because the ServiceAccount 

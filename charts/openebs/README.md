@@ -185,9 +185,6 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace
 #### Install cStor with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set localprovisioner.enabled=false \
---set ndm.enabled=false \
---set ndmOperator.enabled=false \
 --set legacy.enabled=false \
 --set cstor.enabled=true \
 --set openebs-ndm.enabled=true
@@ -196,9 +193,6 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 #### Install Jiva with CSI driver
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set localprovisioner.enabled=false \
---set ndm.enabled=false \
---set ndmOperator.enabled=false \
 --set legacy.enabled=false \
 --set jiva.enabled=true \
 --set openebs-ndm.enabled=true \
@@ -208,9 +202,6 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 #### Install ZFS Local PV
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set localprovisioner.enabled=false \
---set ndm.enabled=false \
---set ndmOperator.enabled=false \
 --set legacy.enabled=false \
 --set zfs-localpv.enabled=true
 ```
@@ -218,9 +209,6 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 #### Install LVM Local PV
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set localprovisioner.enabled=false \
---set ndm.enabled=false \
---set ndmOperator.enabled=false \
 --set legacy.enabled=false \
 --set lvm-localpv.enabled=true
 ```
@@ -228,12 +216,9 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 #### Install Local PV hostpath and device
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set localprovisioner.enabled=false \
---set ndm.enabled=false \
---set ndmOperator.enabled=false \
---set openebs-ndm.enabled=true \
 --set legacy.enabled=false \
 --set localpv-provisioner.enabled=true
+--set openebs-ndm.enabled=true \
 ```
 
 > **Tip**: You can install multiple csi driver by merging the configuration.
