@@ -3,6 +3,54 @@ entries:
   openebs:
   - apiVersion: v2
     appVersion: 2.11.0
+    created: "2021-08-09T12:19:09.738315421Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 1.6.0
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 2.11.1
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 2.11.2
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 2.11.1
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 1.9.0
+    - condition: lvm-localpv.enabled
+      name: lvm-localpv
+      repository: https://openebs.github.io/lvm-localpv
+      version: 0.7.1
+    description: Containerized Storage for Containers
+    digest: 490f4de4b7f74c6dd14d7f7ea076bef4f161ef379105b5db38bfe49a5d0a92df
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - iSCSI
+    - storage
+    maintainers:
+    - email: kiran.mova@openebs.io
+      name: kmova
+    - email: prateek.pandey@openebs.io
+      name: prateekpandey14
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.11.5/openebs-2.11.5.tgz
+    version: 2.11.5
+  - apiVersion: v2
+    appVersion: 2.11.0
     created: "2021-08-04T12:27:16.884288191Z"
     dependencies:
     - condition: openebs-ndm.enabled
@@ -1096,4 +1144,4 @@ entries:
     urls:
     - https://github.com/openebs/charts/releases/download/openebs-1.10.2/openebs-1.10.2.tgz
     version: 1.10.2
-generated: "2021-08-04T12:27:16.887037315Z"
+generated: "2021-08-09T12:19:09.738639425Z"
