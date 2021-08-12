@@ -224,14 +224,16 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 
 > **Tip**: You can install multiple csi driver by merging the configuration.
 
-## Kyverno
+## Kyverno Policy Integration
 
-Install [Kyverno](https://kyverno.io/docs/installation/) in your Kubernetes cluster using [Helm](https://kyverno.io/docs/installation/#install-kyverno-using-helm) or [YAMLs](https://kyverno.io/docs/installation/#install-kyverno-using-yamls).
+PodSecurityPolicy(PSP) is being deprecated in Kubernetes 1.21 and will be removed in v1.25. So, the suitable alternative is Kyverno.
+Kyverno is an open-source policy engine built specifically for Kubernetes to not only validate and ensure requests comply with your
+internal best practices and policies.
 
-Apply Default Kyverno policies using
-```bash
-kubectl apply -f <fileName.yaml>
-```
+
+As part of kyverno integration, some required policies have been added as a helm template in openebs charts, installation disable by default and can be enabled using a flag. But before enabling that [Kyverno](https://kyverno.io/docs/installation/) should be installed in your Kubernetes cluster using 
+[Helm](https://kyverno.io/docs/installation/#install-kyverno-using-helm) or [YAMLs](https://kyverno.io/docs/installation/#install-kyverno-using-yamls).
+
 Check the default kyverno policies in Kubernetes cluster using
 ```bash
 kubectl get pol
