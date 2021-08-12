@@ -232,11 +232,7 @@ Apply Default Kyverno policies using
 ```bash
 kubectl apply -f <fileName.yaml>
 ```
-Check the default kyverno policies in Kubernetes cluster
+Check the default kyverno policies in Kubernetes cluster using
 ```bash
 kubectl get pol
-```
-Download the latest version of `openebs-operator.yaml` file.
-```bash
-kubectl apply -f https://openebs.github.io/charts/openebs-operator.yaml
 ```
