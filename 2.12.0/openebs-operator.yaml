@@ -1,6 +1,6 @@
 #
 #                             DEPRECATION NOTICE
-#    This operator file is deprecated in 2.11.0 in favour of individual operators
+#    This operator file is deprecated in 2.12.0 in favour of individual operators
 #       for each storage engine and the file will be removed in version 3.0.0
 #
 # Further specific components can be deploy using there individual operator yamls
@@ -898,7 +898,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.6.0
+        image: openebs/node-disk-manager:1.6.1
         args:
           - -v=4
           # The feature-gate is used to enable the new UUID algorithm.
@@ -1016,7 +1016,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.6.0
+          image: openebs/node-disk-operator:1.6.1
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
