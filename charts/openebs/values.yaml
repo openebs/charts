@@ -6,6 +6,8 @@ rbac:
   # Specifies whether RBAC resources should be created
   create: true
   pspEnabled: false
+  # rbac.kyvernoEnabled: `true` if Kyverno Policy resources should be created
+  kyvernoEnabled: false
 
 serviceAccount:
   create: true
