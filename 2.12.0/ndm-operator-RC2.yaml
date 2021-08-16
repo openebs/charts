@@ -639,7 +639,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: ndm-cluster-exporter
-          image: openebs/node-disk-exporter:ci
+          image: openebs/node-disk-exporter:1.6.1
           command:
             - /usr/local/bin/exporter
           args:
@@ -701,7 +701,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-exporter
-          image: openebs/node-disk-exporter:ci
+          image: openebs/node-disk-exporter:1.6.1
           command:
             - /usr/local/bin/exporter
           args:
