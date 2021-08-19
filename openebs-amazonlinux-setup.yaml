@@ -6,7 +6,7 @@ metadata:
   name: openebs-amazonlinux-init
   labels:
     openebs.io/component-name: openebs-amazonlinux-init
-    openebs.io/version: 1.4.0
+    openebs.io/version: 2.12.0
   annotations:
     command: &cmd yum install iscsi-initiator-utils -y && sudo systemctl enable iscsid && sudo systemctl start iscsid
 spec:
