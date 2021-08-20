@@ -178,7 +178,7 @@ openebs
 │   └── openebs-ndm
 ├── zfs-localpv
 └── lvm-localpv
-└── nfs
+└── nfs-provisioner
 
 ```
 
@@ -230,7 +230,7 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set legacy.enabled=false \
---set nfs.enabled=true
+--set nfs-provisioner.enabled=true
 ```
 
 

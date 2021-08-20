@@ -55,6 +55,7 @@ jobs:
           helm repo add openebs-cstor https://openebs.github.io/cstor-operators
           helm repo add openebs-zfslocalpv https://openebs.github.io/zfs-localpv
           helm repo add openebs-lvmlocalpv https://openebs.github.io/lvm-localpv
+          helm repo add openebs-nfs https://openebs.github.io/dynamic-nfs-provisioner
           helm repo update
 
       - name: Run chart-testing (install)

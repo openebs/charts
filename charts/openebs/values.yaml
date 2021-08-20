@@ -610,7 +610,7 @@ lvm-localpv:
 
 # openebs nfs provisioner configuration goes here
 # ref - https://openebs.github.io/dynamic-nfs-provisioner
-nfs:
+nfs-provisioner:
   enabled: false
 
   # Sample configuration if you want to configure lvm localpv with custom values.

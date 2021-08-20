@@ -31,7 +31,7 @@ dependencies:
     repository: "https://openebs.github.io/cstor-operators"
     condition: cstor.enabled
   - name: jiva
-    version: "2.12.1"
+    version: "2.12.0"
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
@@ -42,7 +42,7 @@ dependencies:
     version: "0.8.0"
     repository: "https://openebs.github.io/lvm-localpv"
     condition: lvm-localpv.enabled
-  - name: nfs
+  - name: nfs-provisioner
     version: "0.6.0"
     repository: "https://openebs.github.io/dynamic-nfs-provisioner"
-    condition: nfs.enabled
+    condition: nfs-provisioner.enabled
