@@ -95,10 +95,15 @@ provisioner:
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
-  imageTag: "2.11.1"
+  imageTag: "2.12.0"
   replicas: 1
   enableLeaderElection: true
   basePath: "/var/openebs/local"
+  # This sets the number of times the provisioner should try
+  # with a polling interval of 5 seconds, to get the Blockdevice
+  # Name from a BlockDeviceClaim, before the BlockDeviceClaim
+  # is deleted. E.g. 12 * 5 seconds = 60 seconds timeout
+  waitForBDBindTimeoutRetryCount: "12"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -157,7 +162,7 @@ snapshotOperator:
 ndm:
   enabled: true
   image: "openebs/node-disk-manager"
-  imageTag: "1.6.0"
+  imageTag: "1.6.1"
   sparse:
     path: "/var/openebs/sparse"
     size: "10737418240"
@@ -193,7 +198,7 @@ ndm:
 ndmOperator:
   enabled: true
   image: "openebs/node-disk-operator"
-  imageTag: "1.6.0"
+  imageTag: "1.6.1"
   replicas: 1
   upgradeStrategy: Recreate
   nodeSelector: {}
@@ -283,7 +288,7 @@ jiva:
 
   # non csi configuration
   image: "openebs/jiva"
-  imageTag: "2.12.0"
+  imageTag: "2.12.1"
   replicas: 3
   defaultStoragePath: "/var/openebs"
 
@@ -326,17 +331,17 @@ jiva:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.12.0
+#        tag: 2.12.1
 #    replica:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.12.0
+#        tag: 2.12.1
 #    image:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.12.0
+#      tag: 2.12.1
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -344,7 +349,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 2.12.0
+#      tag: 2.12.1
 
 cstor:
 
@@ -623,7 +628,7 @@ nfs:
 #      repository: openebs/provisioner-nfs
 #      tag: 0.6.0
 #      pullPolicy: IfNotPresent
-#      enableLeaderElection: "true"
+#    enableLeaderElection: "true"
 
 cleanup:
   image:

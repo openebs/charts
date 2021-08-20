@@ -82,6 +82,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `localprovisioner.replicas`             | Number of localProvisioner Replicas           | `1`                                       |
 | `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
 | `localprovisioner.resources`            | Set resource limits for localProvisioner      | `{}`                                      |
+| `localpv.waitForBDBindTimeoutRetryCount`| This sets the number of times the provisioner should try with a polling interval of 5 seconds, to get the Blockdevice Name from a BlockDeviceClaim, before the BlockDeviceClaim is deleted. | "12" |
 | `webhook.enabled`                       | Enable admission server                       | `true`                                    |
 | `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
 | `webhook.imageTag`                      | Image Tag for admission server                | `2.12.0`                                  |
@@ -116,7 +117,7 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.6.0`                                   |
 | `ndmOperator.resources`                 | Set resource limits for NDM Operator          | `{}`                                      |
 | `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
-| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.12.0`                                  |
+| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.12.1`                                  |
 | `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |
 | `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
 | `cstor.pool.image`                      | Image for cStor Pool                          | `openebs/cstor-pool`                      |
