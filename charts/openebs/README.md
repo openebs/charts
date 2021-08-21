@@ -66,39 +66,40 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `apiserver.enabled`                     | Enable API Server                             | `true`                                    |
 | `apiserver.image`                       | Image for API Server                          | `openebs/m-apiserver`                     |
-| `apiserver.imageTag`                    | Image Tag for API Server                      | `2.11.0`                                  |
+| `apiserver.imageTag`                    | Image Tag for API Server                      | `2.12.0`                                  |
 | `apiserver.replicas`                    | Number of API Server Replicas                 | `1`                                       |
 | `apiserver.sparse.enabled`              | Create Sparse Pool based on Sparsefile        | `false`                                   |
 | `apiserver.resources`                   | Set resource limits for API Server            | `{}`                                      |
 | `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
 | `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
-| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.11.0`                                  |
+| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.12.0`                                  |
 | `provisioner.replicas`                  | Number of Provisioner Replicas                | `1`                                       |
 | `provisioner.resources`                 | Set resource limits for Provisioner           | `{}`                                      |
 | `provisioner.patchJivaNodeAffinity`     | Enable/disable node affinity on jiva replica deployment| `enabled`                                 |
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
-| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.11.1`                                  |
+| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.12.0`                                  |
 | `localprovisioner.replicas`             | Number of localProvisioner Replicas           | `1`                                       |
 | `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
 | `localprovisioner.resources`            | Set resource limits for localProvisioner      | `{}`                                      |
+| `localpv.waitForBDBindTimeoutRetryCount`| This sets the number of times the provisioner should try with a polling interval of 5 seconds, to get the Blockdevice Name from a BlockDeviceClaim, before the BlockDeviceClaim is deleted. | "12" |
 | `webhook.enabled`                       | Enable admission server                       | `true`                                    |
 | `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
-| `webhook.imageTag`                      | Image Tag for admission server                | `2.11.0`                                  |
+| `webhook.imageTag`                      | Image Tag for admission server                | `2.12.0`                                  |
 | `webhook.replicas`                      | Number of admission server Replicas           | `1`                                       |
 | `webhook.hostNetwork`                   | Use hostNetwork in admission server           | `false`                                   |
 | `webhook.resources`                     | Set resource limits for admission server      | `{}`                                      |
 | `snapshotOperator.enabled`              | Enable Snapshot Provisioner                   | `true`                                    |
 | `snapshotOperator.provisioner.image`    | Image for Snapshot Provisioner                | `openebs/snapshot-provisioner`            |
-| `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `2.11.0`                                  |
+| `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `2.12.0`                                  |
 | `snapshotOperator.controller.image`     | Image for Snapshot Controller                 | `openebs/snapshot-controller`             |
-| `snapshotOperator.controller.imageTag`  | Image Tag for Snapshot Controller             | `2.11.0`                                  |
+| `snapshotOperator.controller.imageTag`  | Image Tag for Snapshot Controller             | `2.12.0`                                  |
 | `snapshotOperator.replicas`             | Number of Snapshot Operator Replicas          | `1`                                       |
 | `snapshotOperator.provisioner.resources`| Set resource limits for Snapshot Provisioner  | `{}`                                      |
 | `snapshotOperator.controller.resources` | Set resource limits for Snapshot Controller   | `{}`                                      |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
 | `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`         |
-| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.6.0`                                   |
+| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.6.1`                                   |
 | `ndm.sparse.path`                       | Directory where Sparse files are created      | `/var/openebs/sparse`                     |
 | `ndm.sparse.size`                       | Size of the sparse file in bytes              | `10737418240`                             |
 | `ndm.sparse.count`                      | Number of sparse files to be created          | `0`                                       |
@@ -113,29 +114,36 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `ndm.resources`                         | Set resource limits for NDM                   | `{}`                                      |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`        |
-| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.6.0`                                   |
+| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.6.1`                                   |
 | `ndmOperator.resources`                 | Set resource limits for NDM Operator          | `{}`                                      |
+| `ndmExporter.enabled`                   | Enable NDM Exporters                          | `false`                                   |
+| `ndmExporter.image.registry`            | Registry for NDM Exporters image              | `""`                                      |
+| `ndmExporter.repository`                | Image repository for NDM Exporters            | `openebs/node-disk-exporter`              |
+| `ndmExporter.pullPolicy`                | Image pull policy for NDM Exporters           | `IfNotPresent`                            |
+| `ndmExporter.tag`                       | Image tag for NDM Exporters                   | `1.6.1`                                   |
+| `ndmExporter.nodeExporter.metricsPort`  | The TCP port number used for exposing NDM node exporter metrics    | `9101`               |
+| `ndmExporter.clusterExporter.metricsPort`   | The TCP port number used for exposing NDM cluster exporter metrics  | `9100`          |
 | `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
-| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.11.0`                                  |
+| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.12.1`                                  |
 | `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |
 | `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
 | `cstor.pool.image`                      | Image for cStor Pool                          | `openebs/cstor-pool`                      |
-| `cstor.pool.imageTag`                   | Image Tag for cStor Pool                      | `2.11.0`                                  |
+| `cstor.pool.imageTag`                   | Image Tag for cStor Pool                      | `2.12.0`                                  |
 | `cstor.poolMgmt.image`                  | Image for cStor Pool  Management              | `openebs/cstor-pool-mgmt`                 |
-| `cstor.poolMgmt.imageTag`               | Image Tag for cStor Pool Management           | `2.11.0`                                  |
+| `cstor.poolMgmt.imageTag`               | Image Tag for cStor Pool Management           | `2.12.0`                                  |
 | `cstor.target.image`                    | Image for cStor Target                        | `openebs/cstor-istgt`                     |
-| `cstor.target.imageTag`                 | Image Tag for cStor Target                    | `2.11.0`                                  |
+| `cstor.target.imageTag`                 | Image Tag for cStor Target                    | `2.12.0`                                  |
 | `cstor.volumeMgmt.image`                | Image for cStor Volume  Management            | `openebs/cstor-volume-mgmt`               |
-| `cstor.volumeMgmt.imageTag`             | Image Tag for cStor Volume Management         | `2.11.0`                                  |
+| `cstor.volumeMgmt.imageTag`             | Image Tag for cStor Volume Management         | `2.12.0`                                  |
 | `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
-| `helper.imageTag`                       | Image Tag for helper                          | `2.11.0`                                  |
+| `helper.imageTag`                       | Image Tag for helper                          | `2.12.0`                                  |
 | `featureGates.enabled`                  | Enable feature gates for OpenEBS              | `true`                                   |
 | `featureGates.APIService.enabled`       | Enable APIService in NDM                      | `false`                                  |
 | `featureGates.UseOSDisk.enabled`        | Enable using unused partitions on OS Disk     | `false`                                  |
 | `featureGates.MountChangeDetection.enabled` | Enable feature-gate to detect mountpoint/filesystem changes | `false`                                   |
 | `crd.enableInstall`                     | Enable installation of CRDs by OpenEBS        | `true`                                    |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
-| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.11.0`                                  |
+| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.12.0`                                  |
 | `analytics.enabled`                     | Enable sending stats to Google Analytics      | `true`                                    |
 | `analytics.pingInterval`                | Duration(hours) between sending ping stat     | `24h`                                     |
 | `defaultStorageConfig.enabled`          | Enable default storage class installation     | `true`                                    |
@@ -162,6 +170,7 @@ helm install --name openebs -f values.yaml openebs/openebs
 -  [jiva](https://openebs.github.io/jiva-operator)
 -  [zfs-localpv](https://openebs.github.io/zfs-localpv)
 -  [lvm-localpv](https://openebs.github.io/lvm-localpv)
+-  [nfs](https://openebs.github.io/dynamic-nfs-provisioner)
 
 ## Dependency tree of this chart
 ```bash
@@ -176,6 +185,8 @@ openebs
 │   └── openebs-ndm
 ├── zfs-localpv
 └── lvm-localpv
+└── nfs-provisioner
+
 ```
 
 #### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
@@ -221,6 +232,14 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set localpv-provisioner.enabled=true
 --set openebs-ndm.enabled=true \
 ```
+
+#### Install NFS Provisioner
+```bash
+helm install openebs openebs/openebs --namespace openebs --create-namespace \
+--set legacy.enabled=false \
+--set nfs-provisioner.enabled=true
+```
+
 
 > **Tip**: You can install multiple csi driver by merging the configuration.
 

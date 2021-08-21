@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "2.11.0"
+  version: "2.12.0"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, api-server, snapshot-operator
@@ -33,7 +33,7 @@ image:
 apiserver:
   enabled: true
   image: "openebs/m-apiserver"
-  imageTag: "2.11.0"
+  imageTag: "2.12.0"
   replicas: 1
   ports:
     externalPort: 5656
@@ -68,7 +68,7 @@ varDirectoryPath:
 provisioner:
   enabled: true
   image: "openebs/openebs-k8s-provisioner"
-  imageTag: "2.11.0"
+  imageTag: "2.12.0"
   replicas: 1
   enableLeaderElection: true
   patchJivaNodeAffinity: enabled
@@ -95,10 +95,15 @@ provisioner:
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
-  imageTag: "2.11.1"
+  imageTag: "2.12.0"
   replicas: 1
   enableLeaderElection: true
   basePath: "/var/openebs/local"
+  # This sets the number of times the provisioner should try
+  # with a polling interval of 5 seconds, to get the Blockdevice
+  # Name from a BlockDeviceClaim, before the BlockDeviceClaim
+  # is deleted. E.g. 12 * 5 seconds = 60 seconds timeout
+  waitForBDBindTimeoutRetryCount: "12"
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -119,7 +124,7 @@ snapshotOperator:
   enabled: true
   controller:
     image: "openebs/snapshot-controller"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
     ## snapshot controller resource requests and limits
     ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
     resources: {}
@@ -131,7 +136,7 @@ snapshotOperator:
       #   memory: 1Gi
   provisioner:
     image: "openebs/snapshot-provisioner"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
     ## snapshot provisioner resource requests and limits
     ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
     resources: {}
@@ -157,7 +162,7 @@ snapshotOperator:
 ndm:
   enabled: true
   image: "openebs/node-disk-manager"
-  imageTag: "1.6.0"
+  imageTag: "1.6.1"
   sparse:
     path: "/var/openebs/sparse"
     size: "10737418240"
@@ -193,7 +198,7 @@ ndm:
 ndmOperator:
   enabled: true
   image: "openebs/node-disk-operator"
-  imageTag: "1.6.0"
+  imageTag: "1.6.1"
   replicas: 1
   upgradeStrategy: Recreate
   nodeSelector: {}
@@ -214,10 +219,35 @@ ndmOperator:
     #   cpu: 500m
     #   memory: 1Gi
 
+ndmExporter:
+  enabled: false
+  image:
+    registry:
+    repository: openebs/node-disk-exporter
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: 1.6.1
+  nodeExporter:
+    name: ndm-node-exporter
+    podLabels:
+      name: openebs-ndm-node-exporter
+    # The TCP port number used for exposing ndm-node-exporter metrics.
+    # If not set, service will not be created to expose metrics endpoint to serviceMonitor
+    # and listen-port flag will not be set and container port will be empty.
+    metricsPort: 9101
+  clusterExporter:
+    name: ndm-cluster-exporter
+    podLabels:
+      name: openebs-ndm-cluster-exporter
+    # The TCP port number used for exposing ndm-cluster-exporter metrics.
+    # If not set, service will not be created to expose metrics endpoint to serviceMonitor
+    # and listen-port flag will not be set and container port will be empty.
+    metricsPort: 9100
+
 webhook:
   enabled: true
   image: "openebs/admission-server"
-  imageTag: "2.11.0"
+  imageTag: "2.12.0"
   failurePolicy: "Fail"
   replicas: 1
   healthCheck:
@@ -241,7 +271,7 @@ webhook:
 # then put this configuration under `localpv-provisioner` and `openebs-ndm` key.
 helper:
   image: "openebs/linux-utils"
-  imageTag: "2.11.0"
+  imageTag: "2.12.0"
 
 # These are ndm related configuration. If you want to enable openebs as a dependency
 # chart then set `ndm.enabled: false`, `ndmOperator.enabled: false` and enable it as
@@ -272,7 +302,7 @@ policies:
   monitoring:
     enabled: true
     image: "openebs/m-exporter"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
 
 analytics:
   enabled: true
@@ -283,7 +313,7 @@ jiva:
 
   # non csi configuration
   image: "openebs/jiva"
-  imageTag: "2.11.0"
+  imageTag: "2.12.1"
   replicas: 3
   defaultStoragePath: "/var/openebs"
 
@@ -326,17 +356,17 @@ jiva:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.11.0
+#        tag: 2.12.1
 #    replica:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.11.0
+#        tag: 2.12.1
 #    image:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.1
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -344,23 +374,23 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.1
 
 cstor:
 
   # non csi configuration
   pool:
     image: "openebs/cstor-pool"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
   poolMgmt:
     image: "openebs/cstor-pool-mgmt"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
   target:
     image: "openebs/cstor-istgt"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
   volumeMgmt:
     image: "openebs/cstor-volume-mgmt"
-    imageTag: "2.11.0"
+    imageTag: "2.12.0"
 
   # cstor csi driver configuration
   # do not enable or configure any sub dependency here
@@ -395,51 +425,51 @@ cstor:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool-manager
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    cstorPool:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    cstorPoolExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cspc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 #
 #  cvcOperator:
 #    target:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-istgt
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    volumeMgmt:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-volume-manager
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    volumeExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 2.11.0
+#        tag: 2.12.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cvc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 #
 #  cstorCSIPlugin:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cstor-csi-driver
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 #
 #  admissionServer:
 #    componentName: cstor-admission-webhook
@@ -447,7 +477,7 @@ cstor:
 #      registry: quay.io/
 #      repository: openebs/cstor-webhook
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 
 # ndm configuration goes here
 # https://openebs.github.io/node-disk-manager
@@ -465,7 +495,7 @@ openebs-ndm:
 #      registry: quay.io/
 #      repository: openebs/node-disk-manager
 #      pullPolicy: IfNotPresent
-#      tag: 1.6.0
+#      tag: 1.6.1
 #    sparse:
 #      path: "/var/openebs/sparse"
 #      size: "10737418240"
@@ -488,14 +518,14 @@ openebs-ndm:
 #      registry: quay.io/
 #      repository: openebs/node-disk-operator
 #      pullPolicy: IfNotPresent
-#      tag: 1.6.0
+#      tag: 1.6.1
 #
 #  helperPod:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/linux-utils
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 #
 #  featureGates:
 #    enabled: true
@@ -545,7 +575,7 @@ localpv-provisioner:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/provisioner-localpv
-#      tag: 2.11.1
+#      tag: 2.12.0
 #      pullPolicy: IfNotPresent
 #    healthCheck:
 #      initialDelaySeconds: 30
@@ -559,7 +589,7 @@ localpv-provisioner:
 #      registry: quay.io/
 #      repository: openebs/linux-utils
 #      pullPolicy: IfNotPresent
-#      tag: 2.11.0
+#      tag: 2.12.0
 
 # zfs local pv configuration goes here
 # ref - https://openebs.github.io/zfs-localpv
@@ -580,14 +610,14 @@ zfs-localpv:
 #      registry: quay.io/
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
-#      tag: 1.9.0
+#      tag: 1.9.1
 
 # lvm local pv configuration goes here
 # ref - https://openebs.github.io/lvm-localpv
 lvm-localpv:
   enabled: false
 
-  # Sample configuration if you want to configure lvm locapv with custom values.
+  # Sample configuration if you want to configure lvm localpv with custom values.
   # This is a small part of the full configuration. Full configuration available
   # here - https://openebs.github.io/lvm-localpv
 
@@ -601,7 +631,29 @@ lvm-localpv:
 #      registry: quay.io/
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
-#      tag: 0.7.0
+#      tag: 0.8.0
+
+# openebs nfs provisioner configuration goes here
+# ref - https://openebs.github.io/dynamic-nfs-provisioner
+nfs-provisioner:
+  enabled: false
+
+  # Sample configuration if you want to configure lvm localpv with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://openebs.github.io/dynamic-nfs-provisioner
+
+#  imagePullSecrets: []
+#
+#  rbac:
+#    pspEnabled: false
+#
+#  nfsProvisioner:
+#    image:
+#      registry:
+#      repository: openebs/provisioner-nfs
+#      tag: 0.6.0
+#      pullPolicy: IfNotPresent
+#    enableLeaderElection: "true"
 
 cleanup:
   image:
