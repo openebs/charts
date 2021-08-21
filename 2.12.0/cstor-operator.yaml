@@ -1346,7 +1346,7 @@ spec:
             - name: ADDRESS
               value: /plugin/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: /var/snap/microk8s/common/var/lib/kubelet/plugins/cstor.csi.openebs.io/csi.sock
+              value: /var/lib/kubelet/plugins/cstor.csi.openebs.io/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -1398,7 +1398,7 @@ spec:
             - name: device-dir
               mountPath: /dev
             - name: pods-mount-dir
-              mountPath: /var/snap/microk8s/common/var/lib/kubelet/
+              mountPath: /var/lib/kubelet/
               # needed so that any mounts setup inside this container are
               # propagated back to the host machine.
               mountPropagation: "Bidirectional"
@@ -1415,15 +1415,15 @@ spec:
             type: Directory
         - name: registration-dir
           hostPath:
-            path: /var/snap/microk8s/common/var/lib/kubelet/plugins_registry/
+            path: /var/lib/kubelet/plugins_registry/
             type: DirectoryOrCreate
         - name: plugin-dir
           hostPath:
-            path: /var/snap/microk8s/common/var/lib/kubelet/plugins/cstor.csi.openebs.io/
+            path: /var/lib/kubelet/plugins/cstor.csi.openebs.io/
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
-            path: /var/snap/microk8s/common/var/lib/kubelet/
+            path: /var/lib/kubelet/
             type: Directory
         - name: chroot-iscsiadm
           configMap:
@@ -5314,7 +5314,7 @@ spec:
       #hostPID: true
       containers:
         - name: node-disk-manager
-          image: openebs/node-disk-manager:1.6.1
+          image: openebs/node-disk-manager:1.6.0
           args:
             - -v=4
             # The feature-gate is used to enable the new UUID algorithm.
@@ -5432,7 +5432,7 @@ spec:
       serviceAccountName: openebs-cstor-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.6.1
+          image: openebs/node-disk-operator:1.6.0
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
