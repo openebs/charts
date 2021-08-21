@@ -4,27 +4,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "openebs.cluster-exporter.fullname" . }}
+  name: {{ template "openebs.ndm-cluster-exporter.fullname" . }}
   labels:
-    {{- include "openebs.cluster-exporter.labels" . | nindent 4 }}
+    {{- include "openebs.ndm-cluster-exporter.labels" . | nindent 4 }}
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      {{- include "openebs.cluster-exporter.matchLabels" . | nindent 6 }}
+      {{- include "openebs.ndm-cluster-exporter.matchLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "openebs.cluster-exporter.labels" . | nindent 8 }}
+        {{- include "openebs.ndm-cluster-exporter.labels" . | nindent 8 }}
           {{- with .Values.ndmExporter.clusterExporter.podLabels }}
           {{ toYaml . | nindent 8 }}
           {{- end }}
     spec:
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       containers:
-        - name: {{ template "openebs.cluster-exporter.fullname" . }}
+        - name: {{ template "openebs.ndm-cluster-exporter.fullname" . }}
           image: "{{ .Values.ndmExporter.image.registry }}{{ .Values.ndmExporter.image.repository }}:{{ .Values.ndmExporter.image.tag }}"
           command:
             - /usr/local/bin/exporter

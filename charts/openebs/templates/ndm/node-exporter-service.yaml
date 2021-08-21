@@ -5,9 +5,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "openebs.node-exporter.fullname" . }}-service
+  name: {{ template "openebs.ndm-node-exporter.fullname" . }}-service
   labels:
-    {{- include "openebs.node-exporter.labels" . | nindent 4 }}
+    {{- include "openebs.ndm-node-exporter.labels" . | nindent 4 }}
 spec:
   clusterIP: None
   ports:
