@@ -1,7 +1,5 @@
 {{- if .Values.ndm.enabled }}
 {{- if and .Values.ndmExporter.enabled .Values.ndmExporter.nodeExporter.metricsPort }}
-{{- $ndmValues := index .Values "openebs-ndm" }}
-{{- if not $ndmValues.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -18,6 +16,5 @@ spec:
     {{- with .Values.ndmExporter.nodeExporter.podLabels }}
       {{ toYaml . }}
       {{- end }}
-{{- end }}
 {{- end }}
 {{- end }}

@@ -1,6 +1,4 @@
 {{- if and .Values.ndm.enabled .Values.ndmExporter.enabled }}
-{{- $ndmValues := index .Values "openebs-ndm" }}
-{{- if not $ndmValues.enabled }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -21,6 +19,10 @@ spec:
           {{ toYaml . | nindent 8 }}
           {{- end }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       serviceAccountName: {{ template "openebs.serviceAccountName" . }}
       containers:
         - name: {{ template "openebs.ndm-node-exporter.fullname" . }}
@@ -37,6 +39,10 @@ spec:
               protocol: TCP
               name: metrics
           imagePullPolicy: {{ .Values.ndmExporter.image.pullPolicy }}
+{{- if .Values.ndmExporter.nodeExporter.resources }}
+        resources:
+{{ toYaml .Values.ndmExporter.resources | trimSuffix "\n" | indent 10 }}
+{{- end }}
           securityContext:
             privileged: true
           env:
@@ -48,5 +54,19 @@ spec:
             - name: METRICS_LISTEN_PORT
               value: :{{ .Values.ndmExporter.nodeExporter.metricsPort }}
             {{- end }}
+        livenessProbe:
+          exec:
+            command:
+            - pgrep
+            - "exporter"
+          initialDelaySeconds: {{ .Values.ndmExporter.nodeExporter.healthCheck.initialDelaySeconds }}
+          periodSeconds: {{ .Values.ndmExporter.nodeExporter.healthCheck.periodSeconds }}
+{{- if .Values.ndmExporter.nodeExporter.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.ndmExporter.nodeExporter.nodeSelector | indent 8 }}
+{{- end }}
+{{- if .Values.ndmExporter.nodeExporter.tolerations }}
+      tolerations:
+{{ toYaml .Values.ndmExporter.nodeExporter.tolerations | indent 8 }}
 {{- end }}
 {{- end }}
