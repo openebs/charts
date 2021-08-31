@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 2.12.1
+version: 2.12.2
 name: openebs
 appVersion: 2.12.0
 description: Containerized Storage for Containers
@@ -27,11 +27,11 @@ dependencies:
     repository: "https://openebs.github.io/dynamic-localpv-provisioner"
     condition: localpv-provisioner.enabled
   - name: cstor
-    version: "2.12.0"
+    version: "2.12.1"
     repository: "https://openebs.github.io/cstor-operators"
     condition: cstor.enabled
   - name: jiva
-    version: "2.12.0"
+    version: "2.12.1"
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
