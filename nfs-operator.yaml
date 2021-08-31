@@ -70,7 +70,7 @@ metadata:
   labels:
     name: openebs-nfs-provisioner
     openebs.io/component-name: openebs-nfs-provisioner
-    openebs.io/version: dev
+    openebs.io/version: 0.6.1
 spec:
   selector:
     matchLabels:
@@ -84,7 +84,7 @@ spec:
       labels:
         name: openebs-nfs-provisioner
         openebs.io/component-name: openebs-nfs-provisioner
-        openebs.io/version: dev
+        openebs.io/version: 0.6.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
