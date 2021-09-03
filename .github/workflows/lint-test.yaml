@@ -5,12 +5,12 @@ on:
     paths:
       - 'charts/openebs/**'
     branches:
-      - master
+      - main
   pull_request:
     paths:
       - 'charts/openebs/**'
     branches:
-      - master
+      - main
 
 jobs:
   lint-test:
