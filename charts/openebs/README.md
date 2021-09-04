@@ -229,8 +229,8 @@ helm install openebs openebs/openebs --namespace openebs --create-namespace \
 ```bash
 helm install openebs openebs/openebs --namespace openebs --create-namespace \
 --set legacy.enabled=false \
---set localpv-provisioner.enabled=true
---set openebs-ndm.enabled=true \
+--set localpv-provisioner.enabled=true \
+--set openebs-ndm.enabled=true
 ```
 
 #### Install NFS Provisioner
