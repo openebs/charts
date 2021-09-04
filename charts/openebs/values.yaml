@@ -68,7 +68,7 @@ varDirectoryPath:
 provisioner:
   enabled: true
   image: "openebs/openebs-k8s-provisioner"
-  imageTag: "2.12.0"
+  imageTag: "2.12.1"
   replicas: 1
   enableLeaderElection: true
   patchJivaNodeAffinity: enabled
@@ -315,7 +315,7 @@ jiva:
 
   # non csi configuration
   image: "openebs/jiva"
-  imageTag: "2.12.1"
+  imageTag: "2.12.2"
   replicas: 3
   defaultStoragePath: "/var/openebs"
 
@@ -358,17 +358,17 @@ jiva:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.12.1
+#        tag: 2.12.2
 #    replica:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 2.12.1
+#        tag: 2.12.2
 #    image:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 2.12.1
+#      tag: 2.12.2
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -376,7 +376,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 2.12.1
+#      tag: 2.12.2
 
 cstor:
 
