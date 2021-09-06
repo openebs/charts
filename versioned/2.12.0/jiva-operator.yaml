@@ -3594,6 +3594,26 @@ metadata:
 
 ---
 
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: openebs-csi-controller-critical
+value: 900000000
+globalDefault: false
+description: "This priority class should be used for the cStor and Jiva CSI driver controller deployment only."
+
+---
+
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: openebs-csi-node-critical
+value: 900001000
+globalDefault: false
+description: "This priority class should be used for the cStor and Jiva CSI driver node deployment only."
+
+---
+
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -3674,7 +3694,7 @@ spec:
         openebs.io/component-name: openebs-jiva-csi-controller
         openebs.io/version: 2.12.2
     spec:
-      priorityClassName: system-cluster-critical
+      priorityClassName: openebs-csi-controller-critical
       serviceAccount: openebs-jiva-csi-controller-sa
       containers:
         - name: csi-provisioner
@@ -3900,7 +3920,7 @@ spec:
         openebs.io/component-name: openebs-jiva-csi-node
         openebs.io/version: 2.12.2
     spec:
-      priorityClassName: system-node-critical
+      priorityClassName: openebs-csi-node-critical
       serviceAccount: openebs-jiva-csi-node-sa
       hostNetwork: true
       containers:
