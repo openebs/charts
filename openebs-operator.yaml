@@ -195,25 +195,25 @@ spec:
         # This value takes effect only if OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG
         # is set to true
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "openebs/jiva:2.12.1"
+          value: "openebs/jiva:2.12.2"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "openebs/jiva:2.12.1"
+          value: "openebs/jiva:2.12.2"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "openebs/cstor-istgt:2.12.0"
+          value: "openebs/cstor-istgt:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "openebs/cstor-pool:2.12.0"
+          value: "openebs/cstor-pool:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "openebs/cstor-pool-mgmt:2.12.0"
+          value: "openebs/cstor-pool-mgmt:2.12.1"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-mgmt:2.12.0"
+          value: "openebs/cstor-volume-mgmt:2.12.1"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:2.12.0"
+          value: "openebs/m-exporter:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "openebs/m-exporter:2.12.0"
+          value: "openebs/m-exporter:2.12.1"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.12.0"
+          value: "openebs/linux-utils:2.12.1"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -291,7 +291,7 @@ spec:
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: openebs/openebs-k8s-provisioner:2.12.0
+        image: openebs/openebs-k8s-provisioner:2.12.1
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -368,7 +368,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: openebs/snapshot-controller:2.12.0
+          image: openebs/snapshot-controller:2.12.1
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -396,7 +396,7 @@ spec:
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
         - name: snapshot-provisioner
-          image: openebs/snapshot-provisioner:2.12.0
+          image: openebs/snapshot-provisioner:2.12.1
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -1028,7 +1028,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.12.0"
+              value: "openebs/linux-utils:2.12.1"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
@@ -1073,7 +1073,7 @@ spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: openebs/admission-server:2.12.0
+          image: openebs/admission-server:2.12.1
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -1131,7 +1131,7 @@ spec:
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:2.12.0
+        image: openebs/provisioner-localpv:2.12.1
         args:
           - "--bd-time-out=$(BDC_BD_BIND_RETRIES)"
         env:
@@ -1170,7 +1170,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.12.0"
+          value: "openebs/linux-utils:2.12.1"
         - name: OPENEBS_IO_BASE_PATH
           value: "/var/openebs/local"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
@@ -1236,4 +1236,3 @@ provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
 ---
-
