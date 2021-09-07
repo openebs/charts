@@ -121,6 +121,6 @@ spec:
 {{- if .Values.localprovisioner.affinity }}
       affinity:
 {{ toYaml .Values.localprovisioner.affinity | indent 8 }}
-{{- end }}
-{{- end }}
-{{- end }}
+{{ end }}
+{{ end }}
+{{ end }}

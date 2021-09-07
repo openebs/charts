@@ -95,11 +95,11 @@ provisioner:
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
-  imageTag: "2.12.0"
+  imageTag: "2.12.1"
   replicas: 1
   enableLeaderElection: true
-  deviceClassEnabled: true
-  hostpathClassEnabled: true
+  enableDeviceClass: true
+  enableHostpathClass: true
   basePath: "/var/openebs/local"
   # This sets the number of times the provisioner should try
   # with a polling interval of 5 seconds, to get the Blockdevice
@@ -126,7 +126,7 @@ snapshotOperator:
   enabled: true
   controller:
     image: "openebs/snapshot-controller"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
     ## snapshot controller resource requests and limits
     ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
     resources: {}
@@ -138,7 +138,7 @@ snapshotOperator:
       #   memory: 1Gi
   provisioner:
     image: "openebs/snapshot-provisioner"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
     ## snapshot provisioner resource requests and limits
     ## Reference: http://kubernetes.io/docs/user-guide/compute-resources/
     resources: {}
@@ -249,7 +249,7 @@ ndmExporter:
 webhook:
   enabled: true
   image: "openebs/admission-server"
-  imageTag: "2.12.0"
+  imageTag: "2.12.1"
   failurePolicy: "Fail"
   replicas: 1
   healthCheck:
@@ -273,7 +273,7 @@ webhook:
 # then put this configuration under `localpv-provisioner` and `openebs-ndm` key.
 helper:
   image: "openebs/linux-utils"
-  imageTag: "2.12.0"
+  imageTag: "2.12.1"
 
 # These are ndm related configuration. If you want to enable openebs as a dependency
 # chart then set `ndm.enabled: false`, `ndmOperator.enabled: false` and enable it as
@@ -304,7 +304,7 @@ policies:
   monitoring:
     enabled: true
     image: "openebs/m-exporter"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
 
 analytics:
   enabled: true
@@ -383,16 +383,16 @@ cstor:
   # non csi configuration
   pool:
     image: "openebs/cstor-pool"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
   poolMgmt:
     image: "openebs/cstor-pool-mgmt"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
   target:
     image: "openebs/cstor-istgt"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
   volumeMgmt:
     image: "openebs/cstor-volume-mgmt"
-    imageTag: "2.12.0"
+    imageTag: "2.12.1"
 
   # cstor csi driver configuration
   # do not enable or configure any sub dependency here
@@ -577,7 +577,7 @@ localpv-provisioner:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/provisioner-localpv
-#      tag: 2.12.0
+#      tag: 2.12.1
 #      pullPolicy: IfNotPresent
 #    healthCheck:
 #      initialDelaySeconds: 30
@@ -591,7 +591,7 @@ localpv-provisioner:
 #      registry: quay.io/
 #      repository: openebs/linux-utils
 #      pullPolicy: IfNotPresent
-#      tag: 2.12.0
+#      tag: 2.12.1
 
 # zfs local pv configuration goes here
 # ref - https://openebs.github.io/zfs-localpv
