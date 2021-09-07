@@ -1,7 +1,7 @@
 apiVersion: v2
-version: 2.12.2
+version: 2.12.3
 name: openebs
-appVersion: 2.12.0
+appVersion: 2.12.1
 description: Containerized Storage for Containers
 icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
@@ -23,7 +23,7 @@ dependencies:
     repository: "https://openebs.github.io/node-disk-manager"
     condition: openebs-ndm.enabled
   - name: localpv-provisioner
-    version: "2.12.0"
+    version: "2.12.1"
     repository: "https://openebs.github.io/dynamic-localpv-provisioner"
     condition: localpv-provisioner.enabled
   - name: cstor
