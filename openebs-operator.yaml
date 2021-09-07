@@ -97,7 +97,7 @@ metadata:
   labels:
     name: maya-apiserver
     openebs.io/component-name: maya-apiserver
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -112,13 +112,13 @@ spec:
       labels:
         name: maya-apiserver
         openebs.io/component-name: maya-apiserver
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: maya-apiserver
         imagePullPolicy: IfNotPresent
-        image: openebs/m-apiserver:2.12.0
+        image: openebs/m-apiserver:2.12.1
         ports:
         - containerPort: 5656
         env:
@@ -194,28 +194,26 @@ spec:
         # The default path used is /var/openebs/local
         # This value takes effect only if OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG
         # is set to true
-        #- name: OPENEBS_IO_LOCALPV_HOSTPATH_DIR
-        #  value: "/var/openebs/local"
         - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-          value: "openebs/jiva:2.12.1"
+          value: "openebs/jiva:2.12.2"
         - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-          value: "openebs/jiva:2.12.1"
+          value: "openebs/jiva:2.12.2"
         - name: OPENEBS_IO_JIVA_REPLICA_COUNT
           value: "3"
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "openebs/cstor-istgt:2.12.0"
+          value: "openebs/cstor-istgt:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "openebs/cstor-pool:2.12.0"
+          value: "openebs/cstor-pool:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_MGMT_IMAGE
-          value: "openebs/cstor-pool-mgmt:2.12.0"
+          value: "openebs/cstor-pool-mgmt:2.12.1"
         - name: OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-mgmt:2.12.0"
+          value: "openebs/cstor-volume-mgmt:2.12.1"
         - name: OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:2.12.0"
+          value: "openebs/m-exporter:2.12.1"
         - name: OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "openebs/m-exporter:2.12.0"
+          value: "openebs/m-exporter:2.12.1"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.12.0"
+          value: "openebs/linux-utils:2.12.1"
         # OPENEBS_IO_ENABLE_ANALYTICS if set to true sends anonymous usage
         # events to Google Analytics
         - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -272,7 +270,7 @@ metadata:
   labels:
     name: openebs-provisioner
     openebs.io/component-name: openebs-provisioner
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -287,13 +285,13 @@ spec:
       labels:
         name: openebs-provisioner
         openebs.io/component-name: openebs-provisioner
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner
         imagePullPolicy: IfNotPresent
-        image: openebs/openebs-k8s-provisioner:2.12.0
+        image: openebs/openebs-k8s-provisioner:2.12.1
         env:
         # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         # based on this address. This is ignored if empty.
@@ -351,7 +349,7 @@ metadata:
   labels:
     name: openebs-snapshot-operator
     openebs.io/component-name: openebs-snapshot-operator
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -365,12 +363,12 @@ spec:
       labels:
         name: openebs-snapshot-operator
         openebs.io/component-name: openebs-snapshot-operator
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: snapshot-controller
-          image: openebs/snapshot-controller:2.12.0
+          image: openebs/snapshot-controller:2.12.1
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -398,7 +396,7 @@ spec:
         #- name: OPENEBS_MAYA_SERVICE_NAME
         #  value: "maya-apiserver-apiservice"
         - name: snapshot-provisioner
-          image: openebs/snapshot-provisioner:2.12.0
+          image: openebs/snapshot-provisioner:2.12.1
           imagePullPolicy: IfNotPresent
           env:
           - name: OPENEBS_NAMESPACE
@@ -862,7 +860,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -875,7 +873,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -992,7 +990,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -1006,7 +1004,7 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
@@ -1030,7 +1028,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.12.0"
+              value: "openebs/linux-utils:2.12.1"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
@@ -1056,7 +1054,7 @@ metadata:
   labels:
     app: admission-webhook
     openebs.io/component-name: admission-webhook
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   replicas: 1
   strategy:
@@ -1070,12 +1068,12 @@ spec:
       labels:
         app: admission-webhook
         openebs.io/component-name: admission-webhook
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: admission-webhook
-          image: openebs/admission-server:2.12.0
+          image: openebs/admission-server:2.12.1
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -1113,7 +1111,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.1
 spec:
   selector:
     matchLabels:
@@ -1127,13 +1125,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:2.12.0
+        image: openebs/provisioner-localpv:2.12.1
         args:
           - "--bd-time-out=$(BDC_BD_BIND_RETRIES)"
         env:
@@ -1172,7 +1170,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.12.0"
+          value: "openebs/linux-utils:2.12.1"
         - name: OPENEBS_IO_BASE_PATH
           value: "/var/openebs/local"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
@@ -1198,4 +1196,43 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 60
 ---
-
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-hostpath
+  annotations:
+    openebs.io/cas-type: local
+    cas.openebs.io/config: |
+      #hostpath type will create a PV by 
+      # creating a sub-directory under the
+      # BASEPATH provided below.
+      - name: StorageType
+        value: "hostpath"
+      #Specify the location (directory) where
+      # where PV(volume) data will be saved. 
+      # A sub-directory with pv-name will be 
+      # created. When the volume is deleted, 
+      # the PV sub-directory will be deleted.
+      #Default value is /var/openebs/local
+      - name: BasePath
+        value: "/var/openebs/local/"
+provisioner: openebs.io/local
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-device
+  annotations:
+    openebs.io/cas-type: local
+    cas.openebs.io/config: |
+      #device type will create a PV by
+      # issuing a BDC and will extract the path
+      # values from the associated BD.
+      - name: StorageType
+        value: "device"
+provisioner: openebs.io/local
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+---
