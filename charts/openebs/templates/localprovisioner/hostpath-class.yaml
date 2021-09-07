@@ -1,7 +1,7 @@
-{{- if .Values.localprovisioner.enabled -}}
-{{- $localpvprovisionerValues := index .Values "localpv-provisioner" -}}
-{{- if not $localpvprovisionerValues.enabled -}}
-{{- if .Values.localprovisioner.enableHostpathClass -}}
+{{- if .Values.localprovisioner.enabled }}
+{{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
+{{- if not $localpvprovisionerValues.enabled }}
+{{- if .Values.localprovisioner.enableHostpathClass }}
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -11,13 +11,13 @@ metadata:
     cas.openebs.io/config: |
       - name: StorageType
         value: "hostpath"
-{{ if .Values.localprovisioner.basePath }}
+{{- if .Values.localprovisioner.basePath }}
       - name: BasePath
         value: {{ .Values.localprovisioner.basePath }}
-{{ end -}}
+{{- end }}
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
-{{ end }}
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
+{{- end }}

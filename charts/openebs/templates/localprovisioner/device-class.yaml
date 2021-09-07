@@ -1,7 +1,7 @@
-{{- if .Values.localprovisioner.enabled -}}
-{{- $localpvprovisionerValues := index .Values "localpv-provisioner" -}}
-{{- if not $localpvprovisionerValues.enabled -}}
-{{- if .Values.localprovisioner.enableDeviceClass -}}
+{{- if .Values.localprovisioner.enabled }}
+{{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
+{{- if not $localpvprovisionerValues.enabled }}
+{{- if .Values.localprovisioner.enableDeviceClass }}
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -14,6 +14,6 @@ metadata:
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
-{{ end }}
-{{ end }}
-{{ end }}
+{{- end }}
+{{- end }}
+{{- end }}
