@@ -664,3 +664,5 @@ cleanup:
     registry:
     repository: bitnami/kubectl
     tag:
+    imagePullSecrets: []
+      #  - name: image-pull-secret
