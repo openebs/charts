@@ -90,7 +90,7 @@ spec:
       containers:
       - name: openebs-provisioner-nfs
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-nfs:0.6.0
+        image: openebs/provisioner-nfs:0.6.1
         env:
         #   OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
         #   based on this address. This is ignored if empty.
@@ -138,7 +138,7 @@ spec:
         # OPENEBS_IO_NFS_SERVER_IMG defines the nfs-server-alpine image name to be used
         # while creating nfs volume
         - name: OPENEBS_IO_NFS_SERVER_IMG
-          value: openebs/nfs-server-alpine:0.6.0
+          value: openebs/nfs-server-alpine:0.6.1
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
         # leader election is enabled.
         #- name: LEADER_ELECTION_ENABLED

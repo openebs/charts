@@ -53,7 +53,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.2
 spec:
   selector:
     matchLabels:
@@ -67,13 +67,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:2.12.0
+        image: openebs/provisioner-localpv:2.12.2
         args:
           - "--bd-time-out=$(BDC_BD_BIND_RETRIES)"
         env:
@@ -112,7 +112,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator-hostpath"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:2.12.0"
+          value: "openebs/linux-utils:2.12.2"
         - name: OPENEBS_IO_BASE_PATH
           value: "/var/openebs/local"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
@@ -134,7 +134,7 @@ spec:
             command:
             - sh
             - -c
-            - test `pgrep -c "^provisioner-loc.*"` = 1
+            - test `pgrep "^provisioner-loc.*"` = 1
           initialDelaySeconds: 30
           periodSeconds: 60
 ---
