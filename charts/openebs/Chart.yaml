@@ -1,5 +1,5 @@
 apiVersion: v2
-version: 2.12.6
+version: 2.12.7
 name: openebs
 appVersion: 2.12.1
 description: Containerized Storage for Containers
@@ -43,6 +43,6 @@ dependencies:
     repository: "https://openebs.github.io/lvm-localpv"
     condition: lvm-localpv.enabled
   - name: nfs-provisioner
-    version: "0.6.1"
+    version: "0.7.1"
     repository: "https://openebs.github.io/dynamic-nfs-provisioner"
     condition: nfs-provisioner.enabled
