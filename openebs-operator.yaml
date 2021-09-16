@@ -226,12 +226,17 @@ spec:
         # Minimum is 1h. You can convert this to weekly by setting 168h
         #- name: OPENEBS_IO_ANALYTICS_PING_INTERVAL
         #  value: "24h"
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP        
         livenessProbe:
           exec:
             command:
             - sh
             - -c
             - /usr/local/bin/mayactl
+            - -m $MY_POD_IP
             - version
           initialDelaySeconds: 30
           periodSeconds: 60
@@ -241,6 +246,7 @@ spec:
             - sh
             - -c
             - /usr/local/bin/mayactl
+            - -m $MY_POD_IP
             - version
           initialDelaySeconds: 30
           periodSeconds: 60
