@@ -430,7 +430,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.2
 spec:
   selector:
     matchLabels:
@@ -443,7 +443,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.2
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -560,7 +560,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 2.12.0
+    openebs.io/version: 2.12.2
 spec:
   selector:
     matchLabels:
@@ -574,7 +574,7 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 2.12.0
+        openebs.io/version: 2.12.2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
@@ -598,7 +598,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:2.12.0"
+              value: "openebs/linux-utils:2.12.2"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
