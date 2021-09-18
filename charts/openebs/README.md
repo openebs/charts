@@ -1,132 +1,105 @@
 # OpenEBS Helm Chart
 
-[OpenEBS](https://github.com/openebs/openebs) is an *open source storage platform* that provides persistent and containerized block storage for DevOps and container environments. 
-OpenEBS provides multiple storage engines that can be plugged in easily. A common pattern is the use of OpenEBS to deliver Dynamic LocalPV for those applications and workloads that want to access disks and cloud volumes directly.
+[OpenEBS](https://openebs.io) helps Developers and Platform SREs easily deploy Kubernetes Stateful Workloads that require fast and highly reliable container attached storage. OpenEBS can be deployed on any Kubernetes cluster - either in cloud, on-premise (virtual or bare metal) or developer laptop (minikube).
 
-OpenEBS can be deployed on any Kubernetes cluster - either in cloud, on-premise or developer laptop (minikube). OpenEBS itself is deployed as just another container on your cluster, and enables storage services that can be designated on a per pod, application, cluster or container level.
+OpenEBS Data Engines and Control Plane are implemented as micro-services, deployed as containers and orchestrated by Kubernetes itself. An added advantage of being a completely Kubernetes native solution is that administrators and developers can interact and manage OpenEBS using all the wonderful tooling that is available for Kubernetes like kubectl, Helm, Prometheus, Grafana, etc.
 
-## Introduction
+OpenEBS turns any storage available on the Kubernetes worker nodes into local or distributed Kubernetes Persistent Volumes.
+* Local Volumes are accessible only from a single node in the cluster. Pods using Local Volume have to be scheduled on the node where volume is provisioned. Local Volumes are typically preferred for distributed workloads like Cassandra, MongoDB, Elastic, etc that are distributed in nature and have high availability built into them. Depending on the type of storage attached to your Kubernetes worker nodes, you can select from different flavors of Dynamic Local PV - Hostpath, Device, LVM, ZFS or Rawfile.
+* Replicated Volumes as the name suggests, are those that have their data synchronously replicated to multiple nodes. Volumes can sustain node failures. The replication also can be setup across availability zones helping applications move across availability zones. Depending on the type of storage attached to your Kubernetes worker nodes and application performance requirements, you can select from Jiva, cStor or Mayastor.
 
-This chart bootstraps OpenEBS deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+## Documentation and user guides
 
-## Quickstart and documentation
+You can run OpenEBS on any Kubernetes 1.18+ cluster in a matter of minutes. See the [Quickstart Guide to OpenEBS](https://openebs.io/) for detailed instructions.
 
-You can run OpenEBS on any Kubernetes 1.13+ cluster in a matter of seconds. See the [Quickstart Guide to OpenEBS](https://docs.openebs.io/docs/next/quickstart.html) for detailed instructions.
+## Getting started
 
-For more comprehensive documentation, start with the [Welcome to OpenEBS](https://docs.openebs.io/docs/next/overview.html) docs.
+### How to customize OpenEBS Helm chart?
 
-## Prerequisites
+OpenEBS helm chart is an umbrella chart that pulls together engine specific charts. The engine charts are included as dependencies. 
+arts/openebs/Chart.yaml). 
+OpenEBS helm chart will includes common components that are used by multiple engines like:
+- Node Disk Manager related components
+- Dynamic Local Provisioner related components
+- Security Policies like RBAC, PSP, Kyverno 
 
-- Kubernetes 1.13+ with RBAC enabled
-- iSCSI PV support in the underlying infrastructure
+```bash
+openebs
+├── (default) openebs-ndm
+├── (default) localpv-provisioner
+├── jiva
+├── cstor
+├── zfs-localpv
+└── lvm-localpv
+└── nfs-provisioner
+```
 
-## Adding OpenEBS Helm repository
+To install the engine charts, the helm install must be provided with a engine enabled flag like `cstor.enabled=true` or `zfs-localpv.enabled=true` or by passing a custom values.yaml with required engines enabled.
+
+### Prerequisites
+
+- Kubernetes 1.18+ with RBAC enabled
+- When using cstor and jiva engines, iSCSI utils must be installed on all the nodes where stateful pods are going to run. 
+- Depending on the engine and type of platform, you may have to customize the values or run additional pre-requisistes. Refer to [documentation](https://openebs.io).
+
+### Setup Helm Repository
 
 Before installing OpenEBS Helm charts, you need to add the [OpenEBS Helm repository](https://openebs.github.io/charts) to your Helm client.
 
 ```bash
 helm repo add openebs https://openebs.github.io/charts
+helm repo update
 ```
 
-## Update the dependent charts
+### Installing OpenEBS 
 
 ```bash
-helm dependency update
+helm install --name `my-release` --namespace openebs openebs/openebs --create-namespace
 ```
 
-## Installing OpenEBS
+Examples:
+- Assuming the release will be called openebs, the command would be:
+  ```bash
+  helm install --name openebs --namespace openebs openebs/openebs --create-namespace
+  ```
 
-```bash
-helm install --namespace openebs openebs/openebs
-```
+- To install OpenEBS with cStor CSI driver, run
+  ```bash
+  helm install openebs openebs/openebs --namespace openebs --create-namespace --set cstor.enabled=true
+  ```
 
-## Installing OpenEBS with the release name
+- To install/enable a new engine on the installed helm release `openebs`, you can run the helm upgrade command as follows:
+  ```bash
+  helm upgrade openebs openebs/openebs --namespace openebs --reuse-values --set jiva.enabled=true 
+  ```
 
-```bash
-helm install --name `my-release` --namespace openebs openebs/openebs
-```
+- To disable legacy out of tree jiva and cstor provisioners, run the following command.
+  ```bash
+  helm upgrade openebs openebs/openebs --namespace openebs --reuse-values --set legacy.enabled=false 
+  ```
 
-## To uninstall/delete instance with release name
+### To uninstall/delete instance with release name
 
 ```bash
 helm ls --all
 helm delete `my-release`
 ```
 
+> **Tip**: Prior to deleting the helm chart, make sure all the storage volumes and pools are deleted.
+
 ## Configuration
 
-The following table lists the configurable parameters of the OpenEBS chart and their default values.
+The following table lists the common configurable parameters of the OpenEBS chart and their default values. For a full list of configurable parameters check out the [values.yaml](https://github.com/openebs/charts/blob/master/charts/openebs/values.yaml).
 
 | Parameter                               | Description                                   | Default                                   |
 | ----------------------------------------| --------------------------------------------- | ----------------------------------------- |
-| `rbac.create`                           | Enable RBAC Resources                         | `true`                                    |
-| `rbac.pspEnabled`                       | Create pod security policy resources          | `false`                                   |
-| `rbac.kyvernoEnabled`                   | Create Kyverno policy resources               | `false`                                   |
-| `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
-| `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `apiserver.enabled`                     | Enable API Server                             | `true`                                    |
 | `apiserver.image`                       | Image for API Server                          | `openebs/m-apiserver`                     |
 | `apiserver.imageTag`                    | Image Tag for API Server                      | `2.12.0`                                  |
-| `apiserver.replicas`                    | Number of API Server Replicas                 | `1`                                       |
-| `apiserver.sparse.enabled`              | Create Sparse Pool based on Sparsefile        | `false`                                   |
-| `apiserver.resources`                   | Set resource limits for API Server            | `{}`                                      |
-| `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
-| `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
-| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.12.0`                                  |
-| `provisioner.replicas`                  | Number of Provisioner Replicas                | `1`                                       |
-| `provisioner.resources`                 | Set resource limits for Provisioner           | `{}`                                      |
-| `provisioner.patchJivaNodeAffinity`     | Enable/disable node affinity on jiva replica deployment| `enabled`                                 |
-| `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
-| `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
-| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.12.0`                                  |
-| `localprovisioner.replicas`             | Number of localProvisioner Replicas           | `1`                                       |
-| `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
-| `localprovisioner.resources`            | Set resource limits for localProvisioner      | `{}`                                      |
-| `localpv.waitForBDBindTimeoutRetryCount`| This sets the number of times the provisioner should try with a polling interval of 5 seconds, to get the Blockdevice Name from a BlockDeviceClaim, before the BlockDeviceClaim is deleted. | "12" |
-| `webhook.enabled`                       | Enable admission server                       | `true`                                    |
-| `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
-| `webhook.imageTag`                      | Image Tag for admission server                | `2.12.0`                                  |
-| `webhook.replicas`                      | Number of admission server Replicas           | `1`                                       |
-| `webhook.hostNetwork`                   | Use hostNetwork in admission server           | `false`                                   |
-| `webhook.resources`                     | Set resource limits for admission server      | `{}`                                      |
-| `snapshotOperator.enabled`              | Enable Snapshot Provisioner                   | `true`                                    |
-| `snapshotOperator.provisioner.image`    | Image for Snapshot Provisioner                | `openebs/snapshot-provisioner`            |
-| `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `2.12.0`                                  |
-| `snapshotOperator.controller.image`     | Image for Snapshot Controller                 | `openebs/snapshot-controller`             |
-| `snapshotOperator.controller.imageTag`  | Image Tag for Snapshot Controller             | `2.12.0`                                  |
-| `snapshotOperator.replicas`             | Number of Snapshot Operator Replicas          | `1`                                       |
-| `snapshotOperator.provisioner.resources`| Set resource limits for Snapshot Provisioner  | `{}`                                      |
-| `snapshotOperator.controller.resources` | Set resource limits for Snapshot Controller   | `{}`                                      |
-| `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
-| `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`         |
-| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.6.1`                                   |
-| `ndm.sparse.path`                       | Directory where Sparse files are created      | `/var/openebs/sparse`                     |
-| `ndm.sparse.size`                       | Size of the sparse file in bytes              | `10737418240`                             |
-| `ndm.sparse.count`                      | Number of sparse files to be created          | `0`                                       |
-| `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                    |
-| `ndm.filters.osDiskExcludePaths`        | Paths/Mountpoints to be excluded by OS Disk Filter| `/,/etc/hosts,/boot`                           |
-| `ndm.filters.enableVendorFilter`        | Enable filters of vendors                     | `true`                                    |
-| `ndm.filters.excludeVendors`            | Exclude devices with specified vendor         | `CLOUDBYT,OpenEBS`                        |
-| `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                    |
-| `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
-| `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd`|
-| `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
-| `ndm.resources`                         | Set resource limits for NDM                   | `{}`                                      |
-| `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
-| `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`        |
-| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.6.1`                                   |
-| `ndmOperator.resources`                 | Set resource limits for NDM Operator          | `{}`                                      |
-| `ndmExporter.enabled`                   | Enable NDM Exporters                          | `false`                                   |
-| `ndmExporter.image.registry`            | Registry for NDM Exporters image              | `""`                                      |
-| `ndmExporter.repository`                | Image repository for NDM Exporters            | `openebs/node-disk-exporter`              |
-| `ndmExporter.pullPolicy`                | Image pull policy for NDM Exporters           | `IfNotPresent`                            |
-| `ndmExporter.tag`                       | Image tag for NDM Exporters                   | `1.6.1`                                   |
-| `ndmExporter.nodeExporter.metricsPort`  | The TCP port number used for exposing NDM node exporter metrics    | `9101`               |
-| `ndmExporter.clusterExporter.metricsPort`   | The TCP port number used for exposing NDM cluster exporter metrics  | `9100`          |
-| `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
-| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.12.1`                                  |
-| `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |
-| `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
+| `cleanup.image.registry`                | Cleanup pre hook image registry               | `nil`                                     |
+| `cleanup.image.repository`              | Cleanup pre hook image repository             | `"bitnami/kubectl"`                       |
+| `cleanup.image.tag`                     | Cleanup pre hook image tag                    | `if not provided determined by the k8s version`                       |
+| `crd.enableInstall`                     | Enable installation of CRDs by OpenEBS        | `true`                                    |
 | `cstor.pool.image`                      | Image for cStor Pool                          | `openebs/cstor-pool`                      |
 | `cstor.pool.imageTag`                   | Image Tag for cStor Pool                      | `2.12.0`                                  |
 | `cstor.poolMgmt.image`                  | Image for cStor Pool  Management              | `openebs/cstor-pool-mgmt`                 |
@@ -135,125 +108,61 @@ The following table lists the configurable parameters of the OpenEBS chart and t
 | `cstor.target.imageTag`                 | Image Tag for cStor Target                    | `2.12.0`                                  |
 | `cstor.volumeMgmt.image`                | Image for cStor Volume  Management            | `openebs/cstor-volume-mgmt`               |
 | `cstor.volumeMgmt.imageTag`             | Image Tag for cStor Volume Management         | `2.12.0`                                  |
-| `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
-| `helper.imageTag`                       | Image Tag for helper                          | `2.12.0`                                  |
-| `featureGates.enabled`                  | Enable feature gates for OpenEBS              | `true`                                   |
-| `featureGates.APIService.enabled`       | Enable APIService in NDM                      | `false`                                  |
-| `featureGates.UseOSDisk.enabled`        | Enable using unused partitions on OS Disk     | `false`                                  |
-| `featureGates.MountChangeDetection.enabled` | Enable feature-gate to detect mountpoint/filesystem changes | `false`                                   |
-| `crd.enableInstall`                     | Enable installation of CRDs by OpenEBS        | `true`                                    |
-| `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
-| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.12.0`                                  |
-| `analytics.enabled`                     | Enable sending stats to Google Analytics      | `true`                                    |
-| `analytics.pingInterval`                | Duration(hours) between sending ping stat     | `24h`                                     |
 | `defaultStorageConfig.enabled`          | Enable default storage class installation     | `true`                                    |
-| `varDirectoryPath.baseDir`              | To store debug info of OpenEBS containers     | `/var/openebs`                            |
 | `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
 | `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
-| `cleanup.image.registry`                | Cleanup pre hook image registry               | `nil`                                     |
-| `cleanup.image.repository`              | Cleanup pre hook image repository             | `"bitnami/kubectl"`                       |
-| `cleanup.image.tag`                     | Cleanup pre hook image tag             | `if not provided determined by the k8s version`                       |
+| `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
+| `helper.imageTag`                       | Image Tag for helper                          | `2.12.0`                                  |
+| `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
+| `image.repository`                      | Specify which docker registry to use          | `""`                                      |
+| `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
+| `jiva.image`                            | Image for Jiva                                | `openebs/jiva`                            |
+| `jiva.imageTag`                         | Image Tag for Jiva                            | `2.12.1`                                  |
+| `jiva.replicas`                         | Number of Jiva Replicas                       | `3`                                       |
+| `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
+| `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
+| `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
+| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `2.12.0`                                  |
+| `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
+| `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                    |
+| `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                    |
+| `ndm.filters.enableVendorFilter`        | Enable filters of vendors                     | `true`                                    |
+| `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd`|
+| `ndm.filters.excludeVendors`            | Exclude devices with specified vendor         | `CLOUDBYT,OpenEBS`                        |
+| `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
+| `ndm.filters.osDiskExcludePaths`        | Paths/Mounts to be excluded by OS Disk Filter | `/,/etc/hosts,/boot`                      |
+| `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`               |
+| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.6.1`                                   |
+| `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
+| `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`              |
+| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.6.1`                                   |
+| `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
+| `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
+| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.12.0`                                  |
+| `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
+| `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
+| `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.12.0`                                  |
+| `rbac.create`                           | Enable RBAC Resources                         | `true`                                    |
+| `rbac.kyvernoEnabled`                   | Create Kyverno policy resources               | `false`                                   |
+| `rbac.pspEnabled`                       | Create pod security policy resources          | `false`                                   |
+| `snapshotOperator.controller.image`     | Image for Snapshot Controller                 | `openebs/snapshot-controller`             |
+| `snapshotOperator.controller.imageTag`  | Image Tag for Snapshot Controller             | `2.12.0`                                  |
+| `snapshotOperator.enabled`              | Enable Snapshot Provisioner                   | `true`                                    |
+| `snapshotOperator.provisioner.image`    | Image for Snapshot Provisioner                | `openebs/snapshot-provisioner`            |
+| `snapshotOperator.provisioner.imageTag` | Image Tag for Snapshot Provisioner            | `2.12.0`                                  |
+| `varDirectoryPath.baseDir`              | To store debug info of OpenEBS containers     | `/var/openebs`                            |
+| `webhook.enabled`                       | Enable admission server                       | `true`                                    |
+| `webhook.hostNetwork`                   | Use hostNetwork in admission server           | `false`                                   |
+| `webhook.image`                         | Image for admission server                    | `openebs/admission-server`                |
+| `webhook.imageTag`                      | Image Tag for admission server                | `2.12.0`                                  |
+
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-helm install --name openebs -f values.yaml openebs/openebs
+helm install --name `my-release` -f values.yaml --namespace openebs openebs/openebs --create-namespace
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
-## Below charts are dependent charts of this chart
--  [openebs-ndm](https://openebs.github.io/node-disk-manager)
--  [localpv-provisioner](https://openebs.github.io/dynamic-localpv-provisioner)
--  [cstor](https://openebs.github.io/cstor-operators)
--  [jiva](https://openebs.github.io/jiva-operator)
--  [zfs-localpv](https://openebs.github.io/zfs-localpv)
--  [lvm-localpv](https://openebs.github.io/lvm-localpv)
--  [nfs](https://openebs.github.io/dynamic-nfs-provisioner)
-
-## Dependency tree of this chart
-```bash
-openebs
-├── openebs-ndm
-├── localpv-provisioner
-│   └── openebs-ndm (optional)
-├── jiva
-│   └── localpv-provisioner
-│       └── openebs-ndm (optional)
-├── cstor
-│   └── openebs-ndm
-├── zfs-localpv
-└── lvm-localpv
-└── nfs-provisioner
-
-```
-
-#### (Default) Install Jiva, cStor and Local PV with out-of-tree provisioners
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace
-```
-
-#### Install cStor with CSI driver
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set cstor.enabled=true \
---set openebs-ndm.enabled=true
-```
-
-#### Install Jiva with CSI driver
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set jiva.enabled=true \
---set openebs-ndm.enabled=true \
---set localpv-provisioner.enabled=true
-```
-
-#### Install ZFS Local PV
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set zfs-localpv.enabled=true
-```
-
-#### Install LVM Local PV
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set lvm-localpv.enabled=true
-```
-
-#### Install Local PV hostpath and device
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set localpv-provisioner.enabled=true
---set openebs-ndm.enabled=true \
-```
-
-#### Install NFS Provisioner
-```bash
-helm install openebs openebs/openebs --namespace openebs --create-namespace \
---set legacy.enabled=false \
---set nfs-provisioner.enabled=true
-```
-
-
-> **Tip**: You can install multiple csi driver by merging the configuration.
-
-## Kyverno Policy Integration
-
-PodSecurityPolicy(PSP) is being deprecated in Kubernetes 1.21 and will be removed in v1.25. So, the suitable alternative is Kyverno.
-Kyverno is an open-source policy engine built specifically for Kubernetes to not only validate and ensure requests comply with your
-internal best practices and policies.
-
-
-As part of kyverno integration, some required policies have been added as a helm template in openebs charts, installation disable by default and can be enabled using a flag. But before enabling that [Kyverno](https://kyverno.io/docs/installation/) should be installed in your Kubernetes cluster using 
-[Helm](https://kyverno.io/docs/installation/#install-kyverno-using-helm) or [YAMLs](https://kyverno.io/docs/installation/#install-kyverno-using-yamls).
-
-Check the default kyverno policies in Kubernetes cluster using
-```bash
-kubectl get pol
-```
