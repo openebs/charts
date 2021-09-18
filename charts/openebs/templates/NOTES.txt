@@ -1,27 +1,22 @@
-The OpenEBS has been installed. Check its status by running:
-$ kubectl get pods -n {{ .Release.Namespace }}
 
-For dynamically creating OpenEBS Volumes, you can either create a new StorageClass or
-use one of the default storage classes provided by OpenEBS.
+Successfully installed OpenEBS.
 
-Use `kubectl get sc` to see the list of installed OpenEBS StorageClasses. A sample
-PVC spec using `openebs-jiva-default` StorageClass is given below:"
+Check the status by running: kubectl get pods -n {{ .Release.Namespace }}
 
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: demo-vol-claim
-spec:
-  storageClassName: openebs-jiva-default
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5G
----
+The default values enables OpenEBS hostpath, device and jiva engines along with 
+their default storage classes. Use `kubectl get sc` to see the list of installed 
+OpenEBS StorageClasses. 
 
-Please note that, OpenEBS uses iSCSI for connecting applications with the
-OpenEBS Volumes and your nodes should have the iSCSI initiator installed.
+For other engines, you will need to perform a few more additional steps to
+enable the engine, configure the engines (like creating pools) and create 
+storage classes. 
 
-For more information, visit our Slack at https://openebs.io/community or view the documentation online at http://docs.openebs.io/.
+For example, cStor can be enabled using commands like:
+
+helm upgrade {{ .Release.Name }} openebs/openebs  --set cstor.enabled=true --reuse-values --namespace {{ .Release.Namespace }}
+
+For more information, 
+- view the online documentation at https://openebs.io/ or
+- connect with an active community on Kubernetes slack #openebs channel.
+
+

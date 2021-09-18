@@ -1,22 +1,27 @@
 apiVersion: v2
-version: 2.12.7
+version: 2.12.8
 name: openebs
 appVersion: 2.12.1
-description: Containerized Storage for Containers
-icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+description: Containerized Attached Storage for Kubernetes
+icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
 keywords:
   - cloud-native-storage
   - block-storage
+  - local-storage
   - iSCSI
+  - NVMe
   - storage
+  - kubernetes
 sources:
   - https://github.com/openebs/openebs
 maintainers:
   - name: kmova
-    email: kiran.mova@openebs.io
+    email: kiran.mova@mayadata.io
   - name: prateekpandey14
-    email: prateek.pandey@openebs.io
+    email: prateek.pandey@mayadata.io
+  - name: shovanmaity
+    email: shovan.maity@mayadata.io
 dependencies:
   - name: openebs-ndm
     version: "1.6.1"
@@ -35,11 +40,11 @@ dependencies:
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
-    version: "1.9.5"
+    version: "1.9.8"
     repository: "https://openebs.github.io/zfs-localpv"
     condition: zfs-localpv.enabled
   - name: lvm-localpv
-    version: "0.8.2"
+    version: "0.8.4"
     repository: "https://openebs.github.io/lvm-localpv"
     condition: lvm-localpv.enabled
   - name: nfs-provisioner
