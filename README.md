@@ -19,7 +19,7 @@ OpenEBS helm chart is an umbrella chart that pulls together engine specific char
 
 OpenEBS helm chart will includes common components that are used by multiple engines like:
 - Node Disk Manager related components
-- Dynamic Local Provisioner related components
+- Dynamic LocalPV (hostpath and device) Provisioner related components
 - Security Policies like RBAC, PSP, Kyverno 
 
 Engine charts included as dependencies are:
