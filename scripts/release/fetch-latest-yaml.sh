@@ -59,7 +59,7 @@ fetch_engine_operator_yaml()
 
   sed -e 's@\:ci@'"\:$TAG"'@' -i ${TEMP_RESP_FILE}
   sed -e 's@\: ci@'"\: $TAG"'@' -i ${TEMP_RESP_FILE}
-  sed -e 's@\: dev@'"\: $TAG"'@' -i ${TEMP_RESP_FILE}
+  sed -e 's@\: dev$@'"\: $TAG"'@' -i ${TEMP_RESP_FILE}
 
   #rm -rf ${TEMP_RESP_FILE}
 
@@ -70,6 +70,7 @@ fetch_release_yamls()
   fetch_engine_operator_yaml "lvm-localpv" "v0.8.x" "deploy" "lvm-operator.yaml" "0.8.2"
   fetch_engine_operator_yaml "zfs-localpv" "v1.9.x" "deploy" "zfs-operator.yaml" "1.9.3"
   fetch_engine_operator_yaml "dynamic-nfs-provisioner" "v0.7.x" "deploy/kubectl" "openebs-nfs-provisioner.yaml" "0.7.1"
+  fetch_engine_operator_yaml "device-localpv" "develop" "deploy" "device-operator.yaml" "0.5.1"
 }
 
 fetch_release_yamls
