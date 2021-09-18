@@ -3,6 +3,63 @@ entries:
   openebs:
   - apiVersion: v2
     appVersion: 2.12.1
+    created: "2021-09-18T07:20:26.001832667Z"
+    dependencies:
+    - condition: openebs-ndm.enabled
+      name: openebs-ndm
+      repository: https://openebs.github.io/node-disk-manager
+      version: 1.6.1
+    - condition: localpv-provisioner.enabled
+      name: localpv-provisioner
+      repository: https://openebs.github.io/dynamic-localpv-provisioner
+      version: 2.12.1
+    - condition: cstor.enabled
+      name: cstor
+      repository: https://openebs.github.io/cstor-operators
+      version: 2.12.1
+    - condition: jiva.enabled
+      name: jiva
+      repository: https://openebs.github.io/jiva-operator
+      version: 2.12.2
+    - condition: zfs-localpv.enabled
+      name: zfs-localpv
+      repository: https://openebs.github.io/zfs-localpv
+      version: 1.9.8
+    - condition: lvm-localpv.enabled
+      name: lvm-localpv
+      repository: https://openebs.github.io/lvm-localpv
+      version: 0.8.4
+    - condition: nfs-provisioner.enabled
+      name: nfs-provisioner
+      repository: https://openebs.github.io/dynamic-nfs-provisioner
+      version: 0.7.1
+    description: Containerized Attached Storage for Kubernetes
+    digest: 43f227845e62208eda12b5e4bd3609dece2e0acec11cd9512dee88ae973f102b
+    home: http://www.openebs.io/
+    icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
+    keywords:
+    - cloud-native-storage
+    - block-storage
+    - local-storage
+    - iSCSI
+    - NVMe
+    - storage
+    - kubernetes
+    maintainers:
+    - email: kiran.mova@mayadata.io
+      name: kmova
+    - email: prateek.pandey@mayadata.io
+      name: prateekpandey14
+    - email: shovan.maity@mayadata.io
+      name: shovanmaity
+    name: openebs
+    sources:
+    - https://github.com/openebs/openebs
+    urls:
+    - https://github.com/openebs/charts/releases/download/openebs-2.12.8/openebs-2.12.8.tgz
+    version: 2.12.8
+  - apiVersion: v2
+    appVersion: 2.12.1
     created: "2021-09-16T14:08:37.676563723Z"
     dependencies:
     - condition: openebs-ndm.enabled
@@ -1656,4 +1713,4 @@ entries:
     urls:
     - https://github.com/openebs/charts/releases/download/openebs-1.10.2/openebs-1.10.2.tgz
     version: 1.10.2
-generated: "2021-09-16T14:08:37.676896929Z"
+generated: "2021-09-18T07:20:26.002535976Z"
