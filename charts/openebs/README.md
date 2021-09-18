@@ -89,7 +89,7 @@ helm delete `my-release`
 
 ## Configuration
 
-The following table lists the common configurable parameters of the OpenEBS chart and their default values. For a full list of configurable parameters check out the [values.yaml](https://github.com/openebs/charts/blob/master/charts/openebs/values.yaml).
+The following table lists the common configurable parameters of the OpenEBS chart and their default values. For a full list of configurable parameters check out the [values.yaml](https://github.com/openebs/charts/blob/HEAD/charts/openebs/values.yaml).
 
 | Parameter                               | Description                                   | Default                                   |
 | ----------------------------------------| --------------------------------------------- | ----------------------------------------- |

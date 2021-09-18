@@ -3,7 +3,7 @@ version: 2.12.8
 name: openebs
 appVersion: 2.12.1
 description: Containerized Attached Storage for Kubernetes
-icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/icon/color/openebs-icon-color.png
+icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
 keywords:
   - cloud-native-storage

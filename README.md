@@ -1,12 +1,12 @@
 # OpenEBS Helm Chart and other artifacts
 
-[![Lint and Test Charts](https://github.com/openebs/charts/workflows/Lint%20and%20Test%20Charts/badge.svg?branch=master)](https://github.com/openebs/charts/actions)
+[![Lint and Test Charts](https://github.com/openebs/charts/workflows/Lint%20and%20Test%20Charts/badge.svg?branch=main)](https://github.com/openebs/charts/actions)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fopenebs%2Fcharts.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fopenebs%2Fcharts?ref=badge_shield)
 [![Slack](https://img.shields.io/badge/chat!!!-slack-ff1493.svg?style=flat-square)](https://kubernetes.slack.com/messages/openebs)
 
 
-<img width="200" align="right" alt="OpenEBS Logo" src="https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/stacked/color/openebs-stacked-color.png" xmlns="http://www.w3.org/1999/html">
+<img width="200" align="right" alt="OpenEBS Logo" src="https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/stacked/color/openebs-stacked-color.png" xmlns="http://www.w3.org/1999/html">
 
 
 This repository contains OpenEBS Helm charts and other example artifacts like openebs-operator.yaml or example YAMLs. The content in this repository is published using GitHub pages at https://openebs.github.io/charts/. 
@@ -23,14 +23,14 @@ OpenEBS helm chart will includes common components that are used by multiple eng
 - Security Policies like RBAC, PSP, Kyverno 
 
 Engine charts included as dependencies are:
-- [cStor](https://github.com/openebs/cstor-operators/tree/master/deploy/helm/charts)
-- [Jiva](https://github.com/openebs/jiva-operator/tree/master/deploy/helm/charts)
-- [ZFS Local PV](https://github.com/openebs/zfs-localpv/tree/master/deploy/helm/charts)
-- [LVM Local PV](https://github.com/openebs/lvm-localpv/tree/master/deploy/helm/charts)
+- [cStor](https://github.com/openebs/cstor-operators/tree/HEAD/deploy/helm/charts)
+- [Jiva](https://github.com/openebs/jiva-operator/tree/HEAD/deploy/helm/charts)
+- [ZFS Local PV](https://github.com/openebs/zfs-localpv/tree/HEAD/deploy/helm/charts)
+- [LVM Local PV](https://github.com/openebs/lvm-localpv/tree/HEAD/deploy/helm/charts)
 - [Dynamic NFS](https://github.com/openebs/dynamic-nfs-provisioner/tree/develop/deploy/helm/charts)
 
 Some of the other charts that will be included in the upcoming releases are:
-- [Rawfile Local PV](https://github.com/openebs/rawfile-localpv/tree/master/deploy/charts/rawfile-csi)
+- [Rawfile Local PV](https://github.com/openebs/rawfile-localpv/tree/HEAD/deploy/charts/rawfile-csi)
 - [Mayastor](https://github.com/openebs/mayastor/tree/develop/chart)
 - [Dashboard](https://github.com/openebs/monitoring/tree/develop/deploy/charts/openebs-monitoring)
 
@@ -38,7 +38,7 @@ Some of the other charts that will be included in the upcoming releases are:
 
 ### Releasing a new version 
 
-- Raise a PR with the required changes to the master branch. 
+- Raise a PR with the required changes to the HEAD branch. 
 - Tag the [maintainers](./MAINTAINERS) for review
 - Once changes are reviewed and merged, the changes are picked up by [Helm Chart releaser](https://github.com/helm/chart-releaser-action) GitHub Action. The chart releaser will: 
   - Upload the new version of the charts to the [GitHub releases](https://github.com/openebs/charts/releases).
@@ -89,7 +89,7 @@ You can reach the maintainers of this project at:
       * [#openebs-dev](https://kubernetes.slack.com/messages/openebs-dev/)
 - [Mailing List](https://lists.cncf.io/g/cncf-openebs-users)
 
-For more ways of getting involved with community, check our [community page](https://github.com/openebs/openebs/tree/master/community).
+For more ways of getting involved with community, check our [community page](https://github.com/openebs/openebs/tree/HEAD/community).
 
 ### Code of conduct
 
