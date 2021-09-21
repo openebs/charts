@@ -57,6 +57,9 @@ fetch_engine_operator_yaml()
     echo "Success: Downloaded ${C_URL} into ${TEMP_RESP_FILE}"
   fi
 
+  sed -e 's@node-disk-manager:ci@node-disk-manager:1.7.0@' -i ${TEMP_RESP_FILE}
+  sed -e 's@node-disk-operator:ci@node-disk-operator:1.7.0@' -i ${TEMP_RESP_FILE}
+  sed -e 's@node-disk-exporter:ci@node-disk-exporter:1.7.0@' -i ${TEMP_RESP_FILE}
   sed -e 's@\:ci@'"\:$TAG"'@' -i ${TEMP_RESP_FILE}
   sed -e 's@\: ci@'"\: $TAG"'@' -i ${TEMP_RESP_FILE}
   sed -e 's@\: dev$@'"\: $TAG"'@' -i ${TEMP_RESP_FILE}
@@ -72,9 +75,9 @@ fetch_release_yamls()
   fetch_engine_operator_yaml "zfs-localpv" "v1.9.x" "deploy" "zfs-operator.yaml" "1.9.3"
   fetch_engine_operator_yaml "dynamic-nfs-provisioner" "v0.7.x" "deploy/kubectl" "openebs-nfs-provisioner.yaml" "0.7.1"
   fetch_engine_operator_yaml "device-localpv" "develop" "deploy" "device-operator.yaml" "0.5.1"
-  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "v3.0.x" "deploy/kubectl" "openebs-operator-lite.yaml" "3.0.0"
-  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "v3.0.x" "deploy/kubectl" "hostpath-operator.yaml" "3.0.0"
-  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "v3.0.x" "deploy/kubectl" "openebs-hostpath-sc.yaml" "3.0.0"
+  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "develop" "deploy/kubectl" "openebs-operator-lite.yaml" "3.0.0"
+  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "develop" "deploy/kubectl" "hostpath-operator.yaml" "3.0.0"
+  fetch_engine_operator_yaml "dynamic-localpv-provisioner" "develop" "deploy/kubectl" "openebs-hostpath-sc.yaml" "3.0.0"
   fetch_engine_operator_yaml "jiva-operator" "develop" "deploy" "jiva-operator.yaml" "3.0.0"
   fetch_engine_operator_yaml "cstor-operators" "develop" "deploy" "cstor-operator.yaml" "3.0.0"
 }
