@@ -1,7 +1,7 @@
 apiVersion: v2
-version: 2.12.9
+version: 3.0.0
 name: openebs
-appVersion: 2.12.2
+appVersion: 3.0.0
 description: Containerized Attached Storage for Kubernetes
 icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
@@ -24,19 +24,19 @@ maintainers:
     email: shovan.maity@mayadata.io
 dependencies:
   - name: openebs-ndm
-    version: "1.6.1"
+    version: "1.7.1"
     repository: "https://openebs.github.io/node-disk-manager"
     condition: openebs-ndm.enabled
   - name: localpv-provisioner
-    version: "2.12.1"
+    version: "3.0.1"
     repository: "https://openebs.github.io/dynamic-localpv-provisioner"
     condition: localpv-provisioner.enabled
   - name: cstor
-    version: "2.12.1"
+    version: "3.0.1"
     repository: "https://openebs.github.io/cstor-operators"
     condition: cstor.enabled
   - name: jiva
-    version: "2.12.2"
+    version: "3.0.1"
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
@@ -44,7 +44,7 @@ dependencies:
     repository: "https://openebs.github.io/zfs-localpv"
     condition: zfs-localpv.enabled
   - name: lvm-localpv
-    version: "0.8.4"
+    version: "0.8.5"
     repository: "https://openebs.github.io/lvm-localpv"
     condition: lvm-localpv.enabled
   - name: nfs-provisioner
