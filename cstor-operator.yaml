@@ -59,7 +59,7 @@ rules:
 - nonResourceURLs: ["/metrics"]
   verbs: ["get"]
 - apiGroups: ["*"]
-  resources: ["upgradetasks"]
+  resources: ["upgradetasks", "migrationtasks"]
   verbs: ["*"]
 - apiGroups: ["*"]
   resources: ["poddisruptionbudgets"]
@@ -4326,7 +4326,7 @@ spec:
             - name: OPENEBS_IO_INSTALLER_TYPE
               value: "cstor-operator"
             - name: OPENEBS_IO_ENABLE_ANALYTICS
-              value: "false"
+              value: "true"
           args :
             - "--endpoint=$(OPENEBS_CSI_ENDPOINT)"
             - "--url=$(OPENEBS_CSI_API_URL)"
