@@ -44,7 +44,7 @@ echo "# This manifest deploys the OpenEBS control plane components,
   cat yamls/rbac.yaml
 
   # Add the legacy-provisioner
-  cat yamls/legacy-provisioner.yaml
+  #cat yamls/legacy-provisioner.yaml
 
   # Add the ndm
   cat yamls/ndm-operator.yaml
