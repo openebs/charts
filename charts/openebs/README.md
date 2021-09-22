@@ -138,7 +138,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.7.0`                                   |
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
-| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `1.7.0`                                  |
+| `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.12.2`                                  |
 | `provisioner.enabled`                   | Enable Provisioner                            | `true`                                    |
 | `provisioner.image`                     | Image for Provisioner                         | `openebs/openebs-k8s-provisioner`         |
 | `provisioner.imageTag`                  | Image Tag for Provisioner                     | `2.12.2`                                  |
