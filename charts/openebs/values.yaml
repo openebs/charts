@@ -21,10 +21,10 @@ release:
   version: "3.0.0"
 
 # Legacy components will be installed if it is enabled.
-# Legacy components are - admission-server, api-server, snapshot-operator
-# and storage-provisioner
+# Legacy components are - admission-server, maya api-server, snapshot-operator
+# and k8s-provisioner
 legacy:
-  enabled: true
+  enabled: false
 
 image:
   pullPolicy: IfNotPresent
