@@ -13,10 +13,9 @@ spec:
   validationFailureAction: enforce
   background: true
   rules:
-    - name: user-groups
+    - name: check-runasuser
       match:
         resources:
-          name: check-runasuser
           kinds:
             - Pod
       validate:
@@ -25,14 +24,13 @@ spec:
         pattern:
           spec:
             =(securityContext):
-                =(runAsUser): 'RunAsAny'
+              =(runAsUser): ">=0"
             containers:
               - =(securityContext):
-                  =(runAsUser): 'RunAsAny'
-
+                  =(runAsUser): ">=0"
+    - name: check-supplementalGroups
       match:
         resources:
-           name: check-supplementalGroups
            kinds:
             - Pod
       validate:
@@ -42,11 +40,10 @@ spec:
           spec:
              =(securityContext):
                =(supplementalGroups):
-               - 'RunAsAny'
-
+               - ">=0"
+    - name: check-fsGroup
       match:
         resources:
-           name: check-fsGroup
            kinds:
             - Pod
       validate:
@@ -55,5 +52,5 @@ spec:
         pattern:
            spec:
              =(securityContext):
-               =(fsGroup): 'RunAsAny'
+               =(fsGroup): ">=0"
 {{- end }}
