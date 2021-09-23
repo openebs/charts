@@ -75,6 +75,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         # If OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG is false then OpenEBS default
         # storageclass and storagepool will not be created.
         - name: OPENEBS_IO_CREATE_DEFAULT_STORAGE_CONFIG
@@ -155,6 +159,7 @@ spec:
           exec:
             command:
             - /usr/local/bin/mayactl
+            - -m $MY_POD_IP
             - version
           initialDelaySeconds: {{ .Values.apiserver.healthCheck.initialDelaySeconds }}
           periodSeconds: {{ .Values.apiserver.healthCheck.periodSeconds }}
