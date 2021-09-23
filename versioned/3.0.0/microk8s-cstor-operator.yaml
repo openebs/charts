@@ -4322,7 +4322,9 @@ spec:
               # OpenEBS namespace where the openebs cstor operator components
               # has been installed
             - name: OPENEBS_NAMESPACE
-              value: openebs
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
             - name: OPENEBS_IO_INSTALLER_TYPE
               value: "cstor-operator"
             - name: OPENEBS_IO_ENABLE_ANALYTICS
@@ -4555,11 +4557,13 @@ spec:
               # OpenEBS namespace where the openebs cstor operator components
               # has been installed
             - name: OPENEBS_NAMESPACE
-              value: openebs
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
               # Enable/Disable auto-remount feature, when volumes
               # recovers form the read-only state
             - name: REMOUNT
-              value: "false"
+              value: "true"
           volumeMounts:
             - name: plugin-dir
               mountPath: /plugin
