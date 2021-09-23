@@ -5466,6 +5466,7 @@ metadata:
   labels:
     name: openebs-ndm-clsuter-exporter-service
     openebs.io/component-name: ndm-cluster-exporter
+    app: openebs-ndm-exporter
 spec:
   clusterIP: None
   ports:
@@ -5538,6 +5539,7 @@ metadata:
   labels:
     name: openebs-ndm-node-exporter
     openebs.io/component: openebs-ndm-node-exporter
+    app: openebs-ndm-exporter
 spec:
   clusterIP: None
   ports:
