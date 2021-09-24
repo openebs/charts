@@ -1,0 +1,214 @@
+# This manifest deploys the OpenEBS control plane components, with associated CRs & RBAC rules
+# NOTE: On GKE, deploy the openebs-operator.yaml in admin context
+
+# Create the OpenEBS namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openebs
+---
+# Create Maya Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: openebs-maya-operator
+  namespace: openebs
+---
+# Define Role that allows operations on K8s pods/deployments
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: openebs-maya-operator
+rules:
+- apiGroups: ["*"]
+  resources: ["nodes", "nodes/proxy"]
+  verbs: ["*"]
+- apiGroups: ["*"]
+  resources: ["namespaces", "services", "pods", "pods/exec", "deployments", "deployments/finalizers", "replicationcontrollers", "replicasets", "events", "endpoints", "configmaps", "secrets", "jobs", "cronjobs"]
+  verbs: ["*"]
+- apiGroups: ["*"]
+  resources: ["statefulsets", "daemonsets"]
+  verbs: ["*"]
+- apiGroups: ["*"]
+  resources: ["resourcequotas", "limitranges"]
+  verbs: ["list", "watch"]
+- apiGroups: ["*"]
+  resources: ["ingresses", "horizontalpodautoscalers", "verticalpodautoscalers", "poddisruptionbudgets", "certificatesigningrequests"]
+  verbs: ["list", "watch"]
+- apiGroups: ["*"]
+  resources: ["storageclasses", "persistentvolumeclaims", "persistentvolumes"]
+  verbs: ["*"]
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs: [ "get", "list", "create", "update", "delete", "patch"]
+- apiGroups: ["openebs.io"]
+  resources: [ "*"]
+  verbs: ["*"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+---
+# Bind the Service Account with the Role Privileges.
+# TODO: Check if default account also needs to be there
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: openebs-maya-operator
+subjects:
+- kind: ServiceAccount
+  name: openebs-maya-operator
+  namespace: openebs
+roleRef:
+  kind: ClusterRole
+  name: openebs-maya-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openebs-nfs-provisioner
+  namespace: openebs
+  labels:
+    name: openebs-nfs-provisioner
+    openebs.io/component-name: openebs-nfs-provisioner
+    openebs.io/version: 0.7.1
+spec:
+  selector:
+    matchLabels:
+      name: openebs-nfs-provisioner
+      openebs.io/component-name: openebs-nfs-provisioner
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: openebs-nfs-provisioner
+        openebs.io/component-name: openebs-nfs-provisioner
+        openebs.io/version: 0.7.1
+    spec:
+      serviceAccountName: openebs-maya-operator
+      containers:
+      - name: openebs-provisioner-nfs
+        imagePullPolicy: IfNotPresent
+        image: openebs/provisioner-nfs:0.7.1
+        env:
+        #   OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
+        #   based on this address. This is ignored if empty.
+        #   This is supported for openebs provisioner version 0.5.2 onwards
+        # - name: OPENEBS_IO_K8S_MASTER
+        #   value: "http://10.128.0.12:8080"
+        #   OPENEBS_IO_KUBE_CONFIG enables openebs provisioner to connect to K8s
+        #   based on this config. This is ignored if empty.
+        #   This is supported for openebs provisioner version 0.5.2 onwards
+        # - name: OPENEBS_IO_KUBE_CONFIG
+        #   value: "/home/ubuntu/.kube/config"
+        #   OPENEBS_IO_NFS_SERVER_NODE_AFFINITY defines the node affinity rules to place NFS Server
+        #   instance. It accepts affinity rules in multiple ways:
+        #   - If NFS Server needs to be placed on storage nodes as well as only in
+        #     zone-1 & zone-2 then value can be:
+        #     value:  "kubernetes.io/zone:[zone-1,zone-2],kubernetes.io/storage-node".
+        #   - If NFS Server needs to be placed only on storage nodes & nfs nodes then
+        #     value can be:
+        #     value:  "kubernetes.io/storage-node,kubernetes.io/nfs-node"
+        # - name: OPENEBS_IO_NFS_SERVER_NODE_AFFINITY
+        #   value: "kubernetes.io/storage-node,kubernetes.io/nfs-node"
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: OPENEBS_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        # OPENEBS_SERVICE_ACCOUNT provides the service account of this pod as
+        # environment variable
+        - name: OPENEBS_SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+        - name: OPENEBS_IO_ENABLE_ANALYTICS
+          value: "true"
+        - name: OPENEBS_IO_NFS_SERVER_USE_CLUSTERIP
+          value: "true"
+        - name: OPENEBS_IO_INSTALLER_TYPE
+          value: "openebs-operator-nfs"
+        # OPENEBS_IO_NFS_SERVER_NS defines the namespace for nfs-server deployment
+        #- name: OPENEBS_IO_NFS_SERVER_NS
+        #  value: "openebs"
+        # OPENEBS_IO_NFS_SERVER_IMG defines the nfs-server-alpine image name to be used
+        # while creating nfs volume
+        - name: OPENEBS_IO_NFS_SERVER_IMG
+          value: openebs/nfs-server-alpine:0.7.1
+        # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
+        # leader election is enabled.
+        #- name: LEADER_ELECTION_ENABLED
+        #  value: "true"
+        # Set Timeout for backend PVC to bound, Default value is 60 seconds
+        #- name: OPENEBS_IO_NFS_SERVER_BACKEND_PVC_TIMEOUT
+        #  value: "60"
+        # Process name used for matching is limited to the 15 characters
+        # present in the pgrep output.
+        # So fullname can't be used here with pgrep (>15 chars).A regular expression
+        # that matches the entire command name has to specified.
+        # Anchor `^` : matches any string that starts with `provisioner-nfs`
+        # `.*`: matches any string that has `provisioner-loc` followed by zero or more char
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - test `pgrep "^provisioner-nfs.*"` = 1
+          initialDelaySeconds: 30
+          periodSeconds: 60
+        resources:
+        # We usually recommend not to specify default resources and to leave this as a conscious
+        # choice for the user. This also increases chances charts run on environments with little
+        # resources, such as Minikube. If you do want to specify resources, uncomment the following
+        # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+        # ## Normal cases CPU and memory usage are around ~10 millicores and
+        # ## memory usage is around ~16Mb(after provisioing 70 volumes)
+          requests:
+            cpu: 50m
+            memory: 50M
+          ## During provisioning(large no.of pvcs at a time) time CPU and memory usage
+          ## are around ~67 millicores(6.7% of cpu) and memory usage is around ~34Mb
+          limits:
+            cpu: 200m
+            memory: 200M
+---
+#Sample storage classes for OpenEBS Local PV
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-rwx
+  annotations:
+    openebs.io/cas-type: nfsrwx
+    cas.openebs.io/config: |
+      - name: NFSServerType
+        value: "kernel"
+      - name: BackendStorageClass
+        value: "openebs-hostpath"
+      #  NFSServerResourceRequests defines the resource requests for NFS Server
+      #- name: NFSServerResourceRequests
+      #  value: |-
+      #      memory: 50Mi
+      #      cpu: 50m
+      #  NFSServerResourceLimits defines the resource limits for NFS Server
+      #- name: NFSServerResourceLimits
+      #  value: |-
+      #      memory: 100Mi
+      #      cpu: 100m
+      #  LeaseTime defines the renewl period(in seconds) for client state
+      #- name: LeaseTime
+      #  value: 30
+      #  GraceTime defines the recovery period(in seconds) to reclaim locks
+      #- name: GraceTime
+      #  value: 30
+      #  FSGID defines the group permissions of NFS Volume. If it is set
+      #  then non-root applications should add FSGID value under pod
+      #  Suplemental groups
+      #- name: FSGID
+      #  value: "120"
+provisioner: openebs.io/nfsrwx
+reclaimPolicy: Delete
+---
