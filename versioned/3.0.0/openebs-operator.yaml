@@ -2,11 +2,14 @@
 # with associated CRs & RBAC rules
 # NOTE: On GKE, deploy the openebs-operator.yaml in admin context
 #
-# NOTE: The Jiva and cStor components included in the Operator File will be deprecated 
-#  with 3.0 in favor of the following cStor and Jiva CSI operators. To upgrade your Jiva
-#  and cStor volumes to CSI, please checkout the documentation at:
+# NOTE: The Jiva and cStor components previously included in the Operator File  
+#  are now removed and it is recommended for users to use cStor and Jiva CSI operators. 
+#  To upgrade your Jiva and cStor volumes to CSI, please checkout the documentation at:
 #  https://github.com/openebs/upgrade
 #
+# To deploy the legacy Jiva and cStor:
+# kubectl apply -f https://openebs.github.io/charts/legacy-openebs-operator.yaml
+# 
 # To deploy cStor CSI:
 # kubectl apply -f https://openebs.github.io/charts/cstor-operator.yaml
 #
