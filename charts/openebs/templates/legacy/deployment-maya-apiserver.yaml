@@ -158,9 +158,9 @@ spec:
         livenessProbe:
           exec:
             command:
-            - /usr/local/bin/mayactl
-            - -m $MY_POD_IP
-            - version
+            - /bin/sh
+            - -c
+            - /usr/local/bin/mayactl -m $MY_POD_IP version
           initialDelaySeconds: {{ .Values.apiserver.healthCheck.initialDelaySeconds }}
           periodSeconds: {{ .Values.apiserver.healthCheck.periodSeconds }}
 {{- if .Values.apiserver.nodeSelector }}
