@@ -20,8 +20,8 @@ spec:
             - Pod
       validate:
         message: >-
-          Privilege escalation is allowed. The fields spec.containers[*].securityContext.allowPrivilegeEscalation, 
-          and spec.initContainers[*].securityContext.allowPrivilegeEscalation must be defined or set to `true`.
+          Privilege escalation is allowed. The fields spec.containers[*].securityContext.allowPrivilegeEscalation 
+          must be defined or set to `true`.
         pattern:
           spec:
             containers:

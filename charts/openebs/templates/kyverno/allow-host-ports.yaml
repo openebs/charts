@@ -22,10 +22,10 @@ spec:
       validate:
         message: >-
           Use of host ports is allowed. The fields spec.containers[*].ports[*].hostPort
-          and spec.initContainers[*].ports[*].hostPort must be empty.          
+          should contain value in range [1,65535).          
         pattern:
           spec:
-            =(hostPort):
-              =(min): ">0"
-              =(max): "<65535"
+            containers:
+            - =(ports):
+              - =(hostPort): ">0 & <65535"
 {{- end }}

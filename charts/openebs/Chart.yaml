@@ -1,7 +1,7 @@
 apiVersion: v2
-version: 3.0.0
+version: 3.0.1
 name: openebs
-appVersion: 3.0.0
+appVersion: 3.0.1
 description: Containerized Attached Storage for Kubernetes
 icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/

@@ -20,8 +20,8 @@ spec:
             - Pod
       validate:
         message: >-
-           Privileged mode is allowed. The fields spec.containers[*].securityContext.privileged
-           and spec.initContainers[*].securityContext.privileged must not set to be false.
+          Privileged mode is allowed. The fields spec.containers[*].securityContext.privileged
+          must be defined or set to true.
         pattern:
           spec:
             containers:
