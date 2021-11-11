@@ -656,13 +656,13 @@ nfs-provisioner:
 #    image:
 #      registry:
 #      repository: openebs/provisioner-nfs
-#      tag: 0.7.1
+#      tag: 0.8.0
 #      pullPolicy: IfNotPresent
 #    enableLeaderElection: "true"
 #    nfsServerAlpineImage:
 #      registry:
 #      repository: openebs/nfs-server-alpine
-#      tag: 0.7.1
+#      tag: 0.8.0
 
 cleanup:
   image:
