@@ -111,9 +111,9 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `defaultStorageConfig.enabled`          | Enable default storage class installation     | `true`                                    |
 | `featureGates.enabled`                  | Enable feature gates                          | `true`                                    |
 | `featureGates.GPTBasedUUID.enabled`     | Enable feature gate : GPTBasedUUID            | `true`                                    |
-| `featureGates.APIService.enabled`       | Enable feature gate : APIService              | `false                                    |
-| `featureGates.UseOSDisk.enabled`        | Enable feature gate : UseOSDisk               | `false                                    |
-| `featureGates.ChangeDetection.enabled`  | Enable feature gate : ChangeDetection         | `false                                    |
+| `featureGates.APIService.enabled`       | Enable feature gate : APIService              | `false`                                   |
+| `featureGates.UseOSDisk.enabled`        | Enable feature gate : UseOSDisk               | `false`                                   |
+| `featureGates.ChangeDetection.enabled`  | Enable feature gate : ChangeDetection         | `false`                                   |
 | `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
 | `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
 | `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
