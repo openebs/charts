@@ -109,10 +109,15 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `cstor.volumeMgmt.image`                | Image for cStor Volume  Management            | `openebs/cstor-volume-mgmt`               |
 | `cstor.volumeMgmt.imageTag`             | Image Tag for cStor Volume Management         | `2.12.2`                                  |
 | `defaultStorageConfig.enabled`          | Enable default storage class installation     | `true`                                    |
+| `featureGates.enabled`                  | Enable feature gates                          | `true`                                    |
+| `featureGates.GPTBasedUUID.enabled`     | Enable feature gate : GPTBasedUUID            | `true`                                    |
+| `featureGates.APIService.enabled`       | Enable feature gate : APIService              | `false                                    |
+| `featureGates.UseOSDisk.enabled`        | Enable feature gate : UseOSDisk               | `false                                    |
+| `featureGates.ChangeDetection.enabled`  | Enable feature gate : ChangeDetection         | `false                                    |
 | `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
 | `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
 | `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
-| `helper.imageTag`                       | Image Tag for helper                          | `3.0.0`                                  |
+| `helper.imageTag`                       | Image Tag for helper                          | `3.0.0`                                   |
 | `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
 | `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
@@ -122,7 +127,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
-| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.0.0`                                  |
+| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.0.0`                                   |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
 | `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                    |
 | `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                    |
