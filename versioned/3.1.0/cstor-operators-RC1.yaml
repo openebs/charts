@@ -4224,7 +4224,7 @@ metadata:
   labels:
     name: openebs-cstor-csi-controller
     openebs.io/component-name: openebs-cstor-csi-controller
-    openebs.io/version: 3.1.0-RC1
+    openebs.io/version: 3.0.0
 spec:
   selector:
     matchLabels:
@@ -4241,7 +4241,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-controller
         openebs.io/component-name: openebs-cstor-csi-controller
-        openebs.io/version: 3.1.0-RC1
+        openebs.io/version: 3.0.0
     spec:
       priorityClassName: openebs-cstor-csi-controller-critical
       serviceAccount: openebs-cstor-csi-controller-sa
@@ -4277,7 +4277,7 @@ spec:
             - "--leader-election=false"
           imagePullPolicy: IfNotPresent
         - name: csi-provisioner
-          image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0-RC1
+          image: k8s.gcr.io/sig-storage/csi-provisioner:v3.0.0
           imagePullPolicy: IfNotPresent
           args:
             - "--csi-address=$(ADDRESS)"
@@ -4310,7 +4310,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: cstor-csi-plugin
-          image: openebs/cstor-csi-driver:3.1.0-RC1
+          image: openebs/cstor-csi-driver:3.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -4482,7 +4482,7 @@ metadata:
     app: openebs-cstor-csi-node
     name: openebs-cstor-csi-node
     openebs.io/component-name: openebs-cstor-csi-node
-    openebs.io/version: 3.1.0-RC1
+    openebs.io/version: 3.0.0
 spec:
   selector:
     matchLabels:
@@ -4497,7 +4497,7 @@ spec:
         role: openebs-cstor-csi
         name: openebs-cstor-csi-node
         openebs.io/component-name: openebs-cstor-csi-node
-        openebs.io/version: 3.1.0-RC1
+        openebs.io/version: 3.0.0
     spec:
       priorityClassName: openebs-cstor-csi-node-critical
       serviceAccount: openebs-cstor-csi-node-sa
@@ -4536,7 +4536,7 @@ spec:
             capabilities:
               add: ["CAP_MKNOD", "CAP_SYS_ADMIN", "SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: openebs/cstor-csi-driver:3.1.0-RC1
+          image: openebs/cstor-csi-driver:3.0.0
           imagePullPolicy: IfNotPresent
           args:
             - "--nodeid=$(OPENEBS_NODE_ID)"
@@ -4615,7 +4615,7 @@ metadata:
   labels:
     name: cspc-operator
     openebs.io/component-name: cspc-operator
-    openebs.io/version: 3.1.0-RC1
+    openebs.io/version: 3.0.0
 spec:
   selector:
     matchLabels:
@@ -4629,13 +4629,13 @@ spec:
       labels:
         name: cspc-operator
         openebs.io/component-name: cspc-operator
-        openebs.io/version: 3.1.0-RC1
+        openebs.io/version: 3.0.0
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
       - name: cspc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cspc-operator:3.1.0-RC1
+        image: openebs/cspc-operator:3.0.0
         env:
         - name: OPENEBS_NAMESPACE
           valueFrom:
@@ -4664,11 +4664,11 @@ spec:
         #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
         #  value: ""
         - name: OPENEBS_IO_CSPI_MGMT_IMAGE
-          value: "openebs/cstor-pool-manager:3.1.0-RC1"
+          value: "openebs/cstor-pool-manager:3.0.0"
         - name: OPENEBS_IO_CSTOR_POOL_IMAGE
-          value: "openebs/cstor-pool:3.1.0-RC1"
+          value: "openebs/cstor-pool:3.0.0"
         - name:  OPENEBS_IO_CSTOR_POOL_EXPORTER_IMAGE
-          value: "openebs/m-exporter:3.1.0-RC1"
+          value: "openebs/m-exporter:3.0.0"
         - name: RESYNC_INTERVAL
           value: "30"
 ---
@@ -4680,7 +4680,7 @@ metadata:
   labels:
     name: cvc-operator
     openebs.io/component-name: cvc-operator
-    openebs.io/version: 3.1.0-RC1
+    openebs.io/version: 3.0.0
 spec:
   selector:
     matchLabels:
@@ -4694,13 +4694,13 @@ spec:
       labels:
         name: cvc-operator
         openebs.io/component-name: cvc-operator
-        openebs.io/version: 3.1.0-RC1
+        openebs.io/version: 3.0.0
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
       - name: cvc-operator
         imagePullPolicy: IfNotPresent
-        image: openebs/cvc-operator:3.1.0-RC1
+        image: openebs/cvc-operator:3.0.0
         args:
           - "--v=2"
           - "--leader-election=false"
@@ -4731,11 +4731,11 @@ spec:
             fieldRef:
               fieldPath: spec.serviceAccountName
         - name: OPENEBS_IO_CSTOR_TARGET_IMAGE
-          value: "openebs/cstor-istgt:3.1.0-RC1"
+          value: "openebs/cstor-istgt:3.0.0"
         - name:  OPENEBS_IO_CSTOR_VOLUME_MGMT_IMAGE
-          value: "openebs/cstor-volume-manager:3.1.0-RC1"
+          value: "openebs/cstor-volume-manager:3.0.0"
         - name:  OPENEBS_IO_VOLUME_MONITOR_IMAGE
-          value: "openebs/m-exporter:3.1.0-RC1"
+          value: "openebs/m-exporter:3.0.0"
 ---
 apiVersion: v1
 kind: Service
@@ -4762,7 +4762,7 @@ metadata:
   labels:
     app: cstor-admission-webhook
     openebs.io/component-name: cstor-admission-webhook
-    openebs.io/version: 3.1.0-RC1
+    openebs.io/version: 3.0.0
 spec:
   replicas: 1
   strategy:
@@ -4776,12 +4776,12 @@ spec:
       labels:
         app: cstor-admission-webhook
         openebs.io/component-name: cstor-admission-webhook
-        openebs.io/version: 3.1.0-RC1
+        openebs.io/version: 3.0.0
     spec:
       serviceAccountName: openebs-cstor-operator
       containers:
         - name: admission-webhook
-          image: openebs/cstor-webhook:3.1.0-RC1
+          image: openebs/cstor-webhook:3.0.0
           imagePullPolicy: IfNotPresent
           args:
             - -alsologtostderr
@@ -5201,7 +5201,7 @@ data:
         state: true
       - key: seachest-probe
         name: seachest probe
-        state: false
+        state: true
       - key: smart-probe
         name: smart probe
         state: true
@@ -5220,6 +5220,17 @@ data:
         state: true
         include: ""
         exclude: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/md,/dev/dm-,/dev/rbd,/dev/zd"
+    # metconfig can be used to decorate the block device with different types of labels
+    # that are available on the node or come in a device properties.
+    # node labels - the node where bd is discovered. A whitlisted label prefixes
+    # attribute labels - a property of the BD can be added as a ndm label as ndm.io/<property>=<property-value>
+    metaconfigs:
+      - key: node-labels
+        name: node labels
+        pattern: ""
+      - key: device-labels
+        name: device labels
+        type: ""
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -5246,33 +5257,31 @@ spec:
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
-      # that have storage attached, you could label those node and use
-      # nodeSelector.
-      #
-      # e.g. label the storage nodes with - "openebs.io/nodegroup"="storage-node"
+      # that have storage attached, you could label those node and use nodeSelector.
+      # Example: Label the storage nodes with - "openebs.io/nodegroup"="storage-node"
       # kubectl label node <node-name> "openebs.io/nodegroup"="storage-node"
-      #nodeSelector:
-      #  "openebs.io/nodegroup": "storage-node"
-      serviceAccountName: openebs-cstor-operator
+      # nodeSelector:
+      #   "openebs.io/nodegroup": "storage-node"
+      # Use host network as container network to monitor udev source using netlink
+      # to detect disk attach and detach events using fd.
       hostNetwork: true
-      # host PID is used to check status of iSCSI Service when the NDM
-      # API service is enabled
-      #hostPID: true
+      hostPID: true
+      serviceAccountName: openebs-maya-operator
       containers:
       - name: node-disk-manager
         image: openebs/node-disk-manager:1.8.0-RC1
         args:
-          - -v=4
-        # The feature-gate is used to enable the new UUID algorithm.
-          - --feature-gates="GPTBasedUUID"
+        - -v=4
+        - --feature-gates="GPTBasedUUID"
+        # Use partition table UUID instead of create single partition to get
+        # partition UUID. Require `GPTBasedUUID` to be enabled with.
+        # - --feature-gates="PartitionTableUUID"
+        - --feature-gates="APIService"
         # Detect changes to device size, filesystem and mount-points without restart.
-        # - --feature-gates="ChangeDetection"
-        # The feature gate is used to start the gRPC API service. The gRPC server
-        # starts at 9115 port by default. This feature is currently in Alpha state
-        # - --feature-gates="APIService"
-        # The feature gate is used to enable NDM, to create blockdevice resources
-        # for unused partitions on the OS disk
-        # - --feature-gates="UseOSDisk"
+        #- --feature-gates="ChangeDetection"
+        # Default address is 0.0.0.0:9115, do not use quotes around the address
+        # - --api-service-address=0.0.0.0:9115
+        - --feature-gates="UseOSDisk"
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
@@ -5309,36 +5318,32 @@ spec:
         # if not specified, then sparse files will not be created.
         - name: SPARSE_FILE_DIR
           value: "/var/openebs/sparse"
-        # Size(bytes) of the sparse file to be created.
+        # Size of the sparse file to be created.
         - name: SPARSE_FILE_SIZE
-          value: "10737418240"
+          value: "1073741824"
         # Specify the number of sparse files to be created
         - name: SPARSE_FILE_COUNT
           value: "0"
-        livenessProbe:
-          exec:
-            command:
-            - pgrep
-            - "ndm"
-          initialDelaySeconds: 30
-          periodSeconds: 60
+        # Set the core dump env to enable core dump for NDM daemon
+        #- name: ENABLE_COREDUMP
+        #  value: "1"
       volumes:
       - name: config
         configMap:
-          name: openebs-ndm-config
+          name: node-disk-manager-config
       - name: udev
         hostPath:
           path: /run/udev
           type: Directory
-      # mount /proc (to access mount file of process 1 of host) inside container
-      # to read mount-point of disks and partitions
       - name: procmount
+        # mount /proc/1/mounts (mount file of process 1 of host) inside container
+        # to read which partition is mounted on / path
         hostPath:
           path: /proc
           type: Directory
       - name: devmount
-      # the /dev directory is mounted so that we have access to the devices that
-      # are connected at runtime of the pod.
+        # the /dev directory is mounted so that we have access to the devices that
+        # are connected at runtime of the pod.
         hostPath:
           path: /dev
           type: Directory
@@ -5374,45 +5379,48 @@ spec:
         openebs.io/component-name: ndm-operator
         openebs.io/version: 3.1.0-RC1
     spec:
-      serviceAccountName: openebs-cstor-operator
+      serviceAccountName: openebs-maya-operator
       containers:
-        - name: node-disk-operator
-          image: openebs/node-disk-operator:1.8.0-RC1
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: WATCH_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            # the service account of the ndm-operator pod
-            - name: SERVICE_ACCOUNT
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.serviceAccountName
-            - name: OPERATOR_NAME
-              value: "node-disk-operator"
-            - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:3.1.0-RC1"
-            # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
-            # to the cleanup pod launched by NDM operator
-            #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
-            #  value: ""
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8585
-            initialDelaySeconds: 15
-            periodSeconds: 20
-          readinessProbe:
-            httpGet:
-              path: /readyz
-              port: 8585
-            initialDelaySeconds: 5
-            periodSeconds: 10
+      - name: node-disk-operator
+        image: openebs/node-disk-operator:1.8.0-RC1
+        ports:
+        - containerPort: 8080
+          name: liveness
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        # the service account of this pod
+        - name: SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+        - name: OPERATOR_NAME
+          value: "node-disk-operator"
+        - name: CLEANUP_JOB_IMAGE
+          value: "openebs/linux-utils:3.1.0-RC1"
+        # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
+        # to the cleanup pod launched by NDM operator
+        #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
+        #  value: ""
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8585
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8585
+          initialDelaySeconds: 5
+          periodSeconds: 10
 ---
 # Create NDM cluster exporter deployment.
 # This is an optional component and is not required for the basic
@@ -5441,29 +5449,29 @@ spec:
         openebs.io/component-name: ndm-cluster-exporter
         openebs.io/version: 3.1.0-RC1
     spec:
-      serviceAccountName: openebs-cstor-operator
+      serviceAccountName: openebs-maya-operator
       containers:
-        - name: ndm-cluster-exporter
-          image: openebs/node-disk-exporter:1.8.0-RC1
-          command:
-            - /usr/local/bin/exporter
-          args:
-            - "start"
-            - "--mode=cluster"
-            - "--port=$(METRICS_LISTEN_PORT)"
-            - "--metrics=/metrics"
-          ports:
-            - containerPort: 9100
-              protocol: TCP
-              name: metrics
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: METRICS_LISTEN_PORT
-              value: :9100
+      - name: ndm-cluster-exporter
+        image: openebs/node-disk-exporter:1.8.0-RC1
+        command:
+        - /usr/local/bin/exporter
+        args:
+        - "start"
+        - "--mode=cluster"
+        - "--port=$(METRICS_LISTEN_PORT)"
+        - "--metrics=/metrics"
+        ports:
+        - containerPort: 9100
+          protocol: TCP
+          name: metrics
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: METRICS_LISTEN_PORT
+          value: :9100
 ---
 # Create NDM cluster exporter service
 # This is optional and required only when
@@ -5474,7 +5482,7 @@ metadata:
   name: openebs-ndm-cluster-exporter-service
   namespace: openebs
   labels:
-    name: openebs-ndm-clsuter-exporter-service
+    name: openebs-ndm-cluster-exporter-service
     openebs.io/component-name: ndm-cluster-exporter
     app: openebs-ndm-exporter
 spec:
@@ -5512,31 +5520,31 @@ spec:
         openebs.io/component-name: ndm-node-exporter
         openebs.io/version: 3.1.0-RC1
     spec:
-      serviceAccountName: openebs-cstor-operator
+      serviceAccountName: openebs-maya-operator
       containers:
-        - name: node-disk-exporter
-          image: openebs/node-disk-exporter:1.8.0-RC1
-          command:
-            - /usr/local/bin/exporter
-          args:
-            - "start"
-            - "--mode=node"
-            - "--port=$(METRICS_LISTEN_PORT)"
-            - "--metrics=/metrics"
-          ports:
-            - containerPort: 9101
-              protocol: TCP
-              name: metrics
-          imagePullPolicy: IfNotPresent
-          securityContext:
-            privileged: true
-          env:
-            - name: NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: METRICS_LISTEN_PORT
-              value: :9101
+      - name: node-disk-exporter
+        image: openebs/node-disk-exporter:1.8.0-RC1
+        command:
+        - /usr/local/bin/exporter
+        args:
+        - "start"
+        - "--mode=node"
+        - "--port=$(METRICS_LISTEN_PORT)"
+        - "--metrics=/metrics"
+        ports:
+        - containerPort: 9101
+          protocol: TCP
+          name: metrics
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: METRICS_LISTEN_PORT
+          value: :9101
 ---
 # Create NDM node exporter service
 # This is optional and required only when
