@@ -1,7 +1,9 @@
 {{- if .Values.localprovisioner.enabled }}
 {{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
 {{- if not $localpvprovisionerValues.enabled }}
-{{- if .Values.localprovisioner.enableHostpathClass }}
+# The second operand in the OR operation can be remove
+# when enableHostpathClass is deprecated.
+{{- if and (eq .Values.localprovisioner.hostpathClass.enabled true) (eq .Values.localprovisioner.enableHostpathClass true) }}
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -11,9 +13,14 @@ metadata:
     cas.openebs.io/config: |
       - name: StorageType
         value: "hostpath"
-{{- if .Values.localprovisioner.basePath }}
+{{- if or .Values.localprovisioner.basePath .Values.localprovisioner.hostpathClass.basePath }}
       - name: BasePath
-        value: "{{ .Values.localprovisioner.basePath }}"
+        value: {{ .Values.localprovisioner.hostpathClass.basePath | default .Values.localprovisioner.basePath | quote }}
+{{- end }}
+{{- if .Values.localprovisioner.hostpathClass.nodeAffinityLabels }}
+      - name: NodeAffinityLabels
+        list:
+{{ toYaml .Values.localprovisioner.hostpathClass.nodeAffinityLabels | indent 10 }}
 {{- end }}
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
