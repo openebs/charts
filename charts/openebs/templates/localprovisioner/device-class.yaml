@@ -1,7 +1,7 @@
 {{- if .Values.localprovisioner.enabled }}
 {{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
 {{- if not $localpvprovisionerValues.enabled }}
-# The second operand in the OR operation can be remove
+# The second operand in the OR operation can be removed
 # when enableDeviceClass is deprecated.
 {{- if and (eq .Values.localprovisioner.deviceClass.enabled true) (eq .Values.localprovisioner.enableDeviceClass true) }}
 apiVersion: storage.k8s.io/v1
