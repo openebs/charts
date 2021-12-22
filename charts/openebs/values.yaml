@@ -367,6 +367,9 @@ featureGates:
   ChangeDetection:
     enabled: false
     featureGateFlag: "ChangeDetection"
+  PartitionTableUUID:
+    enabled: false
+    featureGateFlag: "PartitionTableUUID"
 
 crd:
   enableInstall: true
