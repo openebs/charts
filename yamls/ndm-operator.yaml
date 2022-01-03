@@ -1,3 +1,55 @@
+# Create the OpenEBS namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openebs
+---
+# Create NDM Service Account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: openebs-maya-operator
+  namespace: openebs
+---
+# Define Role that allows operations on K8s pods/deployments
+# in "openebs" namespace
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: openebs
+  name: openebs-ndm-operator
+rules:
+- apiGroups: ["*"]
+  resources: ["nodes", "pods", "services", "endpoints", "events", "configmaps", "secrets", "jobs"]
+  verbs:
+  - '*'
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  verbs:
+  - '*'
+- apiGroups:
+  - openebs.io
+  resources:
+  - blockdevices
+  - blockdeviceclaims
+  verbs:
+  - '*'
+---
+# Bind the Service Account with the Role Privileges.
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: openebs-ndm-operator
+  namespace: openebs
+subjects:
+- kind: ServiceAccount
+  name: openebs-maya-operator
+  namespace: openebs
+roleRef:
+  kind: ClusterRole
+  name: openebs-ndm-operator
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -421,6 +473,17 @@ data:
         state: true
         include: ""
         exclude: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/md,/dev/dm-,/dev/rbd,/dev/zd"
+    # metconfig can be used to decorate the block device with different types of labels
+    # that are available on the node or come in a device properties.
+    # node labels - the node where bd is discovered. A whitlisted label prefixes
+    # attribute labels - a property of the BD can be added as a ndm label as ndm.io/<property>=<property-value>
+    metaconfigs:
+      - key: node-labels
+        name: node labels
+        pattern: ""
+      - key: device-labels
+        name: device labels
+        type: ""
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -430,7 +493,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 3.0.0
+    openebs.io/version: 3.1.0
 spec:
   selector:
     matchLabels:
@@ -443,7 +506,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 3.0.0
+        openebs.io/version: 3.1.0
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -461,11 +524,14 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.7.0
+        image: openebs/node-disk-manager:1.8.0
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
           - --feature-gates="GPTBasedUUID"
+        # Use partition table UUID instead of create single partition to get
+        # partition UUID. Require `GPTBasedUUID` to be enabled with.
+        # - --feature-gates="PartitionTableUUID"
         # Detect changes to device size, filesystem and mount-points without restart.
         # - --feature-gates="ChangeDetection"
         # The feature gate is used to start the gRPC API service. The gRPC server
@@ -559,7 +625,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 3.0.0
+    openebs.io/version: 3.1.0
 spec:
   selector:
     matchLabels:
@@ -573,12 +639,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 3.0.0
+        openebs.io/version: 3.1.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.7.0
+          image: openebs/node-disk-operator:1.8.0
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
@@ -597,7 +663,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:3.0.0"
+              value: "openebs/linux-utils:3.1.0"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
@@ -626,7 +692,7 @@ metadata:
   labels:
     name: openebs-ndm-cluster-exporter
     openebs.io/component-name: ndm-cluster-exporter
-    openebs.io/version: 3.0.0
+    openebs.io/version: 3.1.0
 spec:
   replicas: 1
   strategy:
@@ -640,12 +706,12 @@ spec:
       labels:
         name: openebs-ndm-cluster-exporter
         openebs.io/component-name: ndm-cluster-exporter
-        openebs.io/version: 3.0.0
+        openebs.io/version: 3.1.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: ndm-cluster-exporter
-          image: openebs/node-disk-exporter:1.7.0
+          image: openebs/node-disk-exporter:1.8.0
           command:
             - /usr/local/bin/exporter
           args:
@@ -675,7 +741,7 @@ metadata:
   name: openebs-ndm-cluster-exporter-service
   namespace: openebs
   labels:
-    name: openebs-ndm-clsuter-exporter-service
+    name: openebs-ndm-cluster-exporter-service
     openebs.io/component-name: ndm-cluster-exporter
     app: openebs-ndm-exporter
 spec:
@@ -698,7 +764,7 @@ metadata:
   labels:
     name: openebs-ndm-node-exporter
     openebs.io/component-name: ndm-node-exporter
-    openebs.io/version: 3.0.0
+    openebs.io/version: 3.1.0
 spec:
   updateStrategy:
     type: RollingUpdate
@@ -711,12 +777,12 @@ spec:
       labels:
         name: openebs-ndm-node-exporter
         openebs.io/component-name: ndm-node-exporter
-        openebs.io/version: 3.0.0
+        openebs.io/version: 3.1.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-exporter
-          image: openebs/node-disk-exporter:1.7.0
+          image: openebs/node-disk-exporter:1.8.0
           command:
             - /usr/local/bin/exporter
           args:
