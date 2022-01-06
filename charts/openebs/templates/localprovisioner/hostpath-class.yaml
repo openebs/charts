@@ -7,7 +7,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: openebs-hostpath
+  name: {{ .Values.localprovisioner.hostpathClass.name }}
   annotations:
     openebs.io/cas-type: local
     cas.openebs.io/config: |
@@ -22,9 +22,12 @@ metadata:
         list:
 {{ toYaml .Values.localprovisioner.hostpathClass.nodeAffinityLabels | indent 10 }}
 {{- end }}
+{{- if .Values.localprovisioner.hostpathClass.isDefaultClass }}
+    storageclass.kubernetes.io/is-default-class: "true"
+{{- end }}
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Delete
+reclaimPolicy: {{ .Values.localprovisioner.hostpathClass.reclaimPolicy }}
 {{- end }}
 {{- end }}
 {{- end }}
