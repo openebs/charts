@@ -6635,7 +6635,7 @@ metadata:
   namespace: openebs
   labels:
     openebs.io/component-name: jiva-operator
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC1
     name: jiva-operator
 spec:
   replicas: 1
@@ -6647,13 +6647,13 @@ spec:
       labels:
         name: jiva-operator
         openebs.io/component-name: jiva-operator
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC1
     spec:
       serviceAccountName: jiva-operator
       containers:
         - name: jiva-operator
           # Replace this with the built image name
-          image: openebs/jiva-operator:3.1.0
+          image: openebs/jiva-operator:3.1.0-RC1
           command:
             - jiva-operator
           imagePullPolicy: IfNotPresent
@@ -6673,11 +6673,11 @@ spec:
             - name: OPERATOR_NAME
               value: "jiva-operator"
             - name: OPENEBS_IO_JIVA_CONTROLLER_IMAGE
-              value: "openebs/jiva:3.1.0"
+              value: "openebs/jiva:3.1.0-RC1"
             - name: OPENEBS_IO_JIVA_REPLICA_IMAGE
-              value: "openebs/jiva:3.1.0"
+              value: "openebs/jiva:3.1.0-RC1"
             - name: OPENEBS_IO_MAYA_EXPORTER_IMAGE
-              value: "openebs/m-exporter:3.1.0"
+              value: "openebs/m-exporter:3.1.0-RC1"
           livenessProbe:
             httpGet:
               path: /healthz
@@ -6798,7 +6798,7 @@ metadata:
   labels:
     name: openebs-jiva-csi-controller
     openebs.io/component-name: openebs-jiva-csi-controller
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC1
 spec:
   selector:
     matchLabels:
@@ -6815,7 +6815,7 @@ spec:
         role: openebs-jiva-csi
         name: openebs-jiva-csi-controller
         openebs.io/component-name: openebs-jiva-csi-controller
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC1
     spec:
       priorityClassName: openebs-jiva-csi-controller-critical
       serviceAccount: openebs-jiva-csi-controller-sa
@@ -6852,7 +6852,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: jiva-csi-plugin
-          image: openebs/jiva-csi:3.1.0
+          image: openebs/jiva-csi:3.1.0-RC1
           env:
             - name: OPENEBS_JIVA_CSI_CONTROLLER
               value: controller
@@ -7026,7 +7026,7 @@ metadata:
     app: openebs-jiva-csi-node
     name: openebs-jiva-csi-node
     openebs.io/component-name: openebs-jiva-csi-node
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC1
 spec:
   selector:
     matchLabels:
@@ -7041,7 +7041,7 @@ spec:
         role: openebs-jiva-csi
         name: openebs-jiva-csi-node
         openebs.io/component-name: openebs-jiva-csi-node
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC1
     spec:
       priorityClassName: openebs-jiva-csi-node-critical
       serviceAccount: openebs-jiva-csi-node-sa
@@ -7077,7 +7077,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: openebs/jiva-csi:3.1.0
+          image: openebs/jiva-csi:3.1.0-RC1
           args:
             - "--name=jiva.csi.openebs.io"
             - "--nodeid=$(OPENEBS_NODE_ID)"

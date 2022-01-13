@@ -493,7 +493,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC2
 spec:
   selector:
     matchLabels:
@@ -506,7 +506,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC2
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -524,7 +524,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.8.0
+        image: openebs/node-disk-manager:1.8.0-RC2
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -625,7 +625,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC2
 spec:
   selector:
     matchLabels:
@@ -639,12 +639,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.8.0
+          image: openebs/node-disk-operator:1.8.0-RC2
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
@@ -663,7 +663,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:3.1.0"
+              value: "openebs/linux-utils:3.1.0-RC2"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
@@ -692,7 +692,7 @@ metadata:
   labels:
     name: openebs-ndm-cluster-exporter
     openebs.io/component-name: ndm-cluster-exporter
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC2
 spec:
   replicas: 1
   strategy:
@@ -706,12 +706,12 @@ spec:
       labels:
         name: openebs-ndm-cluster-exporter
         openebs.io/component-name: ndm-cluster-exporter
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: ndm-cluster-exporter
-          image: openebs/node-disk-exporter:1.8.0
+          image: openebs/node-disk-exporter:1.8.0-RC2
           command:
             - /usr/local/bin/exporter
           args:
@@ -764,7 +764,7 @@ metadata:
   labels:
     name: openebs-ndm-node-exporter
     openebs.io/component-name: ndm-node-exporter
-    openebs.io/version: 3.1.0
+    openebs.io/version: 3.1.0-RC2
 spec:
   updateStrategy:
     type: RollingUpdate
@@ -777,12 +777,12 @@ spec:
       labels:
         name: openebs-ndm-node-exporter
         openebs.io/component-name: ndm-node-exporter
-        openebs.io/version: 3.1.0
+        openebs.io/version: 3.1.0-RC2
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-exporter
-          image: openebs/node-disk-exporter:1.8.0
+          image: openebs/node-disk-exporter:1.8.0-RC2
           command:
             - /usr/local/bin/exporter
           args:
