@@ -6870,7 +6870,7 @@ spec:
             - name: OPENEBS_IO_INSTALLER_TYPE
               value: "jiva-operator"
             - name: OPENEBS_IO_ENABLE_ANALYTICS
-              value: "false"
+              value: "true"
           args :
             - "--endpoint=$(OPENEBS_JIVA_CSI_ENDPOINT)"
             - "--plugin=$(OPENEBS_JIVA_CSI_CONTROLLER)"
