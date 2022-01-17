@@ -28,6 +28,26 @@ helm upgrade {{ .Release.Name }} openebs/openebs \
 	--reuse-values
 
 For more information, 
-- view the online documentation at https://openebs.io/ or
+- view the online documentation at https://openebs.io/docs or
 - connect with an active community on Kubernetes slack #openebs channel.
+{{- /*
+The section below can be removed once enableDeviceClass and enableHostpathClass
+options are removed.
+*/}}
+{{ if or (eq .Values.localprovisioner.enableHostpathClass false) (eq .Values.localprovisioner.enableDeviceClass false) }}
+
+DEPRECATION NOTICE:
+-------------------
+The options 'enableHostpathClass' and 'enableDeviceClass' are deprecated and
+will be removed in future releases.
+
+Please use the options hostpathClass.enabled and deviceClass.enabled instead.
+
+Example:
+
+helm install {{ .Release.Name }} openebs/openebs \
+	--namespace {{ .Release.Namespace }} \
+	--set localprovisioner.deviceClass.enabled="false"
+
+{{ end }}
 
