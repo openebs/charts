@@ -162,7 +162,7 @@ localprovisioner:
     #            ndm.io/driveType: "SSD"
     #            ndm.io/fsType: "none"
     blockDeviceSelectors: {}
-    
+
   hostpathClass:
     # Name of the default hostpath StorageClass
     name: openebs-hostpath
