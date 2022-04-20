@@ -1,13 +1,10 @@
-# This manifest deploys the OpenEBS control plane components, with associated CRs & RBAC rules
-# NOTE: On GKE, deploy the openebs-operator.yaml in admin context
-
 # Create the OpenEBS namespace
 apiVersion: v1
 kind: Namespace
 metadata:
   name: openebs
 ---
-# Create Maya Service Account
+# Create NDM Service Account
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -15,51 +12,42 @@ metadata:
   namespace: openebs
 ---
 # Define Role that allows operations on K8s pods/deployments
+# in "openebs" namespace
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: openebs-maya-operator
+  namespace: openebs
+  name: openebs-ndm-operator
 rules:
 - apiGroups: ["*"]
-  resources: ["nodes", "nodes/proxy"]
-  verbs: ["*"]
-- apiGroups: ["*"]
-  resources: ["namespaces", "services", "pods", "pods/exec", "deployments", "deployments/finalizers", "replicationcontrollers", "replicasets", "events", "endpoints", "configmaps", "secrets", "jobs", "cronjobs"]
-  verbs: ["*"]
-- apiGroups: ["*"]
-  resources: ["statefulsets", "daemonsets"]
-  verbs: ["*"]
-- apiGroups: ["*"]
-  resources: ["resourcequotas", "limitranges"]
-  verbs: ["list", "watch"]
-- apiGroups: ["*"]
-  resources: ["ingresses", "horizontalpodautoscalers", "verticalpodautoscalers", "poddisruptionbudgets", "certificatesigningrequests"]
-  verbs: ["list", "watch"]
-- apiGroups: ["*"]
-  resources: ["storageclasses", "persistentvolumeclaims", "persistentvolumes"]
-  verbs: ["*"]
+  resources: ["nodes", "pods", "services", "endpoints", "events", "configmaps", "secrets", "jobs"]
+  verbs:
+  - '*'
 - apiGroups: ["apiextensions.k8s.io"]
   resources: ["customresourcedefinitions"]
-  verbs: [ "get", "list", "create", "update", "delete", "patch"]
-- apiGroups: ["openebs.io"]
-  resources: [ "*"]
-  verbs: ["*"]
-- nonResourceURLs: ["/metrics"]
-  verbs: ["get"]
+  verbs:
+  - '*'
+- apiGroups:
+  - openebs.io
+  resources:
+  - blockdevices
+  - blockdeviceclaims
+  verbs:
+  - '*'
 ---
 # Bind the Service Account with the Role Privileges.
-# TODO: Check if default account also needs to be there
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: openebs-maya-operator
+  name: openebs-ndm-operator
+  namespace: openebs
 subjects:
 - kind: ServiceAccount
   name: openebs-maya-operator
   namespace: openebs
 roleRef:
   kind: ClusterRole
-  name: openebs-maya-operator
+  name: openebs-ndm-operator
   apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -505,7 +493,7 @@ metadata:
   labels:
     name: openebs-ndm
     openebs.io/component-name: ndm
-    openebs.io/version: 3.2.0
+    openebs.io/version: 3.2.0-RC1
 spec:
   selector:
     matchLabels:
@@ -518,7 +506,7 @@ spec:
       labels:
         name: openebs-ndm
         openebs.io/component-name: ndm
-        openebs.io/version: 3.2.0
+        openebs.io/version: 3.2.0-RC1
     spec:
       # By default the node-disk-manager will be run on all kubernetes nodes
       # If you would like to limit this to only some nodes, say the nodes
@@ -536,7 +524,7 @@ spec:
       #hostPID: true
       containers:
       - name: node-disk-manager
-        image: openebs/node-disk-manager:1.9.0
+        image: openebs/node-disk-manager:1.9.0-RC1
         args:
           - -v=4
         # The feature-gate is used to enable the new UUID algorithm.
@@ -637,7 +625,7 @@ metadata:
   labels:
     name: openebs-ndm-operator
     openebs.io/component-name: ndm-operator
-    openebs.io/version: 3.2.0
+    openebs.io/version: 3.2.0-RC1
 spec:
   selector:
     matchLabels:
@@ -651,12 +639,12 @@ spec:
       labels:
         name: openebs-ndm-operator
         openebs.io/component-name: ndm-operator
-        openebs.io/version: 3.2.0
+        openebs.io/version: 3.2.0-RC1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-operator
-          image: openebs/node-disk-operator:1.9.0
+          image: openebs/node-disk-operator:1.9.0-RC1
           imagePullPolicy: IfNotPresent
           env:
             - name: WATCH_NAMESPACE
@@ -675,7 +663,7 @@ spec:
             - name: OPERATOR_NAME
               value: "node-disk-operator"
             - name: CLEANUP_JOB_IMAGE
-              value: "openebs/linux-utils:3.2.0"
+              value: "openebs/linux-utils:3.2.0-RC1"
             # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
             # to the cleanup pod launched by NDM operator
             #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
@@ -704,7 +692,7 @@ metadata:
   labels:
     name: openebs-ndm-cluster-exporter
     openebs.io/component-name: ndm-cluster-exporter
-    openebs.io/version: 3.2.0
+    openebs.io/version: 3.2.0-RC1
 spec:
   replicas: 1
   strategy:
@@ -718,12 +706,12 @@ spec:
       labels:
         name: openebs-ndm-cluster-exporter
         openebs.io/component-name: ndm-cluster-exporter
-        openebs.io/version: 3.2.0
+        openebs.io/version: 3.2.0-RC1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: ndm-cluster-exporter
-          image: openebs/node-disk-exporter:1.9.0
+          image: openebs/node-disk-exporter:1.9.0-RC1
           command:
             - /usr/local/bin/exporter
           args:
@@ -776,7 +764,7 @@ metadata:
   labels:
     name: openebs-ndm-node-exporter
     openebs.io/component-name: ndm-node-exporter
-    openebs.io/version: 3.2.0
+    openebs.io/version: 3.2.0-RC1
 spec:
   updateStrategy:
     type: RollingUpdate
@@ -789,12 +777,12 @@ spec:
       labels:
         name: openebs-ndm-node-exporter
         openebs.io/component-name: ndm-node-exporter
-        openebs.io/version: 3.2.0
+        openebs.io/version: 3.2.0-RC1
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
         - name: node-disk-exporter
-          image: openebs/node-disk-exporter:1.9.0
+          image: openebs/node-disk-exporter:1.9.0-RC1
           command:
             - /usr/local/bin/exporter
           args:
@@ -837,97 +825,4 @@ spec:
       targetPort: 9101
   selector:
     name: openebs-ndm-node-exporter
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openebs-localpv-provisioner
-  namespace: openebs
-  labels:
-    name: openebs-localpv-provisioner
-    openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 3.2.0
-spec:
-  selector:
-    matchLabels:
-      name: openebs-localpv-provisioner
-      openebs.io/component-name: openebs-localpv-provisioner
-  replicas: 1
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        name: openebs-localpv-provisioner
-        openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 3.2.0
-    spec:
-      serviceAccountName: openebs-maya-operator
-      containers:
-      - name: openebs-provisioner-hostpath
-        imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:3.2.0
-        args:
-          - "--bd-time-out=$(BDC_BD_BIND_RETRIES)"
-        env:
-        # OPENEBS_IO_K8S_MASTER enables openebs provisioner to connect to K8s
-        # based on this address. This is ignored if empty.
-        # This is supported for openebs provisioner version 0.5.2 onwards
-        #- name: OPENEBS_IO_K8S_MASTER
-        #  value: "http://10.128.0.12:8080"
-        # OPENEBS_IO_KUBE_CONFIG enables openebs provisioner to connect to K8s
-        # based on this config. This is ignored if empty.
-        # This is supported for openebs provisioner version 0.5.2 onwards
-        #- name: OPENEBS_IO_KUBE_CONFIG
-        #  value: "/home/ubuntu/.kube/config"
-        # This sets the number of times the provisioner should try 
-        # with a polling interval of 5 seconds, to get the Blockdevice
-        # Name from a BlockDeviceClaim, before the BlockDeviceClaim
-        # is deleted. E.g. 12 * 5 seconds = 60 seconds timeout
-        - name: BDC_BD_BIND_RETRIES
-          value: "12"
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: OPENEBS_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        # OPENEBS_SERVICE_ACCOUNT provides the service account of this pod as
-        # environment variable
-        - name: OPENEBS_SERVICE_ACCOUNT
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.serviceAccountName
-        - name: OPENEBS_IO_ENABLE_ANALYTICS
-          value: "true"
-        - name: OPENEBS_IO_INSTALLER_TYPE
-          value: "openebs-operator-lite"
-        - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:3.2.0"
-        - name: OPENEBS_IO_BASE_PATH
-          value: "/var/openebs/local"
-        # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
-        # leader election is enabled.
-        #- name: LEADER_ELECTION_ENABLED
-        #  value: "true"
-        # OPENEBS_IO_IMAGE_PULL_SECRETS environment variable is used to pass the image pull secrets
-        # to the helper pod launched by local-pv hostpath provisioner
-        #- name: OPENEBS_IO_IMAGE_PULL_SECRETS
-        #  value: ""
-        # Process name used for matching is limited to the 15 characters
-        # present in the pgrep output.
-        # So fullname can't be used here with pgrep (>15 chars).A regular expression
-        # that matches the entire command name has to specified.
-        # Anchor `^` : matches any string that starts with `provisioner-loc`
-        # `.*`: matches any string that has `provisioner-loc` followed by zero or more char
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - test `pgrep -c "^provisioner-loc.*"` = 1
-          initialDelaySeconds: 30
-          periodSeconds: 60
 ---
