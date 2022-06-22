@@ -249,7 +249,7 @@ ndm:
     excludeVendors: "CLOUDBYT,OpenEBS"
     enablePathFilter: true
     includePaths: ""
-    excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
+    excludePaths: "/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/zram"
   probes:
     enableSeachest: false
   nodeSelector: {}
@@ -585,7 +585,7 @@ openebs-ndm:
 #      excludeVendors: "CLOUDBYT,OpenEBS"
 #      enablePathFilter: true
 #      includePaths: ""
-#      excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd"
+#      excludePaths: "loop,fd0,sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/zram"
 #    probes:
 #      enableSeachest: false
 #      enableUdevProbe: true
