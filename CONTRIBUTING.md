@@ -60,6 +60,24 @@ OpenEBS is an Apache 2.0 Licensed project and all your commits should be signed 
     * `refactor`    - refactoring production code, eg. renaming a variable or function name, there should not be any significant production code changes
     * `cherry-pick` - if PR is merged in the HEAD branch and raised to release branch(like v1.9.x)
 
+---
+
+### Sign your work
+
+We use the Developer Certificate of Origin (DCO) as an additional safeguard for the OpenEBS project. This is a well established and widely used mechanism to assure contributors have confirmed their right to license their contribution under the project's license. Please read [developer-certificate-of-origin](./contribute/developer-certificate-of-origin).
+
+Please certify it by just adding a line to every git commit message. Any PR with Commits which does not have DCO Signoff will not be accepted:
+
+```
+  Signed-off-by: Random J Developer <random@developer.example.org>
+```
+
+or use the command `git commit -s -m "commit message comes here"` to sign-off on your commits.
+
+Use your real name (sorry, no pseudonyms or anonymous contributions). If you set your `user.name` and `user.email` git configs, you can sign your commit automatically with `git commit -s`. You can also use git [aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) like `git config --global alias.ci 'commit -s'`. Now you can commit with `git ci` and the commit will be signed.
+
+---
+
 ## Code Reviews
 All submissions, including submissions by project members, require review. We use GitHub pull requests for this purpose. Consult [GitHub Help](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) for more information on using pull requests.
 
