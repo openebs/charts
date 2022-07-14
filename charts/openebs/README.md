@@ -117,7 +117,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `healthCheck.initialDelaySeconds`       | Delay before liveness probe is initiated      | `30`                                      |
 | `healthCheck.periodSeconds`             | How often to perform the liveness probe       | `60`                                      |
 | `helper.image`                          | Image for helper                              | `openebs/linux-utils`                     |
-| `helper.imageTag`                       | Image Tag for helper                          | `3.2.0`                                   |
+| `helper.imageTag`                       | Image Tag for helper                          | `3.3.0`                                   |
 | `image.pullPolicy`                      | Container pull policy                         | `IfNotPresent`                            |
 | `image.repository`                      | Specify which docker registry to use          | `""`                                      |
 | `jiva.defaultStoragePath`               | hostpath used by default Jiva StorageClass    | `/var/openebs`                            |
@@ -127,7 +127,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `localprovisioner.basePath`             | BasePath for hostPath volumes on Nodes        | `/var/openebs/local`                      |
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                    |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`             |
-| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.2.0`                                   |
+| `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.3.0`                                   |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                    |
 | `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                    |
 | `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                    |
@@ -137,10 +137,10 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
 | `ndm.filters.osDiskExcludePaths`        | Paths/Mounts to be excluded by OS Disk Filter | `/,/etc/hosts,/boot`                      |
 | `ndm.image`                             | Image for Node Disk Manager                   | `openebs/node-disk-manager`               |
-| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `1.9.0`                                   |
+| `ndm.imageTag`                          | Image Tag for Node Disk Manager               | `2.0.0`                                   |
 | `ndmOperator.enabled`                   | Enable NDM Operator                           | `true`                                    |
 | `ndmOperator.image`                     | Image for NDM Operator                        | `openebs/node-disk-operator`              |
-| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `1.9.0`                                   |
+| `ndmOperator.imageTag`                  | Image Tag for NDM Operator                    | `2.0.0`                                   |
 | `ndm.probes.enableSeachest`             | Enable Seachest probe for NDM                 | `false`                                   |
 | `policies.monitoring.image`             | Image for Prometheus Exporter                 | `openebs/m-exporter`                      |
 | `policies.monitoring.imageTag`          | Image Tag for Prometheus Exporter             | `2.12.2`                                  |
