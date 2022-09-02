@@ -247,7 +247,7 @@ snapshotOperator:
 ndm:
   enabled: true
   image: "openebs/node-disk-manager"
-  imageTag: "1.9.0"
+  imageTag: "2.0.0"
   sparse:
     path: "/var/openebs/sparse"
     size: "10737418240"
@@ -283,7 +283,7 @@ ndm:
 ndmOperator:
   enabled: true
   image: "openebs/node-disk-operator"
-  imageTag: "1.9.0"
+  imageTag: "2.0.0"
   replicas: 1
   upgradeStrategy: Recreate
   nodeSelector: {}
@@ -311,7 +311,7 @@ ndmExporter:
     repository: openebs/node-disk-exporter
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: 1.9.0
+    tag: 2.0.0
   nodeExporter:
     name: ndm-node-exporter
     podLabels:
@@ -583,7 +583,7 @@ openebs-ndm:
 #      registry: quay.io/
 #      repository: openebs/node-disk-manager
 #      pullPolicy: IfNotPresent
-#      tag: 1.9.0
+#      tag: 2.0.0
 #    sparse:
 #      path: "/var/openebs/sparse"
 #      size: "10737418240"
@@ -606,7 +606,7 @@ openebs-ndm:
 #      registry: quay.io/
 #      repository: openebs/node-disk-operator
 #      pullPolicy: IfNotPresent
-#      tag: 1.9.0
+#      tag: 2.0.0
 #
 #  helperPod:
 #    image:
@@ -722,7 +722,7 @@ lvm-localpv:
 #      registry: quay.io/
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
-#      tag: 0.9.0
+#      tag: 1.0.0
 
 # openebs nfs provisioner configuration goes here
 # ref - https://openebs.github.io/dynamic-nfs-provisioner
