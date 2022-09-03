@@ -132,7 +132,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                    |
 | `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                    |
 | `ndm.filters.enableVendorFilter`        | Enable filters of vendors                     | `true`                                    |
-| `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd`|
+| `ndm.filters.excludePaths`              | Exclude devices with specified path patterns  | `/dev/loop,/dev/fd0,/dev/sr0,/dev/ram,/dev/dm-,/dev/md,/dev/rbd,/dev/zd,/dev/zram`|
 | `ndm.filters.excludeVendors`            | Exclude devices with specified vendor         | `CLOUDBYT,OpenEBS`                        |
 | `ndm.filters.includePaths`              | Include devices with specified path patterns  | `""`                                      |
 | `ndm.filters.osDiskExcludePaths`        | Paths/Mounts to be excluded by OS Disk Filter | `/,/etc/hosts,/boot`                      |
