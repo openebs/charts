@@ -6,7 +6,7 @@ metadata:
   labels:
     name: openebs-localpv-provisioner
     openebs.io/component-name: openebs-localpv-provisioner
-    openebs.io/version: 3.3.0
+    openebs.io/version: 3.4.0
 spec:
   selector:
     matchLabels:
@@ -20,13 +20,13 @@ spec:
       labels:
         name: openebs-localpv-provisioner
         openebs.io/component-name: openebs-localpv-provisioner
-        openebs.io/version: 3.3.0
+        openebs.io/version: 3.4.0
     spec:
       serviceAccountName: openebs-maya-operator
       containers:
       - name: openebs-provisioner-hostpath
         imagePullPolicy: IfNotPresent
-        image: openebs/provisioner-localpv:3.3.0
+        image: openebs/provisioner-localpv:3.4.0
         args:
           - "--bd-time-out=$(BDC_BD_BIND_RETRIES)"
         env:
@@ -65,7 +65,7 @@ spec:
         - name: OPENEBS_IO_INSTALLER_TYPE
           value: "openebs-operator-hostpath"
         - name: OPENEBS_IO_HELPER_IMAGE
-          value: "openebs/linux-utils:3.3.0"
+          value: "openebs/linux-utils:3.4.0"
         - name: OPENEBS_IO_BASE_PATH
           value: "/var/openebs/local"
         # LEADER_ELECTION_ENABLED is used to enable/disable leader election. By default
