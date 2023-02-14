@@ -1,3 +1,10 @@
+## :warning: Breaking Changes
+
+mayastor has been included in the openebs charts. 
+1. mayastor helm install will not deploy the default engines (local provisioner and ndm) in openebs.
+2. mayastor helm upgrade will remove the default engines if they are present.
+3. mayastor is not recommended to exist along with any other storage engines. 
+
 # OpenEBS Helm Chart
 
 [OpenEBS](https://openebs.io) helps Developers and Platform SREs easily deploy Kubernetes Stateful Workloads that require fast and highly reliable container attached storage. OpenEBS can be deployed on any Kubernetes cluster - either in cloud, on-premise (virtual or bare metal) or developer laptop (minikube).
@@ -27,6 +34,7 @@ OpenEBS helm chart will includes common components that are used by multiple eng
 openebs
 ├── (default) openebs-ndm
 ├── (default) localpv-provisioner
+├── mayastor
 ├── jiva
 ├── cstor
 ├── zfs-localpv
@@ -35,7 +43,7 @@ openebs
 ```
 
 To install the engine charts, the helm install must be provided with a engine enabled flag like `cstor.enabled=true` or `zfs-localpv.enabled=true` or by passing a custom values.yaml with required engines enabled.
-
+ 
 ### Prerequisites
 
 - Kubernetes 1.18+ with RBAC enabled
@@ -62,6 +70,11 @@ Examples:
   ```bash
   helm install --name openebs --namespace openebs openebs/openebs --create-namespace
   ```
+- To install OpenEBS with mayastor CSI driver, run 
+  ```bash
+  helm install openebs openebs/openebs --namespace openebs --create-namespace --set mayastor.enabled=true
+  ```
+> **Note:** : mayastor will be installed without the deafult openebs engines
 
 - To install OpenEBS with cStor CSI driver, run
   ```bash
@@ -128,6 +141,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                                                   |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`                                            |
 | `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.4.0`                                                                  |
+| `mayastor.enabled`                      | Enable mayastor                               | `2.0.                               0.`                                                                      |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                                                   |
 | `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                                                   |
 | `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                                                   |

@@ -1,3 +1,4 @@
+{{- if not .Values.mayastor.enabled -}}
 {{- if and .Values.ndm.enabled .Values.ndmExporter.enabled }}
 {{- $ndmValues := index .Values "openebs-ndm" }}
 {{- if not $ndmValues.enabled }}
@@ -48,5 +49,6 @@ spec:
             - name: METRICS_LISTEN_PORT
               value: :{{ .Values.ndmExporter.nodeExporter.metricsPort }}
             {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}

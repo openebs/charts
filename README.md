@@ -23,6 +23,7 @@ OpenEBS helm chart will includes common components that are used by multiple eng
 - Security Policies like RBAC, PSP, Kyverno 
 
 Engine charts included as dependencies are:
+- [mayastor] (https://github.com/openebs/mayastor-extensions/tree/release/2.0/chart)
 - [cStor](https://github.com/openebs/cstor-operators/tree/HEAD/deploy/helm/charts)
 - [Jiva](https://github.com/openebs/jiva-operator/tree/HEAD/deploy/helm/charts)
 - [ZFS Local PV](https://github.com/openebs/zfs-localpv/tree/HEAD/deploy/helm/charts)
@@ -31,7 +32,6 @@ Engine charts included as dependencies are:
 
 Some of the other charts that will be included in the upcoming releases are:
 - [Rawfile Local PV](https://github.com/openebs/rawfile-localpv/tree/HEAD/deploy/charts/rawfile-csi)
-- [Mayastor](https://github.com/openebs/mayastor/tree/develop/chart)
 - [Dashboard](https://github.com/openebs/monitoring/tree/develop/deploy/charts/openebs-monitoring)
 
 > **Note:** cStor and Jiva out-of-tree provisioners will be replaced by respective CSI charts listed above. OpenEBS users are expected to install the cstor and jiva CSI components and migrate the pools and volumes. The steps to migate are available at: https://github.com/openebs/upgrade
