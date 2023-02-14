@@ -141,7 +141,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `localprovisioner.enabled`              | Enable localProvisioner                       | `true`                                                                   |
 | `localprovisioner.image`                | Image for localProvisioner                    | `openebs/provisioner-localpv`                                            |
 | `localprovisioner.imageTag`             | Image Tag for localProvisioner                | `3.4.0`                                                                  |
-| `mayastor.enabled`                      | Enable mayastor                               | `2.0.                               0.`                                                                      |
+| `mayastor.enabled`                      | Enable mayastor                               | `2.0.0`                                                                  |
 | `ndm.enabled`                           | Enable Node Disk Manager                      | `true`                                                                   |
 | `ndm.filters.enableOsDiskExcludeFilter` | Enable filters of OS disk exclude             | `true`                                                                   |
 | `ndm.filters.enablePathFilter`          | Enable filters of paths                       | `true`                                                                   |
