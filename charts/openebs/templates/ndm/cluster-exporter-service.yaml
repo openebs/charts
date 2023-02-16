@@ -1,3 +1,4 @@
+{{- if not .Values.mayastor.enabled -}}
 {{- if .Values.ndm.enabled }}
 {{- if and .Values.ndmExporter.enabled .Values.ndmExporter.clusterExporter.metricsPort }}
 {{- $ndmValues := index .Values "openebs-ndm" }}
@@ -18,6 +19,7 @@ spec:
     {{- with .Values.ndmExporter.clusterExporter.podLabels }}
     {{ toYaml . }}
     {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

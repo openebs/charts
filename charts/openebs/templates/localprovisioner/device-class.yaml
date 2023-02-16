@@ -1,3 +1,4 @@
+{{- if not .Values.mayastor.enabled -}}
 {{- if .Values.localprovisioner.enabled }}
 {{- $localpvprovisionerValues := index .Values "localpv-provisioner" }}
 {{- if not $localpvprovisionerValues.enabled }}
@@ -33,6 +34,7 @@ metadata:
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: {{ .Values.localprovisioner.deviceClass.reclaimPolicy }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

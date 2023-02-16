@@ -49,6 +49,7 @@ jobs:
 
       - name: Add dependency chart repos
         run: |
+          helm repo add openebs-mayastor https://openebs.github.io/mayastor-extensions
           helm repo add openebs-ndm https://openebs.github.io/node-disk-manager
           helm repo add openebs-localpv https://openebs.github.io/dynamic-localpv-provisioner
           helm repo add openebs-jiva https://openebs.github.io/jiva-operator

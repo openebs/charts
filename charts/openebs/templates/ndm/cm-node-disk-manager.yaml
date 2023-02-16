@@ -1,3 +1,4 @@
+{{- if not .Values.mayastor.enabled -}}
 {{- if .Values.ndm.enabled }}
 {{- $ndmValues := index .Values "openebs-ndm" }}
 {{- if not $ndmValues.enabled }}
@@ -44,5 +45,6 @@ data:
         state: {{ .Values.ndm.filters.enablePathFilter }}
         include: "{{ .Values.ndm.filters.includePaths }}"
         exclude: "{{ .Values.ndm.filters.excludePaths }}"
+{{- end }}
 {{- end }}
 {{- end }}
