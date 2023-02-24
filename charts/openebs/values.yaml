@@ -407,7 +407,7 @@ mayastor:
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: release-2.0
+    tag: v2.0.0
     # -- ImagePullPolicy for Mayastor images
     pullPolicy: Always
 
