@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "3.4.1"
+  version: "3.5.0"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, maya api-server, snapshot-operator
