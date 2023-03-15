@@ -406,15 +406,15 @@ mayastor:
   # This is a small part of the full configuration. Full configuration available
   # here - https://github.com/openebs/mayastor-extensions/blob/v2.0.1/chart/values.yaml
 
-  # image:
-  #   # -- Image registry to pull Mayastor product images
-  #   registry: docker.io
-  #   # -- Image registry's namespace
-  #   repo: openebs
-  #   # -- Release tag for Mayastor images
-  #   tag: v2.0.1
-  #   # -- ImagePullPolicy for Mayastor images
-  #   pullPolicy: Always
+  image:
+    # -- Image registry to pull Mayastor product images
+    registry: docker.io
+    # -- Image registry's namespace
+    repo: openebs
+    # -- Release tag for Mayastor images
+    tag: v2.0.1
+    # -- ImagePullPolicy for Mayastor images
+    pullPolicy: Always
 
   # base:
   #   # docker-secrets required to pull images if the container registry from image.Registry is protected
