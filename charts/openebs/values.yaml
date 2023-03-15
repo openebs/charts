@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "3.4.0"
+  version: "3.4.1"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, maya api-server, snapshot-operator
@@ -401,152 +401,142 @@ mayastor:
   # -- Enable Mayastor storage engine
   # Note: Enabling this will remove LocalPV Provisioner and NDM (default chart components).
   enabled: false
+
+  # Sample configuration, if you want to configure mayastor with custom values.
+  # This is a small part of the full configuration. Full configuration available
+  # here - https://github.com/openebs/mayastor-extensions/blob/v2.0.1/chart/values.yaml
+
   image:
     # -- Image registry to pull Mayastor product images
     registry: docker.io
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: v2.0.0
+    tag: v2.0.1
     # -- ImagePullPolicy for Mayastor images
     pullPolicy: Always
 
-  base:
-    initContainers:
-      enabled: true
-      containers:
-        - name: agent-core-grpc-probe
-          image: busybox:latest
-          command: ['sh', '-c', 'trap "exit 1" TERM; until nc -vzw 5 {{ .Release.Name }}-agent-core 50051; do date; echo "Waiting for agent-core-grpc services..."; sleep 1; done;']
-        - name: etcd-probe
-          image: busybox:latest
-          command: ['sh', '-c', 'trap "exit 1" TERM; until nc -vzw 5 {{ .Release.Name }}-etcd {{.Values.etcd.service.port}}; do date; echo "Waiting for etcd..."; sleep 1; done;']
-    initCoreContainers:
-      enabled: true
-      containers:
-        - name: etcd-probe
-          image: busybox:latest
-          command: ['sh', '-c', 'trap "exit 1" TERM; until nc -vzw 5 {{ .Release.Name }}-etcd {{.Values.etcd.service.port}}; do date; echo "Waiting for etcd..."; sleep 1; done;']
-    # docker-secrets required to pull images if the container registry from image.Registry is protected
-    imagePullSecrets:
-      # -- Enable imagePullSecrets for pulling our container images
-      enabled: false
-      # Name of the imagePullSecret in the installed namespace
-      secrets:
-        - name: login
+  # base:
+  #   # docker-secrets required to pull images if the container registry from image.Registry is protected
+  #   imagePullSecrets:
+  #     # -- Enable imagePullSecrets for pulling our container images
+  #     enabled: false
+  #     # Name of the imagePullSecret in the installed namespace
+  #     secrets:
+  #       - name: login
 
-    metrics:
-      # -- Enable the metrics exporter
-      enabled: true
+  #   metrics:
+  #     # -- Enable the metrics exporter
+  #     enabled: true
 
-    jaeger:
-      # -- Enable jaeger tracing
-      enabled: false
+  #   jaeger:
+  #     # -- Enable jaeger tracing
+  #     enabled: false
 
-  operators:
-    pool:
-      # -- Log level for diskpool operator service
-      logLevel: info
+  # operators:
+  #   pool:
+  #     # -- Log level for diskpool operator service
+  #     logLevel: info
 
-  jaeger-operator:
-    # Name of jaeger operator
-    name: "{{ .Release.Name }}"
-    crd:
-      # Install jaeger CRDs
-      install: false
-    jaeger:
-      # Install jaeger-operator
-      create: false
-    rbac:
-      # Create a clusterRole for Jaeger
-      clusterRole: true
+  # jaeger-operator:
+  #   # Name of jaeger operator
+  #   name: "{{ .Release.Name }}"
+  #   crd:
+  #     # Install jaeger CRDs
+  #     install: false
+  #   jaeger:
+  #     # Install jaeger-operator
+  #     create: false
+  #   rbac:
+  #     # Create a clusterRole for Jaeger
+  #     clusterRole: true
 
-  agents:
-    core:
-      # -- Log level for the core service
-      logLevel: info
-    ha:
-      enabled: true
-      node:
-        # -- Log level for the ha node service
-        logLevel: info
-      cluster:
-        # -- Log level for the ha cluster service
-        logLevel: info
+  # agents:
+  #   core:
+  #     # -- Log level for the core service
+  #     logLevel: info
+  #   ha:
+  #     enabled: true
+  #     node:
+  #       # -- Log level for the ha node service
+  #       logLevel: info
+  #     cluster:
+  #       # -- Log level for the ha cluster service
+  #       logLevel: info
 
-  apis:
-    rest:
-      # -- Log level for the rest service
-      logLevel: info
-      # -- Number of replicas of rest
-      replicaCount: 1
+  # apis:
+  #   rest:
+  #     # -- Log level for the rest service
+  #     logLevel: info
+  #     # -- Number of replicas of rest
+  #     replicaCount: 1
 
-  csi:
-    image:
-      # -- Image registry to pull all CSI Sidecar images
-      registry: registry.k8s.io
-      # -- Image registry's namespace
-      repo: sig-storage
-      # -- imagePullPolicy for all CSI Sidecar images
-      pullPolicy: IfNotPresent
-      # -- csi-provisioner image release tag
-      provisionerTag: v2.2.1
-      # -- csi-attacher image release tag
-      attacherTag: v3.2.1
-      # -- csi-node-driver-registrar image release tag
-      registrarTag: v2.1.0
+  # csi:
+  #   image:
+  #     # -- Image registry to pull all CSI Sidecar images
+  #     registry: registry.k8s.io
+  #     # -- Image registry's namespace
+  #     repo: sig-storage
+  #     # -- imagePullPolicy for all CSI Sidecar images
+  #     pullPolicy: IfNotPresent
+  #     # -- csi-provisioner image release tag
+  #     provisionerTag: v2.2.1
+  #     # -- csi-attacher image release tag
+  #     attacherTag: v3.2.1
+  #     # -- csi-node-driver-registrar image release tag
+  #     registrarTag: v2.1.0
 
-    controller:
-      # -- Log level for the csi controller
-      logLevel: info
+  #   controller:
+  #     # -- Log level for the csi controller
+  #     logLevel: info
 
-    node:
-      logLevel: info
-      topology:
-        segments:
-          openebs.io/csi-node: mayastor
-        # -- Add topology segments to the csi-node daemonset node selector
-        nodeSelector: false
-      kubeletDir: /var/lib/kubelet
+  #   node:
+  #     logLevel: info
+  #     topology:
+  #       segments:
+  #         openebs.io/csi-node: mayastor
+  #       # -- Add topology segments to the csi-node daemonset node selector
+  #       nodeSelector: false
+  #     kubeletDir: /var/lib/kubelet
 
-  io_engine:
-    # -- Log level for the io-engine service
-    logLevel: info,io_engine=info
-    # -- Node selectors to designate storage nodes for diskpool creation
-    # Note that if multi-arch images support 'kubernetes.io/arch: amd64'
-    # should be removed.
-    nodeSelector:
-      openebs.io/engine: mayastor
-      kubernetes.io/arch: amd64
+  # io_engine:
+  #   # -- Log level for the io-engine service
+  #   logLevel: info,io_engine=info
+  #   # -- Node selectors to designate storage nodes for diskpool creation
+  #   # Note that if multi-arch images support 'kubernetes.io/arch: amd64'
+  #   # should be removed.
+  #   nodeSelector:
+  #     openebs.io/engine: mayastor
+  #     kubernetes.io/arch: amd64
 
-  etcd:
-    # Pod labels; okay to remove the openebs logging label if required
-    podLabels:
-      app: etcd
-      openebs.io/logging: "true"
-    # -- Number of replicas of etcd
-    replicaCount: 3
-    persistence:
-      # -- If true, use a Persistent Volume Claim. If false, use emptyDir.
-      enabled: true
-      # -- Will define which storageClass to use in etcd's StatefulSets
-      # a `manual` storageClass will provision a hostpath PV on the same node
-      # an empty storageClass will use the default StorageClass on the cluster
-      storageClass: ""
-      # -- Volume size
-      size: 2Gi
-    podAntiAffinityPreset: "hard"
+  # etcd:
+  #   # Pod labels; okay to remove the openebs logging label if required
+  #   podLabels:
+  #     app: etcd
+  #     openebs.io/logging: "true"
+  #   # -- Number of replicas of etcd
+  #   replicaCount: 3
+  #   persistence:
+  #     # -- If true, use a Persistent Volume Claim. If false, use emptyDir.
+  #     enabled: true
+  #     # -- Will define which storageClass to use in etcd's StatefulSets
+  #     # a `manual` storageClass will provision a hostpath PV on the same node
+  #     # an empty storageClass will use the default StorageClass on the cluster
+  #     storageClass: ""
+  #     # -- Volume size
+  #     size: 2Gi
+  #   podAntiAffinityPreset: "hard"
 
-  loki-stack:
-    # -- Enable loki log collection for Mayastor components
-    enabled: true
+  # loki-stack:
+  #   # -- Enable loki log collection for Mayastor components
+  #   enabled: true
 
-  obs:
-    callhome:
-      # -- Enable callhome
-      enabled: true
-      # -- Log level for callhome
-      logLevel: "info"
+  # obs:
+  #   callhome:
+  #     # -- Enable callhome
+  #     enabled: true
+  #     # -- Log level for callhome
+  #     logLevel: "info"
 
 jiva:
   # non csi configuration
@@ -879,7 +869,7 @@ lvm-localpv:
 nfs-provisioner:
   enabled: false
 
-  # Sample configuration if you want to configure lvm localpv with custom values.
+  # Sample configuration if you want to configure nfs-provisioner with custom values.
   # This is a small part of the full configuration. Full configuration available
   # here - https://openebs.github.io/dynamic-nfs-provisioner
 
