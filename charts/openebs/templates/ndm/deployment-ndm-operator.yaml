@@ -24,6 +24,7 @@ spec:
     matchLabels:
       app: {{ template "openebs.name" . }}
       release: {{ .Release.Name }}
+      component: ndm-operator
   template:
     metadata:
       labels:
