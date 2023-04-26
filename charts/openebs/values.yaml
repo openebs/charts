@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "3.5.0"
+  version: "3.6.0"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, maya api-server, snapshot-operator
@@ -404,7 +404,7 @@ mayastor:
 
   # Sample configuration, if you want to configure mayastor with custom values.
   # This is a small part of the full configuration. Full configuration available
-  # here - https://github.com/openebs/mayastor-extensions/blob/v2.0.1/chart/values.yaml
+  # here - https://github.com/openebs/mayastor-extensions/blob/v2.1.0/chart/values.yaml
 
   image:
     # -- Image registry to pull Mayastor product images
@@ -412,9 +412,13 @@ mayastor:
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: v2.0.1
+    tag: v2.1.0
     # -- ImagePullPolicy for Mayastor images
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
+
+  # -- Pod scheduling priority
+  # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+  # priorityClassName: ""
 
   # base:
   #   # docker-secrets required to pull images if the container registry from image.Registry is protected
@@ -455,6 +459,20 @@ mayastor:
   #   core:
   #     # -- Log level for the core service
   #     logLevel: info
+  #     capacity:
+  #       thin:
+  #       # -- The allowed pool commitment limit when dealing with thin provisioned volumes.
+  #       # Example: If the commitment is 250 and the pool is 10GiB we can overcommit the pool
+  #       # up to 25GiB (create 2 10GiB and 1 5GiB volume) but no further.
+  #       poolCommitment: "250%"
+  #       # -- When creating replicas for an existing volume, each replica pool must have at least
+  #       # this much free space percentage of the volume size.
+  #       # Example: if this value is 40, the pool has 40GiB free, then the max volume size allowed
+  #       # to be created on the pool is 100GiB.
+  #       volumeCommitment: "40%"
+  #       # -- Same as the `volumeCommitment` argument, but applicable only when creating replicas
+  #       # for a new volume.
+  #       volumeCommitmentInitial: "40%"
   #   ha:
   #     enabled: true
   #     node:
@@ -501,7 +519,7 @@ mayastor:
 
   # io_engine:
   #   # -- Log level for the io-engine service
-  #   logLevel: info,io_engine=info
+  #   logLevel: info
   #   # -- Node selectors to designate storage nodes for diskpool creation
   #   # Note that if multi-arch images support 'kubernetes.io/arch: amd64'
   #   # should be removed.
