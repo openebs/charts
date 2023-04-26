@@ -17,13 +17,13 @@ The helm chart is located under [./charts/openebs/](./charts/openebs/) directory
 
 OpenEBS helm chart is an umbrella chart that pulls together engine specific charts. The engine charts are included as dependencies in [Chart.yaml](charts/openebs/Chart.yaml).
 
-OpenEBS helm chart will includes common components that are used by multiple engines like:
+OpenEBS helm chart includes common components that are used by multiple engines like:
 - Node Disk Manager related components
 - Dynamic LocalPV (hostpath and device) Provisioner related components
 - Security Policies like RBAC, PSP, Kyverno 
 
 Engine charts included as dependencies are:
-- [Mayastor](https://github.com/openebs/mayastor-extensions/tree/v2.0.1/chart)
+- [Mayastor](https://github.com/openebs/mayastor-extensions/tree/v2.1.0/chart)
 - [cStor](https://github.com/openebs/cstor-operators/tree/HEAD/deploy/helm/charts)
 - [Jiva](https://github.com/openebs/jiva-operator/tree/HEAD/deploy/helm/charts)
 - [ZFS Local PV](https://github.com/openebs/zfs-localpv/tree/HEAD/deploy/helm/charts)
