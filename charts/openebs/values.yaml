@@ -404,7 +404,7 @@ mayastor:
 
   # Sample configuration, if you want to configure mayastor with custom values.
   # This is a small part of the full configuration. Full configuration available
-  # here - https://github.com/openebs/mayastor-extensions/blob/v2.1.0/chart/values.yaml
+  # here - https://github.com/openebs/mayastor-extensions/blob/v2.2.0/chart/values.yaml
 
   image:
     # -- Image registry to pull Mayastor product images
@@ -412,7 +412,7 @@ mayastor:
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: v2.1.0
+    tag: v2.2.0
     # -- ImagePullPolicy for Mayastor images
     pullPolicy: IfNotPresent
 
@@ -859,7 +859,7 @@ zfs-localpv:
 #      registry: quay.io/
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
-#      tag: 2.1.0
+#      tag: 2.2.0
 
 # lvm local pv configuration goes here
 # ref - https://openebs.github.io/lvm-localpv
@@ -880,7 +880,7 @@ lvm-localpv:
 #      registry: quay.io/
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
-#      tag: 1.0.0
+#      tag: 1.1.0
 
 # openebs nfs provisioner configuration goes here
 # ref - https://openebs.github.io/dynamic-nfs-provisioner
