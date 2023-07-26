@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "3.6.0"
+  version: "3.8.0"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, maya api-server, snapshot-operator
@@ -404,7 +404,7 @@ mayastor:
 
   # Sample configuration, if you want to configure mayastor with custom values.
   # This is a small part of the full configuration. Full configuration available
-  # here - https://github.com/openebs/mayastor-extensions/blob/v2.2.0/chart/values.yaml
+  # here - https://github.com/openebs/mayastor-extensions/blob/v2.3.0/chart/values.yaml
 
   image:
     # -- Image registry to pull Mayastor product images
@@ -412,7 +412,7 @@ mayastor:
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: v2.2.0
+    tag: v2.3.0
     # -- ImagePullPolicy for Mayastor images
     pullPolicy: IfNotPresent
 
@@ -501,6 +501,10 @@ mayastor:
   #     provisionerTag: v2.2.1
   #     # -- csi-attacher image release tag
   #     attacherTag: v3.2.1
+  #     # -- csi-snapshotter image release tag
+  #     snapshotterTag: v6.2.1
+  #     # -- csi-snapshot-controller image release tag
+  #     snapshotControllerTag: v6.2.1
   #     # -- csi-node-driver-registrar image release tag
   #     registrarTag: v2.1.0
 
@@ -602,17 +606,17 @@ jiva:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    replica:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -620,7 +624,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 
 cstor:
 
@@ -671,51 +675,51 @@ cstor:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool-manager
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    cstorPool:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    cstorPoolExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cspc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 #
 #  cvcOperator:
 #    target:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-istgt
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    volumeMgmt:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-volume-manager
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    volumeExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 3.4.0
+#        tag: 3.5.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cvc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 #
 #  cstorCSIPlugin:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cstor-csi-driver
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 #
 #  admissionServer:
 #    componentName: cstor-admission-webhook
@@ -723,7 +727,7 @@ cstor:
 #      registry: quay.io/
 #      repository: openebs/cstor-webhook
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 
 # ndm configuration goes here
 # https://openebs.github.io/node-disk-manager
@@ -859,7 +863,7 @@ zfs-localpv:
 #      registry: quay.io/
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
-#      tag: 2.2.0
+#      tag: 2.3.0
 
 # lvm local pv configuration goes here
 # ref - https://openebs.github.io/lvm-localpv
@@ -880,7 +884,7 @@ lvm-localpv:
 #      registry: quay.io/
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
-#      tag: 1.1.0
+#      tag: 1.2.0
 
 # openebs nfs provisioner configuration goes here
 # ref - https://openebs.github.io/dynamic-nfs-provisioner
