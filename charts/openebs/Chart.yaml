@@ -1,7 +1,7 @@
 apiVersion: v2
-version: 3.8.0
+version: 3.9.0
 name: openebs
-appVersion: 3.8.0
+appVersion: 3.9.0
 description: Containerized Attached Storage for Kubernetes
 icon: https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/icon/color/openebs-icon-color.png
 home: http://www.openebs.io/
@@ -28,7 +28,7 @@ dependencies:
     repository: "https://openebs.github.io/node-disk-manager"
     condition: openebs-ndm.enabled
   - name: localpv-provisioner
-    version: "3.4.0"
+    version: "3.4.1"
     repository: "https://openebs.github.io/dynamic-localpv-provisioner"
     condition: localpv-provisioner.enabled
   - name: cstor
@@ -36,15 +36,15 @@ dependencies:
     repository: "https://openebs.github.io/cstor-operators"
     condition: cstor.enabled
   - name: jiva
-    version: "3.5.0"
+    version: "3.5.1"
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
-    version: "2.3.0"
+    version: "2.3.1"
     repository: "https://openebs.github.io/zfs-localpv"
     condition: zfs-localpv.enabled
   - name: lvm-localpv
-    version: "1.2.0"
+    version: "1.3.0"
     repository: "https://openebs.github.io/lvm-localpv"
     condition: lvm-localpv.enabled
   - name: nfs-provisioner
@@ -52,6 +52,6 @@ dependencies:
     repository: "https://openebs.github.io/dynamic-nfs-provisioner"
     condition: nfs-provisioner.enabled
   - name: mayastor
-    version: "2.3.0"
+    version: "2.4.0"
     repository: "https://openebs.github.io/mayastor-extensions"
     condition: mayastor.enabled
