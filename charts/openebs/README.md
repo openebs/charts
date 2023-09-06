@@ -148,7 +148,7 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `mayastor.etcd.persistence.size`            | Set the size of the volume(s) used by the etcd                               | `""`                                                                     |
 | `mayastor.image.registry`                   | Set the container image registry for the mayastor containers                 | `"docker.io"`                                                            |
 | `mayastor.image.repo`                       | Set the container image repository for the mayastor containers               | `"openebs"`                                                              |
-| `mayastor.image.tag`                        | Set the container image tag for the mayastor containers                      | `"v2.3.0"`                                                          |
+| `mayastor.image.tag`                        | Set the container image tag for the mayastor containers                      | `"v2.4.0"`                                                          |
 | `mayastor.image.pullPolicy`                 | Set the container ImagePullPolicy for the mayastor containers                | `"Always"`                                                               |
 | `mayastor.csi.image.registry`               | Set the container image registry for the Kubernetes CSI sidecar containers   | `"registry.k8s.io"`                                                      |
 | `mayastor.csi.image.repo`                   | Set the container image repository for the Kubernetes CSI sidecar containers | `"sig-storage"`                                                          |

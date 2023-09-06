@@ -23,7 +23,7 @@ OpenEBS helm chart includes common components that are used by multiple engines 
 - Security Policies like RBAC, PSP, Kyverno 
 
 Engine charts included as dependencies are:
-- [Mayastor](https://github.com/openebs/mayastor-extensions/tree/v2.3.0/chart)
+- [Mayastor](https://github.com/openebs/mayastor-extensions/tree/v2.4.0/chart)
 - [cStor](https://github.com/openebs/cstor-operators/tree/HEAD/deploy/helm/charts)
 - [Jiva](https://github.com/openebs/jiva-operator/tree/HEAD/deploy/helm/charts)
 - [ZFS Local PV](https://github.com/openebs/zfs-localpv/tree/HEAD/deploy/helm/charts)
