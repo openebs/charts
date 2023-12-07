@@ -174,6 +174,8 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `ndmOperator.image`                         | Image for NDM Operator                                                       | `openebs/node-disk-operator`                                             |
 | `ndmOperator.imageTag`                      | Image Tag for NDM Operator                                                   | `2.1.0`                                                                  |
 | `ndm.probes.enableSeachest`                 | Enable Seachest probe for NDM                                                | `false`                                                                  |
+| `ndm.metaConfig.nodeLabelPattern`           | Config for adding node labels as BD labels                                   | `kubernetes.io*,beta.kubernetes.io*`                                     |
+| `ndm.metaConfig.deviceLabelTypes`           | Config for adding device attributes as BD labels                             | `.spec.details.vendor,.spec.details.model,.spec.details.driveType,.spec.filesystem.fsType`|
 | `policies.monitoring.image`                 | Image for Prometheus Exporter                                                | `openebs/m-exporter`                                                     |
 | `policies.monitoring.imageTag`              | Image Tag for Prometheus Exporter                                            | `2.12.2`                                                                 |
 | `provisioner.enabled`                       | Enable Provisioner                                                           | `true`                                                                   |
