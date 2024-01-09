@@ -264,6 +264,9 @@ ndm:
     enableSeachest: false
   nodeSelector: {}
   tolerations: []
+  metaConfig:
+    nodeLabelPattern: ""
+    deviceLabelTypes: ""
   healthCheck:
     initialDelaySeconds: 30
     periodSeconds: 60
