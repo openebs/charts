@@ -141,14 +141,14 @@ The following table lists the common configurable parameters of the OpenEBS char
 | `localprovisioner.basePath`                 | BasePath for hostPath volumes on Nodes                                       | `/var/openebs/local`                                                     |
 | `localprovisioner.enabled`                  | Enable localProvisioner                                                      | `true`                                                                   |
 | `localprovisioner.image`                    | Image for localProvisioner                                                   | `openebs/provisioner-localpv`                                            |
-| `localprovisioner.imageTag`                 | Image Tag for localProvisioner                                               | `3.4.0`                                                                  |
+| `localprovisioner.imageTag`                 | Image Tag for localProvisioner                                               | `3.5.0`                                                                  |
 | `mayastor.enabled`                          | Enable mayastor (disables localprovisioner and ndm)                          | `false`                                                                  |
 | `mayastor.etcd.replicaCount`                | Set the number of etcd replicas in the                                       | `3`                                                                      |
 | `mayastor.etcd.persistence.storageClass`    | Set the StorageClass name used to provision the volume(s) for the etcd       | `""`                                                                     |
 | `mayastor.etcd.persistence.size`            | Set the size of the volume(s) used by the etcd                               | `""`                                                                     |
 | `mayastor.image.registry`                   | Set the container image registry for the mayastor containers                 | `"docker.io"`                                                            |
 | `mayastor.image.repo`                       | Set the container image repository for the mayastor containers               | `"openebs"`                                                              |
-| `mayastor.image.tag`                        | Set the container image tag for the mayastor containers                      | `"v2.4.0"`                                                          |
+| `mayastor.image.tag`                        | Set the container image tag for the mayastor containers                      | `"v2.5.0"`                                                          |
 | `mayastor.image.pullPolicy`                 | Set the container ImagePullPolicy for the mayastor containers                | `"Always"`                                                               |
 | `mayastor.csi.image.registry`               | Set the container image registry for the Kubernetes CSI sidecar containers   | `"registry.k8s.io"`                                                      |
 | `mayastor.csi.image.repo`                   | Set the container image repository for the Kubernetes CSI sidecar containers | `"sig-storage"`                                                          |

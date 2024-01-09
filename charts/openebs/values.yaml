@@ -18,7 +18,7 @@ imagePullSecrets: []
 
 release:
   # "openebs.io/version" label for control plane components
-  version: "3.9.0"
+  version: "3.10.0"
 
 # Legacy components will be installed if it is enabled.
 # Legacy components are - admission-server, maya api-server, snapshot-operator
@@ -95,7 +95,7 @@ provisioner:
 localprovisioner:
   enabled: true
   image: "openebs/provisioner-localpv"
-  imageTag: "3.4.0"
+  imageTag: "3.5.0"
   replicas: 1
   enableLeaderElection: true
   # These fields are deprecated. Please use the fields (see below)
@@ -359,7 +359,7 @@ webhook:
 # then put this configuration under `localpv-provisioner` and `openebs-ndm` key.
 helper:
   image: "openebs/linux-utils"
-  imageTag: "3.4.0"
+  imageTag: "3.5.0"
 
 # These are ndm related configuration. If you want to enable openebs as a dependency
 # chart then set `ndm.enabled: false`, `ndmOperator.enabled: false` and enable it as
@@ -407,7 +407,7 @@ mayastor:
 
   # Sample configuration, if you want to configure mayastor with custom values.
   # This is a small part of the full configuration. Full configuration available
-  # here - https://github.com/openebs/mayastor-extensions/blob/v2.4.0/chart/values.yaml
+  # here - https://github.com/openebs/mayastor-extensions/blob/v2.5.0/chart/values.yaml
 
   image:
     # -- Image registry to pull Mayastor product images
@@ -415,7 +415,7 @@ mayastor:
     # -- Image registry's namespace
     repo: openebs
     # -- Release tag for Mayastor images
-    tag: v2.4.0
+    tag: v2.5.0
     # -- ImagePullPolicy for Mayastor images
     pullPolicy: IfNotPresent
 
@@ -505,11 +505,11 @@ mayastor:
   #     # -- csi-attacher image release tag
   #     attacherTag: v4.3.0
   #     # -- csi-snapshotter image release tag
-  #     snapshotterTag: v6.2.1
+  #     snapshotterTag: v6.3.1
   #     # -- csi-snapshot-controller image release tag
-  #     snapshotControllerTag: v6.2.1
+  #     snapshotControllerTag: v6.3.1
   #     # -- csi-node-driver-registrar image release tag
-  #     registrarTag: v2.8.0
+  #     registrarTag: v2.9.0
 
   #   controller:
   #     # -- Log level for the csi controller
@@ -529,6 +529,8 @@ mayastor:
   #     tolerations: []
   #     # -- Set PriorityClass, overrides global
   #     priorityClassName: ""
+  #     # -- Prevent modifying the volume mode when creating a PVC from an existing VolumeSnapshot
+  #     preventVolumeModeConversion: true
   #   node:
   #     logLevel: info
   #     topology:
@@ -548,8 +550,10 @@ mayastor:
   #         # -- Memory requests for csi node plugin
   #         memory: "64Mi"
   #     nvme:
-  #       # -- The nvme_core module io timeout in seconds
-  #       io_timeout: "30"
+  #       # The nvme_core module and nvme block io timeout in humantime
+  #       # By default it uses the "io_engine.nvme.ioTimeout" + 10s
+  #       # Do not modify this unless you're really sure about its effects
+  #       io_timeout: ""
   #       # -- The ctrl_loss_tmo (controller loss timeout) in seconds
   #       ctrl_loss_tmo: "1980"
   #       # Kato (keep alive timeout) in seconds
@@ -595,6 +599,23 @@ mayastor:
   #     # -- Volume size
   #     size: 2Gi
   #   podAntiAffinityPreset: "hard"
+
+  #   nvme:
+  #     # -- Timeout for IOs
+  #     # The default here is exaggerated for local disks but we've observed that in
+  #     # shared virtual environments having a higher timeout value is beneficial.
+  #     # In certain cases, you may have to set this to an even higher value. For example,
+  #     # in Hetzner we've had better results setting it to 300s.
+  #     # Please adjust this according to your hardware and needs.
+  #     ioTimeout: "110s"
+  #     # Timeout for admin commands
+  #     adminTimeout: "30s"
+  #     # Timeout for keep alives
+  #     keepAliveTimeout: "10s"
+  #     tcp:
+  #       # -- Max size setting (both initiator and target) for an NVMe queue
+  #       # -- You may need to increase this for a higher outstanding IOs per volume
+  #       maxQueueDepth: "32"
 
   # loki-stack:
   #   # -- Enable loki log collection for Mayastor components
@@ -666,17 +687,17 @@ jiva:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    replica:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/jiva
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/jiva-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 #
 #  jivaCSIPlugin:
 #    remount: "true"
@@ -684,7 +705,7 @@ jiva:
 #      registry: quay.io/
 #      repository: openebs/jiva-csi
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 
 cstor:
 
@@ -735,51 +756,51 @@ cstor:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool-manager
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    cstorPool:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-pool
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    cstorPoolExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cspc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 #
 #  cvcOperator:
 #    target:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-istgt
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    volumeMgmt:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/cstor-volume-manager
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    volumeExporter:
 #      image:
 #        registry: quay.io/
 #        repository: openebs/m-exporter
-#        tag: 3.5.0
+#        tag: 3.6.0
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cvc-operator
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 #
 #  cstorCSIPlugin:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/cstor-csi-driver
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 #
 #  admissionServer:
 #    componentName: cstor-admission-webhook
@@ -787,7 +808,7 @@ cstor:
 #      registry: quay.io/
 #      repository: openebs/cstor-webhook
 #      pullPolicy: IfNotPresent
-#      tag: 3.5.0
+#      tag: 3.6.0
 
 # ndm configuration goes here
 # https://openebs.github.io/node-disk-manager
@@ -835,7 +856,7 @@ openebs-ndm:
 #      registry: quay.io/
 #      repository: openebs/linux-utils
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 #
 #  featureGates:
 #    enabled: true
@@ -888,7 +909,7 @@ localpv-provisioner:
 #    image:
 #      registry: quay.io/
 #      repository: openebs/provisioner-localpv
-#      tag: 3.4.0
+#      tag: 3.5.0
 #      pullPolicy: IfNotPresent
 #    healthCheck:
 #      initialDelaySeconds: 30
@@ -902,7 +923,7 @@ localpv-provisioner:
 #      registry: quay.io/
 #      repository: openebs/linux-utils
 #      pullPolicy: IfNotPresent
-#      tag: 3.4.0
+#      tag: 3.5.0
 
 # zfs local pv configuration goes here
 # ref - https://openebs.github.io/zfs-localpv
@@ -923,7 +944,7 @@ zfs-localpv:
 #      registry: quay.io/
 #      repository: openebs/zfs-driver
 #      pullPolicy: IfNotPresent
-#      tag: 2.3.0
+#      tag: 2.4.0
 
 # lvm local pv configuration goes here
 # ref - https://openebs.github.io/lvm-localpv
@@ -944,7 +965,7 @@ lvm-localpv:
 #      registry: quay.io/
 #      repository: openebs/lvm-driver
 #      pullPolicy: IfNotPresent
-#      tag: 1.3.0
+#      tag: 1.4.0
 
 # openebs nfs provisioner configuration goes here
 # ref - https://openebs.github.io/dynamic-nfs-provisioner
@@ -964,13 +985,13 @@ nfs-provisioner:
 #    image:
 #      registry:
 #      repository: openebs/provisioner-nfs
-#      tag: 0.10.0
+#      tag: 0.11.0
 #      pullPolicy: IfNotPresent
 #    enableLeaderElection: "true"
 #    nfsServerAlpineImage:
 #      registry:
 #      repository: openebs/nfs-server-alpine
-#      tag: 0.10.0
+#      tag: 0.11.0
 
 cleanup:
   image:
