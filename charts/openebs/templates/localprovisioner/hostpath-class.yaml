@@ -43,6 +43,7 @@ metadata:
 provisioner: openebs.io/local
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: {{ .Values.localprovisioner.hostpathClass.reclaimPolicy }}
+allowVolumeExpansion: true
 {{- end }}
 {{- end }}
 {{- end }}
