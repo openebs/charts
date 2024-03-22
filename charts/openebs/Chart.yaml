@@ -40,7 +40,7 @@ dependencies:
     repository: "https://openebs.github.io/jiva-operator"
     condition: jiva.enabled
   - name: zfs-localpv
-    version: "2.4.0"
+    version: "2.5.0"
     repository: "https://openebs.github.io/zfs-localpv"
     condition: zfs-localpv.enabled
   - name: lvm-localpv
