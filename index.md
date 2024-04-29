@@ -46,10 +46,10 @@ To install the engine charts, the helm install must be provided with a engine en
 
 ### Setup Helm Repository
 
-Before installing OpenEBS Helm charts, you need to add the [OpenEBS Helm repository](https://openebs.github.io/charts) to your Helm client.
+Before installing OpenEBS Helm charts, you need to add the [OpenEBS Helm repository](https://openebs-archive.github.io/charts) to your Helm client.
 
 ```bash
-helm repo add openebs https://openebs.github.io/charts
+helm repo add openebs https://openebs-archive.github.io/charts
 helm repo update
 ```
 
@@ -80,7 +80,7 @@ Examples:
   helm upgrade openebs openebs/openebs --namespace openebs --reuse-values --set legacy.enabled=false 
   ```
 
-For more details on customizing and installing OpenEBS please see the [chart readme](https://github.com/openebs/charts/tree/HEAD/charts/openebs/README.md).
+For more details on customizing and installing OpenEBS please see the [chart readme](https://github.com/openebs-archive/charts/tree/HEAD/charts/openebs/README.md).
 
 ### To uninstall/delete instance with release name
 
