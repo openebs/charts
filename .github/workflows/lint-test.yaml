@@ -50,13 +50,13 @@ jobs:
       - name: Add dependency chart repos
         run: |
           helm repo add openebs-mayastor https://openebs.github.io/mayastor-extensions
-          helm repo add openebs-ndm https://openebs-archive.github.io/node-disk-manager
+          helm repo add openebs-ndm https://openebs.github.io/node-disk-manager
           helm repo add openebs-localpv https://openebs.github.io/dynamic-localpv-provisioner
-          helm repo add openebs-jiva https://openebs-archive.github.io/jiva-operator
-          helm repo add openebs-cstor https://openebs-archive.github.io/cstor-operators
+          helm repo add openebs-jiva https://openebs.github.io/jiva-operator
+          helm repo add openebs-cstor https://openebs.github.io/cstor-operators
           helm repo add openebs-zfslocalpv https://openebs.github.io/zfs-localpv
           helm repo add openebs-lvmlocalpv https://openebs.github.io/lvm-localpv
-          helm repo add openebs-nfs https://openebs-archive.github.io/dynamic-nfs-provisioner
+          helm repo add openebs-nfs https://openebs.github.io/dynamic-nfs-provisioner
           helm repo update
 
       - name: Run chart-testing (install)
