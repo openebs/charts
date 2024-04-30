@@ -1,0 +1,66 @@
+name: Chart Lint and Test
+
+on:
+  push:
+    paths:
+      - 'charts/openebs/**'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'charts/openebs/**'
+    branches:
+      - main
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --config ct.yaml)
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+      - name: Run chart-testing (lint)
+        run: ct lint --config ct.yaml
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.2.0
+        if: steps.list-changed.outputs.changed == 'true'
+
+        # This is expected to fail as some of the repositories below have been migrated to the github.com/openebs-archive
+        # GitHub organisation. This repository (openebs/charts) is scheduled to be moved into openebs-archive org too,
+        # the CI fail is intentional as no new chart releases are expected from this repo. New registry lives at openebs/openebs.
+      - name: Add dependency chart repos
+        run: |
+          helm repo add openebs-mayastor https://openebs.github.io/mayastor-extensions
+          helm repo add openebs-ndm https://openebs.github.io/node-disk-manager
+          helm repo add openebs-localpv https://openebs.github.io/dynamic-localpv-provisioner
+          helm repo add openebs-jiva https://openebs.github.io/jiva-operator
+          helm repo add openebs-cstor https://openebs.github.io/cstor-operators
+          helm repo add openebs-zfslocalpv https://openebs.github.io/zfs-localpv
+          helm repo add openebs-lvmlocalpv https://openebs.github.io/lvm-localpv
+          helm repo add openebs-nfs https://openebs.github.io/dynamic-nfs-provisioner
+          helm repo update
+
+      - name: Run chart-testing (install)
+        run: ct install --config ct.yaml
