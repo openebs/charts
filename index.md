@@ -1,5 +1,24 @@
 # OpenEBS Helm Repository
 
+## ⚠️ Deprecation Notice: Helm Chart Registry Migration
+
+The Helm chart registry at "https://openebs.github.io/charts" is deprecated and will be moved to a new location soon.
+
+**Old Registry URL:** https://openebs.github.io/charts  
+**New Registry URL:** https://openebs.github.io/openebs  
+
+To ensure seamless access to OpenEBS Helm charts, update your configurations to use the new registry URL.
+
+Additionally, the older registry will be relocated to the [openebs-archive](https://github.com/openebs-archive) GitHub organization.
+
+**Relocation Deadline:** October 30th, 2024
+
+Refer to the [OpenEBS documentation](https://openebs.io/docs) for more information and guidance on this migration.
+
+Thank you for your attention to this matter. If you have any questions or need assistance with the migration, reach out to the [OpenEBS community](https://openebs.io/community).
+
+-----------------------------
+
 <img width="200" align="right" alt="OpenEBS Logo" src="https://raw.githubusercontent.com/cncf/artwork/master/projects/openebs/stacked/color/openebs-stacked-color.png" xmlns="http://www.w3.org/1999/html">
 
 [OpenEBS](https://openebs.io) helps Developers and Platform SREs easily deploy Kubernetes Stateful Workloads that require fast and highly reliable container attached storage. OpenEBS can be deployed on any Kubernetes cluster - either in cloud, on-premise (virtual or bare metal) or developer laptop (minikube).
