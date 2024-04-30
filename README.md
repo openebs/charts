@@ -17,7 +17,9 @@ The Helm chart registry at "https://openebs.github.io/charts" is deprecated and 
 
 To ensure seamless access to OpenEBS Helm charts, please update your configurations to use the new registry URL.
 
-Additionally, the older registry will be relocated to the 'github.com/openebs-archive' GitHub organization shortly.
+Additionally, the older registry will be relocated to the [openebs-archive](https://github.com/openebs-archive) GitHub organization.
+
+**Relocation Deadline:** October 30th, 2024
 
 For more information and guidance on this migration, please refer to the [OpenEBS documentation](https://openebs.io/docs).
 
