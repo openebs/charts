@@ -8,6 +8,22 @@
 
 <img width="200" align="right" alt="OpenEBS Logo" src="https://raw.githubusercontent.com/cncf/artwork/HEAD/projects/openebs/stacked/color/openebs-stacked-color.png" xmlns="http://www.w3.org/1999/html">
 
+## ⚠️ Deprecation Notice: Helm Chart Registry Migration
+
+The Helm chart registry at "https://openebs.github.io/charts" is deprecated and will be moved to a new location soon.
+
+**Old Registry URL:** https://openebs.github.io/charts  
+**New Registry URL:** https://openebs.github.io/openebs  
+
+To ensure seamless access to OpenEBS Helm charts, please update your configurations to use the new registry URL.
+
+Additionally, the older registry will be relocated to the 'github.com/openebs-archive' GitHub organization shortly.
+
+For more information and guidance on this migration, please refer to the [OpenEBS documentation](https://openebs.io/docs).
+
+Thank you for your attention to this matter. If you have any questions or need assistance with the migration, please reach out to the OpenEBS community.
+
+-----------------------------
 
 This repository contains OpenEBS Helm charts and other example artifacts like openebs-operator.yaml or example YAMLs. The content in this repository is published using GitHub pages at https://openebs.github.io/charts/. 
 
